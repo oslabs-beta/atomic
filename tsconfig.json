@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"], // adds a list of library files to compilation (i.e., using ES2015 allows us to use ES6 syntax)
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strict": true, // enable all strict type checking options
+    // "noEmit": true, // suppress TypeScript generating code during the compilation process (Babel will generate our JS code)
+    "skipLibCheck": true, // skip type checking of all the type declaration files (*.d.ts)
+    // "isolatedModules": true, // perform additional checks to ensure that separate compilation would be safe
+    "esModuleInterop": true, // enables compatibility with Babel
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "moduleResolution": "node", // determine how module dependencies get resolved
+    "target": "es6", // specify ECMAScript version to transpile our code down to
+    "allowJs": true, // allow JavaScript files to be compiled
+    "jsx": "react" // support JSX in .tsx files
+  },
+  "include": [
+    "./src/**/*" // the files and folders for TypeScript to check (we specified all files in the "src" folder)
+  ],
+  "exclude": ["node_modules", ".vscode", "__tests__"]
+}
