@@ -1,31 +1,10 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import Box from './Box';
 
-// List
-function List<ListItem>({
-  items,
-  render,
-}: {
-  items: ListItem[];
-  render: (item: ListItem) => ReactNode;
-}) {
-  return (
-    <ul>
-      {items.map((item, index) => (
-        <li key={index}>{render(item)}</li>
-      ))}
-    </ul>
-  );
-}
-
-function App({ team }: { team: string }) {
-  console.log('hello fro App.tsx');
+function App() {
   return (
     <>
-      <strong>{team} :</strong>
-      <List
-        items={['Gio', 'Logan', 'Stanley', 'Chandni']}
-        render={(item: string) => <div>{item}</div>}
-      ></List>
+      <Box />
     </>
   );
 }
