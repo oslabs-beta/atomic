@@ -44,12 +44,18 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@react-spring/three": "^9.0.0-rc.3",
+    "@react-three/drei": "^3.8.6",
     "@types/chrome": "0.0.130",
     "fontsource-roboto": "^4.0.0",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hot-loader": "^4.13.0"
+    "react-hot-loader": "^4.13.0",
+    "react-spring": "^8.0.27",
+    "react-spring-three": "^1.0.4",
+    "react-three-fiber": "^5.3.18",
+    "three": "^0.125.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
