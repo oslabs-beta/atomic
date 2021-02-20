@@ -11,7 +11,7 @@ function App() {
     <Canvas
       colorManagement
       shadowMap
-      camera={{ position: [-5, 2, 10], fov: 80 }}
+      camera={{ position: [-5, 2, 10], fov: 30 }}
       style={{ height: '70vh', border: '1px solid black' }}
     >
       {/* This light makes things look pretty */}
@@ -29,6 +29,7 @@ function App() {
         shadow-camera-top={10}
         shadow-camera-bottom={-10}
       />
+        
       {/* A light to help illumnate the spinning boxes */}
       {/* <pointLight position={[-10, 0, -20]} intensity={0.5} />
       <pointLight position={[0, -10, 0]} intensity={1.5} /> */}
@@ -40,6 +41,7 @@ function App() {
           position={[0, -3, 0]}
           receiveShadow
         >
+         
           <planeBufferGeometry attach="geometry" args={[100, 100]} />
           <shadowMaterial attach="material" opacity={0.1} />
           <meshStandardMaterial attach="material" color="#f7f7f7" />

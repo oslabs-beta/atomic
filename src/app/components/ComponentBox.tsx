@@ -4,7 +4,7 @@ import { useSpring, animated } from 'react-spring/three';
 
 function ComponentBox() {
   // This reference will give us direct access to the mesh
-  const mesh = useRef();
+  const mesh: any = useRef();
 
   // useFrame allows us to re-render/update rotation on each frame
   // Rotate mesh every frame, this is outside of React without overhead
@@ -19,13 +19,13 @@ function ComponentBox() {
 
   return (
     <animated.mesh
-      position={[-2, 1, -5]}
+      position={[-2, -2, -5]}
       ref={mesh}
       scale={props.scale}
       onClick={() => setExpand(!expand)}
       castShadow
     >
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+      <boxBufferGeometry attach="geometry" args={[1, 1, .1]} />
       <meshStandardMaterial attach="material" color="purple" />
     </animated.mesh>
   );
