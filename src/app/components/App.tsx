@@ -30,9 +30,9 @@ function App() {
         shadow-camera-bottom={-10}
       />
       {/* A light to help illumnate the spinning boxes */}
-      <pointLight position={[-10, 0, -20]} intensity={0.5} />
-      <pointLight position={[0, -10, 0]} intensity={1.5} />
-      {/* <pointLight position={[10, 1, 100]} /> */}
+      {/* <pointLight position={[-10, 0, -20]} intensity={0.5} />
+      <pointLight position={[0, -10, 0]} intensity={1.5} /> */}
+      <pointLight position={[10, 1, 100]} />
       <group>
         {/* This mesh is the plane (The floor) */}
         <mesh
@@ -45,7 +45,7 @@ function App() {
           <meshStandardMaterial attach="material" color="#f7f7f7" />
         </mesh>
         <AtomSphere />
-        <ComponentBox/>
+        <ComponentBox />
       </group>
       {/* Allows us to move the canvas around for different prespectives */}
       <OrbitControls />
