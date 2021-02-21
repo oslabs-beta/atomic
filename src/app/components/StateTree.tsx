@@ -3,7 +3,6 @@ import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
-import { componentAtomTreeMock } from '../mock/mockComponentTree';
 
 function StateTree() {
   const [discriptionToggle, setDiscriptionToggle] = useState(false);
