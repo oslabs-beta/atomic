@@ -28,7 +28,7 @@ function ComponentBox({ position, color,setDiscriptionToggle, discriptionToggle 
       }
       castShadow
     >
-      <boxBufferGeometry attach="geometry" args={[2, 0.1, 1]} />
+      <boxBufferGeometry attach="geometry" args={[2, 0.2, 1]} />
       <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );
