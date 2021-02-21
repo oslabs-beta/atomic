@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { useSpring, animated } from 'react-spring/three';
 
-function AtomSphere({position, color}) {
+function AtomSphere({ position, color }) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 

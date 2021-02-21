@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { useSpring, animated } from 'react-spring/three';
 
-function ComponentBox({position, color}) {
+function ComponentBox({ position, color }) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 
@@ -25,7 +25,7 @@ function ComponentBox({position, color}) {
       onClick={() => setExpand(!expand)}
       castShadow
     >
-      <boxBufferGeometry attach="geometry" args={[2, .1, 1]} />
+      <boxBufferGeometry attach="geometry" args={[2, 0.1, 1]} />
       <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );
