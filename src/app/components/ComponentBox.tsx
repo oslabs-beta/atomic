@@ -14,7 +14,7 @@ function ComponentBox({ position, color }) {
   const [expand, setExpand] = useState(false);
   // React spring expand animation
   const props = useSpring({
-    scale: expand ? [1.4, 1.4, 1.4] : [1, 1, 1],
+    scale: expand ? [1.5, 1.5, 1.5] : [1, 1, 1],
   });
 
   return (

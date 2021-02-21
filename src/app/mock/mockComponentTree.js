@@ -2,59 +2,59 @@ export const componentAtomTreeMock = {
   children: [
     {
       children: [],
-      name: '',
+      name: 'Level 1-A',
       tag: 0,
     },
     {
       children: [
         {
           children: [],
-          name: '',
+          name: 'Level 2-A',
           tag: 0,
         },
         {
           children: [
             {
               children: [],
-              name: '',
+              name: 'Level 3-A',
               tag: 0,
             },
             {
               children: [
                 {
                   children: [],
-                  name: '',
+                  name: 'Level 4-A',
                   tag: 0,
                 },
               ],
-              name: '',
+              name: 'Level 3-B',
               tag: 0,
             },
           ],
-          name: '',
+          name: 'Level 2-B',
           tag: 0,
         },
       ],
-      name: '',
+      name: 'Level 1-B',
       tag: 0,
     },
     {
       children: [
         {
           children: [],
-          name: '',
+          name: 'Level 2-C',
           tag: 0,
         },
         {
           children: [],
-          name: '',
+          name: 'Level 2-D',
           tag: 0,
         },
       ],
-      name: '',
+      name: 'Level 1-C',
       tag: 0,
     },
   ],
-  name: '',
+  name: 'APP',
   tag: 0,
 };

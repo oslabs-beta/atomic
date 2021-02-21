@@ -47,7 +47,7 @@ function StateTree() {
         </mesh>
 
         {/* ATOMS: */}
-        <AtomSpheres />
+        {/* <AtomSpheres /> */}
 
         {/* COMPONENTS: */}
         <ComponentBoxes />
