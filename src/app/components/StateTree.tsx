@@ -3,6 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
+import {componentAtomTreeMock} from "../mock/mockComponentTree"
 
 function StateTree() {
   return (
@@ -10,8 +11,8 @@ function StateTree() {
     <Canvas
       colorManagement
       shadowMap
-      camera={{ position: [-5, 2, 10], fov: 90 }}
-      style={{ height: '70vh', border: '1px solid black' }}
+    camera={{ position: [-5, 20, 5], fov: 90 }}
+      style={{ height: '90vh', border: '1px solid black' }}
     >
       {/* This light makes things look pretty */}
       <ambientLight intensity={0.3} />
@@ -44,9 +45,15 @@ function StateTree() {
           <shadowMaterial attach="material" opacity={0.1} />
           <meshStandardMaterial attach="material" color="#f7f7f7" />
         </mesh>
+
+        {/* ATOMS: */}
         <AtomSpheres />
+
+        {/* COMPONENTS: */}
         <ComponentBoxes />
+        
       </group>
+
       {/* Allows us to move the canvas around for different prespectives */}
       <OrbitControls />
     </Canvas>
