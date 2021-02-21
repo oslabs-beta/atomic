@@ -8,7 +8,7 @@ function AtomSphere({ position, color }) {
 
   // useFrame allows us to re-render/update rotation on each frame
   // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
+  // useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
 
   // Basic expand state
   const [expand, setExpand] = useState(false);

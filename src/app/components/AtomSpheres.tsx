@@ -1,5 +1,4 @@
 import React from 'react';
-
 import AtomSphere from './AtomSphere';
 
 function AtomSpheres() {

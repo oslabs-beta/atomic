@@ -4,7 +4,11 @@ import StateTree from './StateTree';
 
 function App() {
   softShadows();
-  return <StateTree />;
+  return (
+    <>
+      <StateTree />
+    </>
+  );
 }
 
 export default App;
