@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { useSpring, animated } from 'react-spring/three';
 
-function AtomSphere() {
+function AtomSphere({position, color}) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 
@@ -19,14 +19,14 @@ function AtomSphere() {
 
   return (
     <animated.mesh
-      position={[0, 1, 0]}
+      position={position}
       ref={mesh}
       scale={props.scale}
       onClick={() => setExpand(!expand)}
       castShadow
     >
       <sphereBufferGeometry attach="geometry" args={[1, 50, 100]} />
-      <meshStandardMaterial attach="material" color="cyan" />
+      <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );
 }
