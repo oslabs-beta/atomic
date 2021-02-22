@@ -1,11 +1,9 @@
 import React from 'react';
 
-
 function SnapShotContainer() {
-
   return (
     <div className="SnapshotsContainer">
-    <p>SnapShotContianer</p>
+      <p>SnapShotContainer</p>
     </div>
   );
 }
