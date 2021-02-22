@@ -1,12 +1,12 @@
 import React from 'react';
-import { softShadows } from '@react-three/drei';
-import StateTree from './StateTree';
+
+import MainContainer from '../containers/MainContainer';
 
 function App() {
-  softShadows();
+
   return (
     <>
-      <StateTree />
+      <MainContainer/>
     </>
   );
 }
