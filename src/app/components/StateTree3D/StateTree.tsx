@@ -15,7 +15,7 @@ function StateTree() {
         colorManagement
         shadowMap
         camera={{ position: [-5, 20, 5], fov: 90 }}
-        style={{ height: '75vh', width: "100vh", border: '1px solid black' }}
+        style={{ height: '75vh', width: "92vh", border: '1px solid black' }}
       >
         {/* This light makes things look pretty */}
         <ambientLight intensity={0.3} />
