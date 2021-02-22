@@ -5,10 +5,10 @@ import VisualContainer from "./VisualContainer"
 function MainContainer() {
 
   return (
-    <>
-      <SnapShotContainer/>
+    <div className="MainContainer">
       <VisualContainer/>
-    </>
+      <SnapShotContainer/>
+    </div>
   );
 }
 
