@@ -100,7 +100,7 @@ const useCenteredTree = (defaultTranslate = { x: 0, y: 0 }) => {
 
 const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
   <g>
-    <rect width="20" height="20" x="-10" fill="#1cb5c9" color="white" onClick={toggleNode} />
+    <rect width="20" height="20" x="-10" fill="#1cb5c9" onClick={toggleNode} />
     <text fill="black" strokeWidth="1" x="20">
       {nodeDatum.name}
     </text>
@@ -121,7 +121,7 @@ function ComponentTree() {
         translate={translate}
         renderCustomNodeElement={renderRectSvgNode}
         orientation="vertical"
-       
+
       />
     </div>
   );
