@@ -11,6 +11,7 @@ const config = {
     app: './src/app/index.tsx',
     background: './src/extension/background.ts',
     content: './src/extension/content-script.ts',
+    backend: './src/backend/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'src/extension/build/bundles'),
@@ -72,17 +73,17 @@ const config = {
 };
 
 module.exports = (env, argv) => {
-  // if (argv.mode === 'development') {
-  //   config.plugins.push(
-  //     new ChromeExtensionReloader({
-  //       port: 9090,
-  //       reloadPage: true,
-  //       entries: {
-  //         contentScript: ['app', 'content'],
-  //         background: ['background'],
-  //       },
-  //     }),
-  //   );
-  // }
+  if (argv.mode === 'development') {
+    config.plugins.push(
+      new ChromeExtensionReloader({
+        port: 9090,
+        reloadPage: true,
+        entries: {
+          contentScript: ['app', 'content'],
+          background: ['background'],
+        },
+      })
+    );
+  }
   return config;
 };
