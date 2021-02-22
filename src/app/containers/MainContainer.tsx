@@ -1,13 +1,12 @@
 import React from 'react';
-import SnapShotContainer from "./SnapShotContainer"
-import VisualContainer from "./VisualContainer"
+import SnapShotContainer from './SnapShotContainer';
+import VisualContainer from './VisualContainer';
 
 function MainContainer() {
-
   return (
     <div className="MainContainer">
-      <VisualContainer/>
-      <SnapShotContainer/>
+      <VisualContainer />
+      <SnapShotContainer />
     </div>
   );
 }
