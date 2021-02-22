@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls } from '@react-three/drei';
+import { softShadows, OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
+softShadows();
 
 function StateTree() {
   const [discriptionToggle, setDiscriptionToggle] = useState(false);
@@ -14,7 +15,7 @@ function StateTree() {
         colorManagement
         shadowMap
         camera={{ position: [-5, 20, 5], fov: 90 }}
-        style={{ height: '75vh', border: '1px solid black' }}
+        style={{ height: '75vh', width: "100vh", border: '1px solid black' }}
       >
         {/* This light makes things look pretty */}
         <ambientLight intensity={0.3} />
@@ -49,7 +50,7 @@ function StateTree() {
           </mesh>
 
           {/* ATOMS: */}
-          {/* <AtomSpheres /> */}
+          <AtomSpheres />
 
           {/* COMPONENTS: */}
           <ComponentBoxes

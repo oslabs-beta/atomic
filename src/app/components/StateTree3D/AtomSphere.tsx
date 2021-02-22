@@ -25,7 +25,7 @@ function AtomSphere({ position, color }) {
       onClick={() => setExpand(!expand)}
       castShadow
     >
-      <sphereBufferGeometry attach="geometry" args={[1, 50, 100]} />
+      <sphereBufferGeometry attach="geometry" args={[.7, 50, 100]} />
       <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );

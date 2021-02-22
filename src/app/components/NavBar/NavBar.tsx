@@ -8,7 +8,7 @@ function NavBar({ setTab, tabsList, tab }) {
         key={name}
         style={
           tab === name
-            ? { color: '#E6E6E6', backgroundColor: '#212121' }
+            ? { color: '#1cb5c9', backgroundColor: '#212121' }
             : { color: '#989898' }
         }
         onClick={() => {
