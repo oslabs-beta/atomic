@@ -52,7 +52,10 @@ function StateTree() {
           {/* <AtomSpheres /> */}
 
           {/* COMPONENTS: */}
-          <ComponentBoxes setDiscriptionToggle={setDiscriptionToggle} discriptionToggle={discriptionToggle}/>
+          <ComponentBoxes
+            setDiscriptionToggle={setDiscriptionToggle}
+            discriptionToggle={discriptionToggle}
+          />
         </group>
 
         {/* Allows us to move the canvas around for different prespectives */}

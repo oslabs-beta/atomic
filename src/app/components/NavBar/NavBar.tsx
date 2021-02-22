@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-function NavBar({setTab, tabsList, tab}) {
+function NavBar({ setTab, tabsList, tab }) {
   const renderedTabButtons = tabsList.reduce((acc, name) => {
     acc.push(
       <button
@@ -8,14 +8,15 @@ function NavBar({setTab, tabsList, tab}) {
         key={name}
         style={
           tab === name
-            ? {color: '#E6E6E6', backgroundColor: '#212121'}
-            : {color: '#989898'}
+            ? { color: '#E6E6E6', backgroundColor: '#212121' }
+            : { color: '#989898' }
         }
         onClick={() => {
           setTab(name);
-        }}>
+        }}
+      >
         {name}
-      </button>,
+      </button>
     );
     return acc;
   }, []);
