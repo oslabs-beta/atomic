@@ -92,7 +92,7 @@ const useCenteredTree = (defaultTranslate = { x: 0, y: 0 }) => {
   const containerRef = useCallback((containerElem) => {
     if (containerElem !== null) {
       const { width, height } = containerElem.getBoundingClientRect();
-      setTranslate({ x: width / 2, y: height / 5 });
+      setTranslate({ x: width / 2, y: height / 7 });
     }
   }, []);
   return [translate, containerRef];
@@ -101,14 +101,15 @@ const useCenteredTree = (defaultTranslate = { x: 0, y: 0 }) => {
 const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
   <g>
     <rect width="20" height="20" x="-10" fill="#1cb5c9" onClick={toggleNode} />
-    <text fill="black" strokeWidth="1" x="20">
+    <text fill="white" strokeWidth="0.1" x="20">
       {nodeDatum.name}
     </text>
     {nodeDatum.state && (
-      <text fill="black" x="20" dy="15" strokeWidth="1">
+      <text fill="white" x="20" dy="15" strokeWidth="0.1">
         State: {nodeDatum.state}
       </text>
     )}
+    <line  stroke="white"></line>
   </g>
 );
 
