@@ -29,7 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-shrink: 1;
-  min-width: 180px;
+  min-width: 200px;
   background-color: #2c2c2c;
   border: 1px solid #d4d4d4;
   text-align: center;
@@ -61,6 +61,7 @@ body {
   flex-direction: row;
   border-bottom: 2px solid #d4d4d4;
   background-color: #2c2c2c;
+  justify-content: flex-end;
 }
 .navBarButtons {
   color: #ffffff;
@@ -69,7 +70,7 @@ body {
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
-  float: right;
+
   font-weight: bold;
 }
 .navBarButtons:hover {
