@@ -8,7 +8,7 @@ body {
 }
 
 /* APP: */
-.App,
+.app,
 #app {
   width: 100%;
   height: 100%;
@@ -16,14 +16,14 @@ body {
 /* MAIN CONTAINER VISUALS -> 
 1. SnapShotContainer
 2. VisualContainer */
-.MainContainer {
+.mainContainer {
   height: 100%;
   display: flex;
 }
 
 /* SNAPSHOT CONTAINER: ->
 1. SnapShotDisplay */
-.SnapshotsContainer {
+.snapShotsContainer {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -41,15 +41,38 @@ body {
 3. StateDiff
 4. ComponentTree
 5. AtomNetwork */
-.VisualContainer {
+.visualContainer {
   height: 100%;
   display: flex;
   flex-direction: column;
   flex-grow: 8;
   border: 1px solid #d4d4d4;
   background-color: #202020;
-  text-align: right;
   color: #e6e6e6;
   width: 100%;
   padding: 5px;
+}
+/* NAVBAR COMPONENT: */
+.navBar {
+  width: 100%;
+  display: flex;
+  flex-grow: 0;
+  flex-direction: row;
+  border-bottom: 2px solid #d4d4d4;
+  background-color: #2c2c2c;
+}
+
+.navBarButtons {
+  color: #ffffff;
+  background-color: #2c2c2c;
+  border: none;
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: right;
+  font-weight: bold;
+}
+.navBarButtons:hover {
+  color: #e6e6e6;
+  border: none;
 }

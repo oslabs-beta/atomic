@@ -2,7 +2,7 @@ import React from 'react';
 
 function SnapShotContainer() {
   return (
-    <div className="SnapshotsContainer">
+    <div className="snapShotsContainer">
       <p>SnapShotContainer</p>
     </div>
   );
