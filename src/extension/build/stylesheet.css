@@ -21,27 +21,33 @@ body {
   display: flex;
 }
 
-/* SNAPSHOT CONTAINER:*/
+/* SNAPSHOT CONTAINER: ->
+1. SnapShotDisplay */
 .SnapshotsContainer {
   height: 100%;
   display: flex;
   flex-direction: column;
   flex-shrink: 1;
   min-width: 175px;
-  background-color: #535353;
-  border: 2px solid #d4d4d4;
+  background-color: #2c2c2c;
+  border: 1px solid #d4d4d4;
   text-align: center;
   color: #e6e6e6;
 }
 
-/* VISUAL CONTAINER: */
+/* VISUAL CONTAINER: 
+1. NavBar
+2. StateTre3D
+3. StateDiff
+4. ComponentTree
+5. AtomNetwork */
 .VisualContainer {
   height: 100%;
   display: flex;
   flex-direction: column;
   flex-grow: 8;
-  border: 2px solid #d4d4d4;
-  background-color: #2c2c2c;
+  border: 1px solid #d4d4d4;
+  background-color: #202020;
   text-align: right;
   color: #e6e6e6;
   width: 100%;
