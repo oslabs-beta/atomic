@@ -7,8 +7,6 @@ const data = {
       children: [],
       name: 'Level 1-A',
       tag: 0,
-      state: 1,
-      atom: ["atom3"]
     },
     {
       children: [
@@ -16,23 +14,74 @@ const data = {
           children: [],
           name: 'Level 2-A',
           tag: 0,
-          state: 2,
-          atom: ["atom4"]
+          atom: ["atom1"],
+          state: 0
         },
-        
+        {
+          children: [
+            {
+              children: [],
+              name: 'Level 3-A',
+              tag: 0,
+              atom: ["atom1"],
+              state: 0
+            },
+            {
+              children: [
+                {
+                  children: [],
+                  name: 'Level 4-A',
+                  tag: 0,
+                  atom: ["atom1"],
+                  state: 0
+                },
+              ],
+              name: 'Level 3-B',
+              tag: 0,
+              atom: ["atom1"],
+              state: 0
+            },
+          ],
+          name: 'Level 2-B',
+          tag: 0,
+          atom: ["atom1"],
+          state: 0
+        },
       ],
       name: 'Level 1-B',
       tag: 0,
-      state: 3,
-      atom: ["atom2"]
+      atom: ["atom1"],
+      state: 6
     },
-    
+    {
+      children: [
+        {
+          children: [],
+          name: 'Level 2-C',
+          tag: 0,
+          atom: ["atom1"],
+          state: 0
+        },
+        {
+          children: [],
+          name: 'Level 2-D',
+          tag: 0,
+          atom: ["atom1"],
+          state: 5
+        },
+      ],
+      name: 'Level 1-C',
+      tag: 0,
+      atom: ["atom1"],
+      state: 0
+    },
   ],
   name: 'APP',
   tag: 0,
-  state: 4,
-  atom: ["atom2", "atom1"]
+  atom: ["atom1"],
+  state: 1
 };
+
 const containerStyles = {
   height: "100vh",
 
@@ -51,12 +100,12 @@ const useCenteredTree = (defaultTranslate = { x: 0, y: 0 }) => {
 
 const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
   <g>
-    <rect width="20" height="20" x="-10" onClick={toggleNode} />
+    <rect width="20" height="20" x="-10" fill="#1cb5c9" color="white" onClick={toggleNode} />
     <text fill="black" strokeWidth="1" x="20">
       {nodeDatum.name}
     </text>
     {nodeDatum.state && (
-      <text fill="black" x="20" dy="20" strokeWidth="1">
+      <text fill="black" x="20" dy="15" strokeWidth="1">
         State: {nodeDatum.state}
       </text>
     )}
@@ -72,7 +121,7 @@ function ComponentTree() {
         translate={translate}
         renderCustomNodeElement={renderRectSvgNode}
         orientation="vertical"
-        style={{color:"white"}}
+       
       />
     </div>
   );
