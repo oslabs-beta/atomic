@@ -26,8 +26,8 @@ const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
       {nodeDatum.name}
     </text>
     {nodeDatum.state && (
-      <text fill="white" x="20" dy="15" strokeWidth="0.1">
-        State: {nodeDatum.state}
+      <text fill="#e0bf63" x="20" dy="15" strokeWidth="0.1" fontSize="10px">
+        State: {`${nodeDatum.state}`}
       </text>
     )}
     <line  stroke="white"></line>
@@ -43,7 +43,7 @@ function ComponentTree() {
         translate={translate}
         renderCustomNodeElement={renderRectSvgNode}
         orientation="vertical"
-
+        styles={}
       />
     </div>
   );
