@@ -50,6 +50,7 @@
     "fontsource-roboto": "^4.0.0",
     "moment": "^2.29.1",
     "react": "^17.0.1",
+    "react-d3-tree": "^2.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
     "react-spring": "^8.0.27",

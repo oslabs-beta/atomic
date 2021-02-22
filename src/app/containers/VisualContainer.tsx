@@ -6,7 +6,7 @@ import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 
 function VisualContainer() {
-  const [tab, setTab] = useState<string>('Atom Network');
+  const [tab, setTab] = useState<string>('Component Tree');
 
   const navLists = {
     'State Tree 3D': <StateTree />,

@@ -9,7 +9,7 @@ function NavBar({ setTab, tabsList, tab }) {
         style={
           tab === name
             ? { color: '#1cb5c9', backgroundColor: '#212121' }
-            : { color: '#989898' }
+            : { color: '#e6e6e6' }
         }
         onClick={() => {
           setTab(name);
