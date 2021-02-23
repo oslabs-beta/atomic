@@ -3,6 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { softShadows, OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
+import ComponentTree from "../ComponentTree/ComponentTree"
 softShadows();
 
 function StateTree() {
@@ -47,6 +48,7 @@ function StateTree() {
             <planeBufferGeometry attach="geometry" args={[100, 100]} />
             <shadowMaterial attach="material" opacity={0.1} />
             <meshStandardMaterial attach="material" color="#f7f7f7" />
+            {/* <ComponentTree/> */}
           </mesh>
 
           {/* ATOMS: */}

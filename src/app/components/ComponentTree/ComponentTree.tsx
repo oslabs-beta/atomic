@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import Tree from "react-d3-tree";
-import {componentAtomTreeMock} from "./mockComponentTree"
+import {componentAtomTreeMock} from "../../mock/mockComponentTree"
 
 
 const containerStyles = {

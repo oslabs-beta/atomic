@@ -2,10 +2,10 @@ import React, { useRef, useState } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { useSpring, animated } from 'react-spring/three';
 
-function ComponentBox({ position, color,setDiscriptionToggle, discriptionToggle }) {
+function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionToggle }) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
-
+  const [boxPosition, setBoxPosition] = useState({ x: 5*spacing, y: 0, z: 10*level });
   // useFrame allows us to re-render/update rotation on each frame
   // Rotate mesh every frame, this is outside of React without overhead
   // useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.001));
@@ -19,7 +19,7 @@ function ComponentBox({ position, color,setDiscriptionToggle, discriptionToggle 
 
   return (
     <animated.mesh
-      position={position}
+      position={boxPosition}
       ref={mesh}
       scale={props.scale}
       onClick={() => {

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import ComponentBox from './ComponentBox';
-import { componentAtomTreeMock } from '../mock/mockComponentTree';
+import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
-let data = {
+let data = [{
   children: [
     {
       children: [],
+      parent: 'APP',
       name: 'Level 1-A',
-      tag: 0,
+      level: 1,
       state: 'state',
       atom: 'atoms',
     },
@@ -15,38 +16,50 @@ let data = {
       children: [
         {
           children: [],
+          parent: 'Level 1-B',
           name: 'Level 2-A',
-          tag: 0,
+          level: 2,
           state: 'state',
           atom: 'atoms',
         },
       ],
+      parent: 'APP',
       name: 'Level 1-B',
-      tag: 0,
+      level: 1,
       state: 'state',
       atom: 'atoms',
     },
   ],
+  parent: null,
   name: 'APP',
-  tag: 0,
+  level: 0,
   state: 'state',
   atom: 'atoms',
-};
-console.log(data);
+}];
 
 function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
-  const [boxPosition, setBoxPosition] = useState({ x: 0, y: 0, z: 0 });
+  const treeArray = [];
+
+  const traverseTree = data => {
+    let level = 0;
+    let spacing = 0;
+
+    data.forEach(node => {
+      if(node.children)
+    })
+    
+  };
+
   return (
     <>
-      {[1,2,3,4].map((item, idx) => (
+      {/* {treeArray.map((item, idx) => (
         <ComponentBox
           key={idx}
-          position={[idx * 3, boxPosition.y, boxPosition.z]}
           color="#328ba8"
           setDiscriptionToggle={setDiscriptionToggle}
           discriptionToggle={discriptionToggle}
         />
-      ))}
+      ))}  */}
       {/* <ComponentBox
         position={[-2, 0, -6]}
         color="blue"
