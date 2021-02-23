@@ -30,7 +30,7 @@ const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
         State: {`${nodeDatum.state}`}
       </text>
     )}
-    <line  stroke="white"></line>
+ 
   </g>
 );
 
