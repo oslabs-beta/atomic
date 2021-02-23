@@ -32,5 +32,11 @@ export default (): (() => void) => {
     const fiber = fiberRoot.current;
 
     console.log('fiber --> ', fiber);
+
+    //traverse fiber generate snapshot. {} //reactTime tree generator to get object //reatime getHooks to get atomName useState
+    //traverse fiber to get custom ATOMIC HOOK {atoms information} useAtomic(atom, 'name of atom') //useDebuglabel(string) defaults 'atom1, atom2 ... atomX'
+    //send to devtool
+    //monkey-patch react hook to update snapshot when react reconciler updates.
+    //send update to devtool.
   };
 };

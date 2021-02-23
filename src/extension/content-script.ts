@@ -10,11 +10,9 @@
 // let firstMessage = true;
 
 window.addEventListener('message', msg => {
-  console.log('msg.data in window eventListener ---> ', msg);
-
+  // console.log('msg.data in window eventListener ---> ', msg);
   // Event listener runs constantly based on actions
   // recorded on the test application from backend files (linkFiber.ts).
-
   // // Background.js has a listener that includes switch cases, depending on
   // // the name of the action (e.g. 'tabReload').
   // if (firstMessage) {
@@ -22,7 +20,6 @@ window.addEventListener('message', msg => {
   //   chrome.runtime.sendMessage({ action: 'tabReload' });
   //   firstMessage = false;
   // }
-
   // After tabs object has been created from firstMessage, backend (linkFiber.ts)
   // will send snapshots of the test app's link fiber tree.
   // const { action }: { action: string } = msg.data;
