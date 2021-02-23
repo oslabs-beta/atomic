@@ -39,12 +39,16 @@ let data = [{
 
 function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
   const treeArray = [];
+  let spacing = 0;
 
   const traverseTree = data => {
-    let level = 0;
-    let spacing = 0;
+
+
 
     data.forEach(node => {
+    //Check if there are children
+    //if node.children.length > 0, recurse
+    //else, push into tree array ComponentBox 
       if(node.children)
     })
     

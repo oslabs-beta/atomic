@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import NavBar from '../components/NavBar/NavBar';
-import StateTree from '../components/StateTree3D/StateTree';
+import StateTree3D from '../components/StateTree3D/StateTree';
 import AtomNetwork from '../components/AtomNetwork/AtomNetwork';
 import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
+import StateTree from "../components/StateTree/StateTree"
+
 
 function VisualContainer() {
-  const [tab, setTab] = useState<string>('State Tree 3D');
+  const [tab, setTab] = useState<string>('State Tree');
 
   const navLists = {
-    'State Tree 3D': <StateTree />,
+    'State Tree 3D': <StateTree3D />,
     'Atom Network': <AtomNetwork />,
     'Component Tree': <ComponentTree />,
+    "State Tree": <StateTree/>
     'State Diff': <StateDiff />,
   };
 
