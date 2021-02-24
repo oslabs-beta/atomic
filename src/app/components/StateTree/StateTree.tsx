@@ -31,7 +31,7 @@ function StateTree() {
           src={componentAtomTreeMock}
           style={{
             fontSize: '13px',
-            paddingTop: '10px',
+            paddingTop: '15px',
             fontFamily: 'Helvetica',
           }}
           theme={theme}
