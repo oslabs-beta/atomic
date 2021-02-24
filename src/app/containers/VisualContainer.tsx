@@ -8,14 +8,14 @@ import StateTree from "../components/StateTree/StateTree"
 import CodeJSONTree from "../components/StateTree/code"
 
 function VisualContainer() {
-  const [tab, setTab] = useState<string>('State Tree');
+  const [tab, setTab] = useState<string>('State Diff");
 
   const navLists = {
-    'State Tree 3D': <StateTree3D />,
-    'Atom Network': <AtomNetwork />,
-    'Component Tree': <ComponentTree />,
-    "State Tree": <StateTree/>
     'State Diff': <CodeJSONTree />,
+    "State Tree": <StateTree/>,
+    'State Tree 3D': <StateTree3D />,
+    'Component Tree': <ComponentTree />,
+    'Atom Network': <AtomNetwork />,
   };
 
   const tabsList: string[] = Object.keys(navLists);
