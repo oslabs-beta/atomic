@@ -6,20 +6,26 @@
 //It lies dormant until an event is fired then performs the instructed logic.
 //An effective background script is only loaded when it is needed and unloaded when it goes idle.
 
+// chrome.runtime.onConnect.addListener(port => {
+//   console.log('port in bg is --> ', port);
+// });
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('request in background.tssss is --> ', request);
+  console.log('request in background.ts is --> ', request);
   console.log('sender in background.ts --> ', sender);
 
   const tabTitle = sender?.tab?.title;
   const tabId = sender?.tab?.id;
-  const { action, index, name, value } = request;
+  const { action, index, name, value, type } = request;
 
-  switch (action) {
+  switch (type) {
     case 'SIGN_CONNECT': {
       console.log('connected to devtool');
       break;
     }
+  }
 
+  switch (action) {
     case 'injectScript': {
       chrome.tabs.executeScript(
         tabId!,
