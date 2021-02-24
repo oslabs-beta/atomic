@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactJson from 'react-json-view'
-import {componentAtomTreeMock} from "../../mock/mockComponentTree"
+import ReactJson from 'react-json-view';
+import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
 const theme = {
   scheme: 'monokai',
@@ -27,7 +27,17 @@ function StateTree() {
   return (
     <div className="stateTree">
       {componentAtomTreeMock && (
-        <ReactJson src={componentAtomTreeMock} style={{fontSize: "13px", paddingTop: "10px", fontFamily:"Helvetica"}} theme={theme} indentWidth="3" enableClipboard={false}/>
+        <ReactJson
+          src={componentAtomTreeMock}
+          style={{
+            fontSize: '13px',
+            paddingTop: '10px',
+            fontFamily: 'Helvetica',
+          }}
+          theme={theme}
+          indentWidth={3}
+          enableClipboard={false}
+        />
       )}
     </div>
   );
