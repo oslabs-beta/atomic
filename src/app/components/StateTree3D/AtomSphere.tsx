@@ -23,7 +23,7 @@ function AtomSphere({ position, color }) {
       ref={mesh}
       scale={props.scale}
       onClick={() => setExpand(!expand)}
-      castShadow
+      // castShadow
     >
       <sphereBufferGeometry attach="geometry" args={[.5, 50, 100]} />
       <meshStandardMaterial attach="material" color={color} />
