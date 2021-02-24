@@ -5,8 +5,8 @@ import VisualContainer from './VisualContainer';
 function MainContainer() {
   return (
     <div className="mainContainer">
-      <VisualContainer />
       <SnapShotContainer />
+      <VisualContainer />
     </div>
   );
 }
