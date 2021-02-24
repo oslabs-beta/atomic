@@ -3,7 +3,6 @@ import { Canvas } from 'react-three-fiber';
 import { softShadows, OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
-import ComponentTree from "../ComponentTree/ComponentTree"
 import Lines from "./Lines"
 softShadows();
 
@@ -16,7 +15,7 @@ function StateTree() {
       <Canvas 
         colorManagement
         shadowMap
-        camera={{ position: [-5, 20, 5], fov: 90 }}
+        camera={{ position: [-5, 20, 5], fov: 50 }}
         style={{ height: '75vh', width: "92vh", border: '1px solid black' }}
       >
         {/* This light makes things look pretty */}
@@ -53,7 +52,7 @@ function StateTree() {
           </mesh>
 
           {/* ATOMS: */}
-          {/* <AtomSpheres /> */}
+          <AtomSpheres />
 
           {/* COMPONENTS: */}
           <ComponentBoxes

@@ -1,7 +1,6 @@
 import React, { useState, useMemo, Fragment } from 'react';
 import * as THREE from 'three';
 
-
 function EndPoint({ position }) {
   return <mesh position={position}></mesh>;
 }
@@ -18,7 +17,12 @@ function Line({ defaultStart, defaultEnd }) {
     <Fragment>
       <line>
         <geometry vertices={vertices} />
-        <lineBasicMaterial color="black" />
+        <lineBasicMaterial
+          color="black"
+          linewidth={100}
+          linecap={'round'}
+          linejoin={'round'}
+        />
       </line>
       <EndPoint position={start} />
       <EndPoint position={end} />

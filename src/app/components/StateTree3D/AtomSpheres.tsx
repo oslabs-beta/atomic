@@ -2,7 +2,7 @@ import React from 'react';
 import AtomSphere from './AtomSphere';
 
 function AtomSpheres() {
-  return <AtomSphere position={[0, 3, 5]} color="purple" />;
+return <AtomSphere position={[0, 3, -5]} color="gray" />;
 }
 
 export default AtomSpheres;
