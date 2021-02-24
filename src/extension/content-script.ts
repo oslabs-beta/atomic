@@ -10,7 +10,11 @@
 // let firstMessage = true;
 
 window.addEventListener('message', msg => {
+  if (msg.target != window) {
+    console.log('msg.target in window eventListener ---> ', msg.target);
+  }
   // console.log('msg.data in window eventListener ---> ', msg);
+
   // Event listener runs constantly based on actions
   // recorded on the test application from backend files (linkFiber.ts).
   // // Background.js has a listener that includes switch cases, depending on
