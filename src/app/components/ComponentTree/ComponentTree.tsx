@@ -43,7 +43,7 @@ function ComponentTree() {
         translate={translate}
         renderCustomNodeElement={renderRectSvgNode}
         orientation="vertical"
-        styles={}
+    
       />
     </div>
   );

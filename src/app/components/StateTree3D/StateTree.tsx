@@ -4,6 +4,7 @@ import { softShadows, OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
 import ComponentTree from "../ComponentTree/ComponentTree"
+import Lines from "./Lines"
 softShadows();
 
 function StateTree() {
@@ -12,7 +13,7 @@ function StateTree() {
   return (
     <>
       {/* Our Scene & Camera is already built into our canvas */}
-      <Canvas
+      <Canvas 
         colorManagement
         shadowMap
         camera={{ position: [-5, 20, 5], fov: 90 }}
@@ -52,13 +53,14 @@ function StateTree() {
           </mesh>
 
           {/* ATOMS: */}
-          <AtomSpheres />
+          {/* <AtomSpheres /> */}
 
           {/* COMPONENTS: */}
           <ComponentBoxes
             setDiscriptionToggle={setDiscriptionToggle}
             discriptionToggle={discriptionToggle}
           />
+          {/* <Lines/> */}
         </group>
 
         {/* Allows us to move the canvas around for different prespectives */}

@@ -8,7 +8,7 @@ import StateTree from '../components/StateTree/StateTree';
 
 
 function VisualContainer() {
-  const [tab, setTab] = useState<string>('State Diff');
+  const [tab, setTab] = useState<string>('State Tree 3D');
 
   const navLists = {
     'State Diff': <StateDiff />,

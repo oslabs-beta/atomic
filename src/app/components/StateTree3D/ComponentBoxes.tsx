@@ -38,21 +38,17 @@ let data = [{
 }];
 
 function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
-  const treeArray = [];
-  let spacing = 0;
-
-  const traverseTree = data => {
-
-
-
-    data.forEach(node => {
-    //Check if there are children
-    //if node.children.length > 0, recurse
-    //else, push into tree array ComponentBox 
-      if(node.children)
-    })
+  // const treeArray = [];
+  // let spacing = 0;
+  // const traverseTree = data => {
+  //   data.forEach(node => {
+  //   //Check if there are children
+  //   //if node.children.length > 0, recurse
+  //   //else, push into tree array ComponentBox 
+  //     if(node.children)
+  //   })
     
-  };
+  // };
 
   return (
     <>
@@ -78,6 +74,24 @@ function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
       />
          <ComponentBox
         position={[0, 0, -8]}
+        color="blue"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+              <ComponentBox
+        position={[0, 0, -4]}
+        color="blue"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+              <ComponentBox
+        position={[4, 0, -4]}
+        color="blue"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+              <ComponentBox
+        position={[-4, 0, -4]}
         color="blue"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
