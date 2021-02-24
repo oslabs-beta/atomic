@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { useSpring, animated } from 'react-spring/three';
 
-function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionToggle }) {
+function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionToggle, position }) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
   const [boxPosition, setBoxPosition] = useState({ x: 5*spacing, y: 0, z: 10*level });
@@ -19,7 +19,7 @@ function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionT
 
   return (
     <animated.mesh
-      position={boxPosition}
+      position={position}
       ref={mesh}
       scale={props.scale}
       onClick={() => {
