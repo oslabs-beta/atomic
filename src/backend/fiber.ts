@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
+// const fs = require('fs');
 
 declare global {
   interface Window {
@@ -7,19 +8,12 @@ declare global {
   }
 }
 const payload = 'test';
+const path = './mockFiber.json';
 
 export default (): (() => void) => {
   return () => {
     const devTools = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
     console.log('devTools --> ', devTools);
-
-    // window.postMessage(
-    //   {
-    //     action: 'test',
-    //     payload,
-    //   },
-    //   '*'
-    // );
 
     const reactInstance = devTools ? devTools.renderers.get(1) : null;
 
@@ -32,6 +26,8 @@ export default (): (() => void) => {
     const fiber = fiberRoot.current;
 
     console.log('fiber --> ', fiber);
+
+    return fiber;
 
     //traverse fiber generate snapshot. {} //reactTime tree generator to get object //reatime getHooks to get atomName useState
     //traverse fiber to get custom ATOMIC HOOK {atoms information} useAtomic(atom, 'name of atom') //useDebuglabel(string) defaults 'atom1, atom2 ... atomX'
