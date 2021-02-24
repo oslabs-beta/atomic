@@ -53,7 +53,6 @@
     "react-d3-tree": "^2.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
-    "react-json-tree": "^0.13.0",
     "react-json-view": "^1.21.1",
     "react-spring": "^8.0.27",
     "react-spring-three": "^1.0.4",
