@@ -4,7 +4,7 @@ import Line from './Line';
 function Lines() {
   return (
     <>
-      <Line defaultStart={[-100, -100, 0]} defaultEnd={[0, 100, 0]} />
+      <Line defaultStart={[-2, 0, -6]} defaultEnd={[0, 0, -8]} />
     </>
   );
 }

@@ -18,7 +18,7 @@ function Line({ defaultStart, defaultEnd }) {
     <Fragment>
       <line>
         <geometry vertices={vertices} />
-        <lineBasicMaterial color="white" />
+        <lineBasicMaterial color="black" />
       </line>
       <EndPoint position={start} />
       <EndPoint position={end} />

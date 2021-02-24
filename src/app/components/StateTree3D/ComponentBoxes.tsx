@@ -2,40 +2,42 @@ import React, { Children, useState } from 'react';
 import ComponentBox from './ComponentBox';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
-let data = [{
-  children: [
-    {
-      children: [],
-      parent: 'APP',
-      name: 'Level 1-A',
-      level: 1,
-      state: 'state',
-      atom: 'atoms',
-    },
-    {
-      children: [
-        {
-          children: [],
-          parent: 'Level 1-B',
-          name: 'Level 2-A',
-          level: 2,
-          state: 'state',
-          atom: 'atoms',
-        },
-      ],
-      parent: 'APP',
-      name: 'Level 1-B',
-      level: 1,
-      state: 'state',
-      atom: 'atoms',
-    },
-  ],
-  parent: null,
-  name: 'APP',
-  level: 0,
-  state: 'state',
-  atom: 'atoms',
-}];
+let data = [
+  {
+    children: [
+      {
+        children: [],
+        parent: 'APP',
+        name: 'Level 1-A',
+        level: 1,
+        state: 'state',
+        atom: 'atoms',
+      },
+      {
+        children: [
+          {
+            children: [],
+            parent: 'Level 1-B',
+            name: 'Level 2-A',
+            level: 2,
+            state: 'state',
+            atom: 'atoms',
+          },
+        ],
+        parent: 'APP',
+        name: 'Level 1-B',
+        level: 1,
+        state: 'state',
+        atom: 'atoms',
+      },
+    ],
+    parent: null,
+    name: 'APP',
+    level: 0,
+    state: 'state',
+    atom: 'atoms',
+  },
+];
 
 function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
   // const treeArray = [];
@@ -44,10 +46,10 @@ function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
   //   data.forEach(node => {
   //   //Check if there are children
   //   //if node.children.length > 0, recurse
-  //   //else, push into tree array ComponentBox 
+  //   //else, push into tree array ComponentBox
   //     if(node.children)
   //   })
-    
+
   // };
 
   return (
@@ -68,31 +70,31 @@ function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
       />
       <ComponentBox
         position={[2, 0, -6]}
-        color="blue"
+        color="pink"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
       />
-         <ComponentBox
+      <ComponentBox
         position={[0, 0, -8]}
-        color="blue"
+        color="yellow"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
       />
-              <ComponentBox
+      <ComponentBox
         position={[0, 0, -4]}
-        color="blue"
+        color="black"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
       />
-              <ComponentBox
+      <ComponentBox
         position={[4, 0, -4]}
-        color="blue"
+        color="orange"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
       />
-              <ComponentBox
+      <ComponentBox
         position={[-4, 0, -4]}
-        color="blue"
+        color="cyan"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
       />

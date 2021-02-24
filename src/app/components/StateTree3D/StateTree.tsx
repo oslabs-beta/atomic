@@ -60,7 +60,7 @@ function StateTree() {
             setDiscriptionToggle={setDiscriptionToggle}
             discriptionToggle={discriptionToggle}
           />
-          {/* <Lines/> */}
+          <Lines/>
         </group>
 
         {/* Allows us to move the canvas around for different prespectives */}
