@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 
 import reactConnect from './fiber';
+import { findNodeByComponentName, Utils } from 'react-fiber-traverse';
 
-const extensionID = 'kdohcinjoneeijkhlaaahdignekaehbn';
+const extensionID = 'mhjbagmpmekobfmiejlekbcbclmmpbki';
 console.log('in index.ts');
 console.log(reactConnect);
 
@@ -10,17 +11,30 @@ const fiber = reactConnect()();
 
 console.log('index.ts SCOPE ---> ', window);
 
-window.localStorage.setItem(
-  'test from index.ts',
-  JSON.stringify({ test: 'test' })
-);
+chrome.runtime.sendMessage(extensionID, {
+  action: 'testGetFiber',
+  payload: { fiberRoot: fiber },
+});
 
-window.localStorage.setItem(
-  'test from index.ts',
-  JSON.stringify({ test: 'test' })
-);
+/*
+JOTAI STATE TO PRINTABLE
+const atomToPrintable = (atom: AnyAtom) => atom.debugLabel || atom.toString()
 
-// chrome.runtime.sendMessage(extensionID, {
-//   action: 'testGetFiber',
-//   payload: { fiberRoot: 'this is a root' },
-// });
+const isAtom = (x: AnyAtom | symbol): x is AnyAtom => typeof x !== 'symbol'
+
+const stateToPrintable = (state: State) =>
+  Object.fromEntries(
+    Array.from(state.m.entries()).map(([atom, [dependents]]) => {
+      const atomState = state.a.get(atom) || ({} as AtomState)
+      return [
+        atomToPrintable(atom),
+        {
+          value: atomState.re || atomState.rp || atomState.wp || atomState.v,
+          dependents: Array.from(dependents)
+            .filter(isAtom)
+            .map(atomToPrintable),
+        },
+      ]
+    })
+  )
+*/

@@ -54,4 +54,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
+// chrome.runtime.sendMessage({
+//   action: 'TEST_TO_APP',
+//   payload: { test: 'test' },
+// });
+
 console.log('from background.ts');
