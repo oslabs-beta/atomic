@@ -6,7 +6,7 @@ import ComponentBoxes from './ComponentBoxes';
 import Lines from "./Lines"
 softShadows();
 
-function StateTree() {
+function StateTree3D() {
   const [discriptionToggle, setDiscriptionToggle] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ function StateTree() {
         colorManagement
         shadowMap
         camera={{ position: [-5, 20, 5], fov: 50 }}
-        style={{ height: '75vh', width: "92vh", border: '1px solid black' }}
+        style={{ height: '80vh', width: "85vh", border: '1px solid black' }}
       >
         {/* This light makes things look pretty */}
         <ambientLight intensity={0.3} />
@@ -47,7 +47,7 @@ function StateTree() {
           >
             <planeBufferGeometry attach="geometry" args={[100, 100]} />
             <shadowMaterial attach="material" opacity={0.1} />
-            <meshStandardMaterial attach="material" color="black" />
+            <meshStandardMaterial attach="material" color="#202020" />
             {/* <ComponentTree/> */}
           </mesh>
 
@@ -77,4 +77,4 @@ function StateTree() {
   );
 }
 
-export default StateTree;
+export default StateTree3D;
