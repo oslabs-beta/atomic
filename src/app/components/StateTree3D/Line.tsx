@@ -1,30 +1,21 @@
-import React, { useState, useMemo, Fragment } from 'react';
+import React, { useState, useMemo, Fragment, useRef } from 'react';
 import * as THREE from 'three';
 
-
-
 function Line({ defaultStart, defaultEnd }) {
-  const [start, setStart] = useState(defaultStart);
-  const [end, setEnd] = useState(defaultEnd);
-  const vertices = useMemo(
-    () => [start, end].map(v => new THREE.Vector3(...v)),
-    [start, end]
-  );
+  // const [start, setStart] = useState(defaultStart);
+  // const [end, setEnd] = useState(defaultEnd);
+ const [startX, startY, startZ] = defaultStart
+ const [endX, endY, endZ] = defaultEnd
+  const curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(startX, startY, startZ),
+    new THREE.Vector3(endX, endY, endZ),
+  ]);
 
   return (
-    <Fragment>
-      <line>
-        <geometry vertices={vertices} />
-        <lineBasicMaterial
-          color="white"
-          linewidth={1}
-          linecap={'round'}
-          linejoin={'round'}
-        />
-      </line>
-       <mesh position={start}></mesh>;
-       <mesh position={end}></mesh>;
-    </Fragment>
+    <mesh >
+      <tubeGeometry args={[curve, 70, 0.04, 50, false]} />
+      <meshStandardMaterial attach="material" color={'white'} />
+    </mesh>
   );
 }
 
