@@ -56,6 +56,8 @@ const config = {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  devtool: 'eval-source-map',
+
   // devServer: {
   //   contentBase: './dist',
   // },
@@ -73,17 +75,17 @@ const config = {
 };
 
 module.exports = (env, argv) => {
-  if (argv.mode === 'development') {
-    config.plugins.push(
-      new ChromeExtensionReloader({
-        port: 9090,
-        reloadPage: true,
-        entries: {
-          contentScript: ['app', 'content'],
-          background: ['background'],
-        },
-      })
-    );
-  }
+  // if (argv.mode === 'development') {
+  //   config.plugins.push(
+  //     new ChromeExtensionReloader({
+  //       port: 9090,
+  //       reloadPage: true,
+  //       entries: {
+  //         contentScript: ['app', 'content'],
+  //         background: ['background'],
+  //       },
+  //     })
+  //   );
+  // }
   return config;
 };
