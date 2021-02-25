@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Canvas } from 'react-three-fiber';
-import { softShadows, OrbitControls } from '@react-three/drei';
+import {
+  softShadows,
+  OrbitControls,
+  MapControls,
+  TransformControls,
+} from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
-import Lines from "./Lines"
+import Lines from './Lines';
 softShadows();
 
 function StateTree3D() {
@@ -12,11 +17,11 @@ function StateTree3D() {
   return (
     <>
       {/* Our Scene & Camera is already built into our canvas */}
-      <Canvas 
+      <Canvas
         colorManagement
         shadowMap
         camera={{ position: [-5, 20, 5], fov: 50 }}
-        style={{ height: '80vh', width: "85vh", border: '1px solid black' }}
+        style={{ height: '80vh', width: '85vh', border: '1px solid black' }}
       >
         {/* This light makes things look pretty */}
         <ambientLight intensity={0.3} />
@@ -24,7 +29,7 @@ function StateTree3D() {
         <directionalLight
           castShadow
           position={[0, 10, 0]}
-          intensity={1.5}
+          intensity={3}
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
           shadow-camera-far={50}
@@ -38,32 +43,34 @@ function StateTree3D() {
         {/* <pointLight position={[-10, 0, -20]} intensity={0.5} />
       <pointLight position={[0, -10, 0]} intensity={1.5} /> */}
         <pointLight position={[10, 1, 100]} />
-        <group>
-          {/* This mesh is the plane (The floor) */}
-          <mesh
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, 0, 0]}
-            receiveShadow
-          >
-            <planeBufferGeometry attach="geometry" args={[100, 100]} />
-            <shadowMaterial attach="material" opacity={0.1} />
-            <meshStandardMaterial attach="material" color="#202020" />
-            {/* <ComponentTree/> */}
-          </mesh>
+    
+          <group>
+            {/* This mesh is the plane (The floor) */}
+          
+              {/* <mesh
+                rotation={[-Math.PI / 2, 0, 0]}
+                position={[0, 0, 0]}
+                receiveShadow
+              >
+                <planeBufferGeometry attach="geometry" args={[100, 100]} />
+                <shadowMaterial attach="material" opacity={0.1} />
+                <meshStandardMaterial attach="material" color="#202020" />
+              </mesh> */}
+        
 
-          {/* ATOMS: */}
-          <AtomSpheres />
+            {/* ATOMS: */}
+            <AtomSpheres />
 
-          {/* COMPONENTS: */}
-          <ComponentBoxes
-            setDiscriptionToggle={setDiscriptionToggle}
-            discriptionToggle={discriptionToggle}
-          />
-          <Lines/>
-        </group>
-
+            {/* COMPONENTS: */}
+            <ComponentBoxes
+              setDiscriptionToggle={setDiscriptionToggle}
+              discriptionToggle={discriptionToggle}
+            />
+            <Lines />
+          </group>
+        <MapControls/>
+        <OrbitControls/>
         {/* Allows us to move the canvas around for different prespectives */}
-        <OrbitControls />
       </Canvas>
       {discriptionToggle && (
         <div>
