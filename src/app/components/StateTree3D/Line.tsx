@@ -18,7 +18,7 @@ function Line({ defaultStart, defaultEnd }) {
       <line>
         <geometry vertices={vertices} />
         <lineBasicMaterial
-          color="black"
+          color="white"
           linewidth={10}
           linecap={'round'}
           linejoin={'round'}

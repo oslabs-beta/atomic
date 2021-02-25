@@ -25,7 +25,7 @@ const theme = {
 
 function StateTree() {
   return (
-    <div className="stateTree">
+    <div className="stateTree" style={{  overflowY: "auto"}}>
       {componentAtomTreeMock && (
         <ReactJson
           src={componentAtomTreeMock}

@@ -47,7 +47,7 @@ function StateTree() {
           >
             <planeBufferGeometry attach="geometry" args={[100, 100]} />
             <shadowMaterial attach="material" opacity={0.1} />
-            <meshStandardMaterial attach="material" color="#f7f7f7" />
+            <meshStandardMaterial attach="material" color="black" />
             {/* <ComponentTree/> */}
           </mesh>
 
