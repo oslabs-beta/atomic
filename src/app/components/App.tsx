@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { ReactNode } from 'react';
 
 // List
@@ -17,15 +18,57 @@ function List<ListItem>({
   );
 }
 
+// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connect
+
+// runtime.connect()
+// Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging.
+
+// Make a connection between different contexts inside the extension.
+
+// Connection type	              	
+// DevTool App to background script		
+// Initiate connection attempt from DevTool App
+// runtime.connect()
+// Handle connection attempt
+// runtime.onConnect
+const port = chrome.runtime.connect({name: "port-from-app-to-bg" });
+
+
+// Port through which messages can be sent and received. The port's  onDisconnect event is fired if the extension does not exist.
+console.log('runtime.Port -> ', port);
+console.log('')
+
+// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+port.onMessage.addListener(
+  (message: {
+    action: string;
+    payload: Record<string, unknown>;
+  }) => {
+    console.log('Received message from background script: ', message);
+  }
+);
+
+//send message via port.sendMessage ({action: 'test'})
+
+// const fiber = chrome.storage.sync.get('fiber', item => {
+//   item;
+// });
+
+// console.log(fiber);
+
 function App({ team }: { team: string }) {
-  console.log('hello fro App.tsx');
+  console.log('hello from App.tsx');
   return (
     <>
       <strong>{team} :</strong>
       <List
-        items={['Gio', 'Logan', 'Stanley', 'Chandni']}
+        items={['Giovanni', 'Logan', 'Stanley', 'Chandni']}
         render={(item: string) => <div>{item}</div>}
       ></List>
+      <button onClick={() => port.postMessage({ action: 'hello from DevTool App' })}>
+        POST TO Background.ts
+      </button>
     </>
   );
 }
