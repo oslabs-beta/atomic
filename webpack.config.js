@@ -11,6 +11,7 @@ const config = {
     app: './src/app/index.tsx',
     background: './src/extension/background.ts',
     content: './src/extension/content-script.ts',
+    backend: './src/backend/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'src/extension/build/bundles'),
@@ -55,6 +56,8 @@ const config = {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  devtool: 'eval-source-map',
+
   // devServer: {
   //   contentBase: './dist',
   // },
@@ -81,7 +84,7 @@ module.exports = (env, argv) => {
   //         contentScript: ['app', 'content'],
   //         background: ['background'],
   //       },
-  //     }),
+  //     })
   //   );
   // }
   return config;
