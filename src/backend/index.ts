@@ -2,7 +2,14 @@
 
 import reactConnect from './fiber';
 
-console.log('in index.ts');
-console.log(reactConnect);
+const fiber = reactConnect()();
 
-reactConnect()();
+console.log('fiber', fiber);
+
+window.postMessage(
+  {
+    action: 'testGetFiber',
+    payload: { fiberRoot: 'fiber' },
+  },
+  '*'
+);

@@ -1,4 +1,80 @@
-h1 {
-  color: white;
-  background-color: black;
+/* GLOBAL CSS */
+html,
+body {
+  color: #989898;
+  margin: 0;
+  height: 100%;
+  background-color: #212121;
+  font-family: Helvetica;
+}
+
+/* APP: */
+.app,
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* MAIN CONTAINER VISUALS -> 
+1. SnapShotContainer
+2. VisualContainer */
+.mainContainer {
+  height: 100%;
+  display: flex;
+}
+
+/* SNAPSHOT CONTAINER: ->
+1. SnapShotDisplay */
+.snapShotsContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  min-width: 200px;
+  background-color: #2c2c2c;
+  border: 1px solid #d4d4d4;
+  text-align: center;
+  color: #e6e6e6;
+}
+
+/* VISUAL CONTAINER: 
+1. NavBar
+2. StateTre3D
+3. StateDiff
+4. ComponentTree
+5. AtomNetwork */
+.visualContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 8;
+  border: 1px solid #d4d4d4;
+  background-color: #202020;
+  color: #e6e6e6;
+  width: 100%;
+  padding: 5px;
+}
+/* NAVBAR COMPONENT: */
+.navBar {
+  width: 100%;
+  display: flex;
+  flex-grow: 0;
+  flex-direction: row;
+  border-bottom: 2px solid #d4d4d4;
+  background-color: #2c2c2c;
+  /* justify-content: flex-end; */
+}
+.navBarButtons {
+  color: #ffffff;
+  background-color: #2c2c2c;
+  border: none;
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  font-weight: bold;
+}
+.navBarButtons:hover {
+  color: #e6e6e6;
+  border: none;
 }

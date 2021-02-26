@@ -4,4 +4,4 @@ import App from './components/App';
 
 const mountNode = document.getElementById('app');
 
-ReactDOM.render(<App team="Kaizen Team" />, mountNode);
+ReactDOM.render(<App />, mountNode);
