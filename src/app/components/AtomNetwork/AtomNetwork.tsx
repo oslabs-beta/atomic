@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-function AtomNetwork(): ReactNode {
+function AtomNetwork(): JSX.Element {
   return (
     <div className="atomNetwork">
       <p>Atom Network</p>
