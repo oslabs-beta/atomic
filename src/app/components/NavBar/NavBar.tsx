@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const NavBar: React.FC = ({ setTab, tabsList, tab }) => {
-  const tabButtons = tabsList.reduce((acc, name) => {
+interface NavBarProps {
+  setTab: React.Dispatch<React.SetStateAction<string>>;
+  tabsList: string[];
+  tab: string;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ setTab, tabsList, tab }) => {
+  const tabButtons = tabsList.reduce<JSX.Element[]>((acc, name) => {
     acc.push(
       <button
         className="navBarButtons"
