@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import MainContainer from '../containers/MainContainer';
 

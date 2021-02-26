@@ -2,15 +2,11 @@ import React, { useRef, useState } from 'react';
 import { useSpring, animated } from 'react-spring/three';
 
 function ComponentBox({
-  level,
-  spacing,
   color,
   setDiscriptionToggle,
   discriptionToggle,
   position,
 }: {
-  level?: number;
-  spacing?: number;
   color: string;
   setDiscriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
   discriptionToggle: boolean;

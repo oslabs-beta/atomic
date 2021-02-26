@@ -6,10 +6,10 @@ import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
 
-function VisualContainer(): JSX.Element  {
+function VisualContainer(): JSX.Element {
   const [tab, setTab] = useState<string>('State Tree 3D');
 
-  const navLists:any = {
+  const navLists: any = {
     'State Diff': <StateDiff />,
     'State Tree': <StateTree />,
     'State Tree 3D': <StateTree3D />,
@@ -25,6 +25,6 @@ function VisualContainer(): JSX.Element  {
       {navLists[tab]}
     </div>
   );
-};
+}
 
 export default VisualContainer;
