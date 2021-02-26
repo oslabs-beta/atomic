@@ -25,7 +25,7 @@ let portFromAPP: {
 
 function connected(port: any) {
   portFromAPP = port;
-  portFromAPP.postMessage({ action: 'hi there APP!' });
+  portFromAPP.postMessage({ action: 'CONNECTED', payload: 'hi there APP!' });
   portFromAPP.onMessage.addListener(function (message: any) {
     console.log(message);
   });
