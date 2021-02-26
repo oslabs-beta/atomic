@@ -1,7 +1,10 @@
 import React, { ReactNode } from 'react';
 import * as THREE from 'three';
 
-function Line({ defaultStart, defaultEnd }): ReactNode {
+function Line({ defaultStart, defaultEnd }: {
+  defaultStart: number[],
+  defaultEnd: number[]
+}): ReactNode {
   // const [start, setStart] = useState(defaultStart);
   // const [end, setEnd] = useState(defaultEnd);
   const [startX, startY, startZ] = defaultStart;
