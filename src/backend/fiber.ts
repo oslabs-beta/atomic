@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
+// const fs = require('fs');
 
 import { buildNodeTree } from './resq';
 
@@ -8,6 +9,8 @@ declare global {
     __REACT_DEVTOOLS_GLOBAL_HOOK__: any;
   }
 }
+
+const payload = 'test';
 
 export default (): (() => void) => {
   return () => {

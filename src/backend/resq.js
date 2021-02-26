@@ -307,6 +307,19 @@ export function findSelectorInTree(
           searchFn && typeof searchFn === 'function'
             ? searchFn
             : child => {
+<<<<<<< HEAD
+                if (typeof child.name === 'string') {
+                  return matchSelector(selector, child.name);
+                } else if (
+                  child.name !== null &&
+                  typeof child.name === 'object'
+                ) {
+                  return matchSelector(selector, child.name.displayName);
+                }
+
+                return false;
+              },
+=======
               if (typeof child.name === 'string') {
                 return matchSelector(selector, child.name);
               } else if (
@@ -318,6 +331,7 @@ export function findSelectorInTree(
 
               return false;
             },
+>>>>>>> e9b053073832ee90663e870f11d33a190112e65f
           selectFirst
         )
       );
