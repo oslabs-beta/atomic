@@ -23,7 +23,7 @@ const theme = {
   base0F: '#cc6633',
 };
 
-function StateTree() {
+const StateTree: React.FC = () => {
   return (
     <div className="stateTree" style={{ overflowY: 'auto' }}>
       {componentAtomTreeMock && (
@@ -41,6 +41,6 @@ function StateTree() {
       )}
     </div>
   );
-}
+};
 
 export default StateTree;

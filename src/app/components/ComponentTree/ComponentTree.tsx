@@ -31,7 +31,7 @@ const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
   </g>
 );
 
-function ComponentTree() {
+const ComponentTree: React.FC = () => {
   const [translate, containerRef] = useCenteredTree();
   return (
     <div style={containerStyles} ref={containerRef}>
@@ -43,6 +43,6 @@ function ComponentTree() {
       />
     </div>
   );
-}
+};
 
 export default ComponentTree;

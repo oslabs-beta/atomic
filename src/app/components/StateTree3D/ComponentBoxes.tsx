@@ -38,8 +38,10 @@ import ComponentBox from './ComponentBox';
 //     atom: 'atoms',
 //   },
 // ];
-
-function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
+const ComponentBoxes: React.FC = ({
+  setDiscriptionToggle,
+  discriptionToggle,
+}) => {
   // const treeArray = [];
   // let spacing = 0;
   // const traverseTree = data => {
@@ -124,6 +126,6 @@ function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
       />
     </>
   );
-}
+};
 
 export default ComponentBoxes;

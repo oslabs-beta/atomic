@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useSpring, animated } from 'react-spring/three';
 
-function AtomSphere({ position }) {
+const AtomSphere: React.FC = ({ position, color }) => {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 
@@ -24,6 +24,6 @@ function AtomSphere({ position }) {
       <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );
-}
+};
 
 export default AtomSphere;

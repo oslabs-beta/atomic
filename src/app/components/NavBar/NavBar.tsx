@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function NavBar({ setTab, tabsList, tab }) {
+const NavBar: React.FC = ({ setTab, tabsList, tab }) => {
   const tabButtons = tabsList.reduce((acc, name) => {
     acc.push(
       <button
@@ -22,6 +22,6 @@ function NavBar({ setTab, tabsList, tab }) {
   }, []);
   // render the array of NavBar buttons generated above
   return <div className="navBar">{tabButtons}</div>;
-}
+};
 
 export default NavBar;

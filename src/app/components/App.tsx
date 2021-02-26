@@ -2,12 +2,12 @@ import React from 'react';
 
 import MainContainer from '../containers/MainContainer';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="app">
       <MainContainer />
     </div>
   );
-}
+};
 
 export default App;
