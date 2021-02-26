@@ -7,7 +7,7 @@ const containerStyles = {
 };
 
 function useCenteredTree(defaultTranslate = { x: 0, y: 0 }) {
-  const [translate, setTranslate] = useState(defaultTranslate);
+  const [translate, setTranslate] = useState<any>(defaultTranslate);
   const containerRef = useCallback(containerElem => {
     if (containerElem !== null) {
       const { width, height } = containerElem.getBoundingClientRect();

@@ -6,7 +6,7 @@ import ComponentBoxes from './ComponentBoxes';
 import Lines from './Lines';
 
 function StateTree3D(): JSX.Element {
-  const [discriptionToggle, setDiscriptionToggle] = useState(false);
+  const [discriptionToggle, setDiscriptionToggle] = useState<boolean>(false);
 
   return (
     <>

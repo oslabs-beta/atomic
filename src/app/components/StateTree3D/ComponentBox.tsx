@@ -25,7 +25,7 @@ function ComponentBox({
   // });
 
   // Basic expand state
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState<boolean>(false);
   // React spring expand animation
   const props = useSpring({
     scale: expand ? [1.5, 1.5, 1.5] : [1, 1, 1],
