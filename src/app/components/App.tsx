@@ -38,8 +38,6 @@ const port = chrome.runtime.connect({name: "port-from-app-to-bg" });
 console.log('runtime.Port -> ', port);
 console.log('')
 
-// eslint-disable-next-line no-unused-vars
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 port.onMessage.addListener(
   (message: {
     action: string;
@@ -48,14 +46,6 @@ port.onMessage.addListener(
     console.log('Received message from background script: ', message);
   }
 );
-
-//send message via port.sendMessage ({action: 'test'})
-
-// const fiber = chrome.storage.sync.get('fiber', item => {
-//   item;
-// });
-
-// console.log(fiber);
 
 function App({ team }: { team: string }) {
   console.log('hello from App.tsx');
