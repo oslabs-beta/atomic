@@ -189,12 +189,12 @@ export function buildNodeTree(element) {
 
   tree.name = getElementName(element.type);
 
-  // tree.props = removeChildrenFromProps(element.memoizedProps);
+  tree.props = removeChildrenFromProps(element.memoizedProps);
   // tree.props = element.memoizedProps;
 
   let { child, memoizedProps } = element;
 
-  tree.children.push(memoizedProps?.children);
+  // tree.children.push(memoizedProps?.children);
 
   tree.state = getElementState(element.memoizedState);
 
@@ -209,12 +209,12 @@ export function buildNodeTree(element) {
 
   tree.children = tree.children.map(child => buildNodeTree(child));
 
-  // if (isFunction(element.type) && isFragmentInstance(tree)) {
-  //   tree.node = buildFragmentNodeArray(tree);
-  //   tree.isFragment = true;
-  // } else {
-  //   tree.node = findStateNode(element);
-  // }
+  if (isFunction(element.type) && isFragmentInstance(tree)) {
+    tree.node = buildFragmentNodeArray(tree);
+    tree.isFragment = true;
+  } else {
+    tree.node = findStateNode(element);
+  }
 
   return tree;
 }
@@ -307,17 +307,17 @@ export function findSelectorInTree(
           searchFn && typeof searchFn === 'function'
             ? searchFn
             : child => {
-                if (typeof child.name === 'string') {
-                  return matchSelector(selector, child.name);
-                } else if (
-                  child.name !== null &&
-                  typeof child.name === 'object'
-                ) {
-                  return matchSelector(selector, child.name.displayName);
-                }
+              if (typeof child.name === 'string') {
+                return matchSelector(selector, child.name);
+              } else if (
+                child.name !== null &&
+                typeof child.name === 'object'
+              ) {
+                return matchSelector(selector, child.name.displayName);
+              }
 
-                return false;
-              },
+              return false;
+            },
           selectFirst
         )
       );
