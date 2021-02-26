@@ -188,10 +188,15 @@ export function buildNodeTree(element) {
   }
 
   tree.name = getElementName(element.type);
-  tree.props = removeChildrenFromProps(element.memoizedProps);
-  tree.state = getElementState(element.memoizedState);
 
-  let { child } = element;
+  tree.props = removeChildrenFromProps(element.memoizedProps);
+  // tree.props = element.memoizedProps;
+
+  let { child, memoizedProps } = element;
+
+  // tree.children.push(memoizedProps?.children);
+
+  tree.state = getElementState(element.memoizedState);
 
   if (child) {
     tree.children.push(child);
@@ -302,6 +307,7 @@ export function findSelectorInTree(
           searchFn && typeof searchFn === 'function'
             ? searchFn
             : child => {
+<<<<<<< HEAD
                 if (typeof child.name === 'string') {
                   return matchSelector(selector, child.name);
                 } else if (
@@ -313,6 +319,19 @@ export function findSelectorInTree(
 
                 return false;
               },
+=======
+              if (typeof child.name === 'string') {
+                return matchSelector(selector, child.name);
+              } else if (
+                child.name !== null &&
+                typeof child.name === 'object'
+              ) {
+                return matchSelector(selector, child.name.displayName);
+              }
+
+              return false;
+            },
+>>>>>>> e9b053073832ee90663e870f11d33a190112e65f
           selectFirst
         )
       );
