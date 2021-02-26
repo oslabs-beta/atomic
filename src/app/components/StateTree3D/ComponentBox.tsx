@@ -1,4 +1,4 @@
-import React, { useRef, useState, ReactNode } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSpring, animated } from 'react-spring/three';
 
 function ComponentBox({
@@ -8,14 +8,21 @@ function ComponentBox({
   setDiscriptionToggle,
   discriptionToggle,
   position,
-}): ReactNode {
+}: {
+  level?: number;
+  spacing?: number;
+  color: string;
+  setDiscriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  discriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  position: number[];
+}): JSX.Element {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
-  const [boxPosition, setBoxPosition] = useState({
-    x: 5 * spacing,
-    y: 0,
-    z: 10 * level,
-  });
+  // const [boxPosition, setBoxPosition] = useState({
+  //   x: 5 * spacing,
+  //   y: 0,
+  //   z: 10 * level,
+  // });
 
   // Basic expand state
   const [expand, setExpand] = useState(false);

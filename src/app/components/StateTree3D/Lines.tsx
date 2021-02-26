@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Line from './Line';
 
-function Lines(): ReactNode {
+function Lines(): JSX.Element {
   return (
     <>
       {/* component to component */}

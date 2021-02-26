@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import ReactJson from 'react-json-view';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
@@ -23,7 +23,7 @@ const theme = {
   base0F: '#cc6633',
 };
 
-function StateTree(): ReactNode {
+function StateTree(): JSX.Element {
   return (
     <div className="stateTree" style={{ overflowY: 'auto' }}>
       {componentAtomTreeMock && (

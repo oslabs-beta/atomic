@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import ComponentBox from './ComponentBox';
 // import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
@@ -41,7 +41,10 @@ import ComponentBox from './ComponentBox';
 function ComponentBoxes({
   setDiscriptionToggle,
   discriptionToggle,
-}): ReactNode {
+}: {
+  setDiscriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  discriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}): JSX.Element {
   // const treeArray = [];
   // let spacing = 0;
   // const traverseTree = data => {

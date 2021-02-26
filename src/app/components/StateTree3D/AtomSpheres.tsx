@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import AtomSphere from './AtomSphere';
 
-function AtomSpheres(): ReactNode {
+function AtomSpheres(): JSX.Element {
   return <AtomSphere position={[0, 4, -4]} color="gray" />;
 }
 

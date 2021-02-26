@@ -1,7 +1,13 @@
-import React, { useRef, useState, ReactNode } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSpring, animated } from 'react-spring/three';
 
-function AtomSphere({ position, color }): ReactNode {
+function AtomSphere({
+  position,
+  color,
+}: {
+  position: number[];
+  color: string;
+}): JSX.Element {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 

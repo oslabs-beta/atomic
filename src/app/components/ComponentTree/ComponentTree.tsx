@@ -1,4 +1,4 @@
-import React, { useCallback, useState, ReactNode } from 'react';
+import React, { useCallback, useState } from 'react';
 import Tree from 'react-d3-tree';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
@@ -6,7 +6,7 @@ const containerStyles = {
   height: '100vh',
 };
 
-function useCenteredTree(defaultTranslate = { x: 0, y: 0 }): ReactNode {
+function useCenteredTree(defaultTranslate = { x: 0, y: 0 }) {
   const [translate, setTranslate] = useState(defaultTranslate);
   const containerRef = useCallback(containerElem => {
     if (containerElem !== null) {
@@ -17,7 +17,13 @@ function useCenteredTree(defaultTranslate = { x: 0, y: 0 }): ReactNode {
   return [translate, containerRef];
 }
 
-const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
+const renderRectSvgNode = ({
+  nodeDatum,
+  toggleNode,
+}: {
+  nodeDatum: any;
+  toggleNode: any;
+}) => (
   <g>
     <rect width="20" height="20" x="-10" fill="#1cb5c9" onClick={toggleNode} />
     <text fill="white" strokeWidth="0.1" x="20">
@@ -31,7 +37,7 @@ const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
   </g>
 );
 
-const ComponentTree: React.FC = () => {
+function ComponentTree(): JSX.Element {
   const [translate, containerRef] = useCenteredTree();
   return (
     <div style={containerStyles} ref={containerRef}>
@@ -43,6 +49,6 @@ const ComponentTree: React.FC = () => {
       />
     </div>
   );
-};
+}
 
 export default ComponentTree;

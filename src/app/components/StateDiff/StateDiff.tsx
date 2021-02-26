@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-function StateDiff(): ReactNode {
+function StateDiff(): JSX.Element {
   return (
     <div className="stateDiff">
       <p>State Diff</p>

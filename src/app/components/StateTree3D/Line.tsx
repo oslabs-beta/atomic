@@ -1,10 +1,13 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import * as THREE from 'three';
 
-function Line({ defaultStart, defaultEnd }: {
-  defaultStart: number[],
-  defaultEnd: number[]
-}): ReactNode {
+function Line({
+  defaultStart,
+  defaultEnd,
+}: {
+  defaultStart: number[];
+  defaultEnd: number[];
+}): JSX.Element {
   // const [start, setStart] = useState(defaultStart);
   // const [end, setEnd] = useState(defaultEnd);
   const [startX, startY, startZ] = defaultStart;
