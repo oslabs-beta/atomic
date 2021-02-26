@@ -5,7 +5,9 @@
   "description": "A Chrome extension that helps debug atomic state management.",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval' ; object-src 'self'",
-  "permissions": ["storage", "tabs", "https://www.google.com/*"],
+  "web_accessible_resources" : ["bundles/backend.bundle.js"],
+  "permissions": ["storage", "contextMenus", "tabs", "activeTab", "http://localhost/*", "https://localhost/*", "http://*/",
+    "https://*/"],
   "background": {
     "scripts": ["bundles/background.bundle.js"],
     "persistent": false
