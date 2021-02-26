@@ -6,10 +6,6 @@ function AtomSphere({ position, color }) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 
-  // useFrame allows us to re-render/update rotation on each frame
-  // Rotate mesh every frame, this is outside of React without overhead
-  // useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
-
   // Basic expand state
   const [expand, setExpand] = useState(false);
   // React spring expand animation

@@ -6,9 +6,7 @@ function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionT
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
   const [boxPosition, setBoxPosition] = useState({ x: 5*spacing, y: 0, z: 10*level });
-  // useFrame allows us to re-render/update rotation on each frame
-  // Rotate mesh every frame, this is outside of React without overhead
-  // useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.001));
+
 
   // Basic expand state
   const [expand, setExpand] = useState(false);
@@ -26,7 +24,6 @@ function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionT
         setExpand(!expand)
         setDiscriptionToggle(!discriptionToggle)
       }
-      castShadow
     >
       <boxBufferGeometry attach="geometry" args={[1, 0.2, 1]} />
       <meshStandardMaterial attach="material" color={color} />

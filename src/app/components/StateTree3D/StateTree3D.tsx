@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { Canvas } from 'react-three-fiber';
-import {
-  softShadows,
-  OrbitControls,
-  MapControls,
-  TransformControls,
-} from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
 import Lines from './Lines';
-softShadows();
 
 function StateTree3D() {
   const [discriptionToggle, setDiscriptionToggle] = useState(false);
@@ -40,14 +34,12 @@ function StateTree3D() {
         />
 
         {/* A light to help illumnate the spinning boxes */}
-        {/* <pointLight position={[-10, 0, -20]} intensity={0.5} />
-      <pointLight position={[0, -10, 0]} intensity={1.5} /> */}
-        <pointLight position={[10, 1, 100]} />
-    
-          <group>
-            {/* This mesh is the plane (The floor) */}
-          
-              {/* <mesh
+        {/* <pointLight position={[0, -10, 0]} intensity={1.5} /> 
+        <pointLight position={[10, 1, 100]} /> */}
+
+        <group>
+          {/* This mesh is the plane (The floor) */}
+          {/* <mesh
                 rotation={[-Math.PI / 2, 0, 0]}
                 position={[0, 0, 0]}
                 receiveShadow
@@ -56,21 +48,19 @@ function StateTree3D() {
                 <shadowMaterial attach="material" opacity={0.1} />
                 <meshStandardMaterial attach="material" color="#202020" />
               </mesh> */}
-        
 
-            {/* ATOMS: */}
-            <AtomSpheres />
+          {/* ATOMS: */}
+          <AtomSpheres />
 
-            {/* COMPONENTS: */}
-            <ComponentBoxes
-              setDiscriptionToggle={setDiscriptionToggle}
-              discriptionToggle={discriptionToggle}
-            />
-            <Lines />
-          </group>
-        <MapControls/>
-        <OrbitControls/>
+          {/* COMPONENTS: */}
+          <ComponentBoxes
+            setDiscriptionToggle={setDiscriptionToggle}
+            discriptionToggle={discriptionToggle}
+          />
+          <Lines />
+        </group>
         {/* Allows us to move the canvas around for different prespectives */}
+        <OrbitControls />
       </Canvas>
       {discriptionToggle && (
         <div>
