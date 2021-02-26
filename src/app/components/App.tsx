@@ -25,7 +25,7 @@ port.onMessage.addListener((message: { action: string; payload: any }) => {
   console.log('Received message from background script: ', message);
 });
 
-function App(): ReactNode {
+function App(): JSX.Element {
   console.log('hello from App.tsx');
   return (
     <div className="app">

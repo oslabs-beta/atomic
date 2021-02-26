@@ -6,7 +6,7 @@ import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
 
-const VisualContainer: React.FC = () => {
+function VisualContainer(): JSX.Element  {
   const [tab, setTab] = useState<string>('State Tree 3D');
 
   const navLists:any = {
