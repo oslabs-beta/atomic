@@ -1,16 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import Tree from "react-d3-tree";
-import {componentAtomTreeMock} from "../../mock/mockComponentTree"
-
+import Tree from 'react-d3-tree';
+import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
 const containerStyles = {
-  height: "100vh",
-
+  height: '100vh',
 };
 
 const useCenteredTree = (defaultTranslate = { x: 0, y: 0 }) => {
   const [translate, setTranslate] = useState(defaultTranslate);
-  const containerRef = useCallback((containerElem) => {
+  const containerRef = useCallback(containerElem => {
     if (containerElem !== null) {
       const { width, height } = containerElem.getBoundingClientRect();
       setTranslate({ x: width / 2, y: height / 7 });
@@ -30,7 +28,6 @@ const renderRectSvgNode = ({ nodeDatum, toggleNode }) => (
         State: {`${nodeDatum.atom}`}
       </text>
     )}
- 
   </g>
 );
 
@@ -43,7 +40,6 @@ function ComponentTree() {
         translate={translate}
         renderCustomNodeElement={renderRectSvgNode}
         orientation="vertical"
-    
       />
     </div>
   );

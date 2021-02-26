@@ -6,7 +6,6 @@ import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
 
-
 function VisualContainer() {
   const [tab, setTab] = useState<string>('State Tree 3D');
 

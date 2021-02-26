@@ -1,12 +1,21 @@
 import React, { useRef, useState } from 'react';
-import { useFrame } from 'react-three-fiber';
 import { useSpring, animated } from 'react-spring/three';
 
-function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionToggle, position }) {
+function ComponentBox({
+  level,
+  spacing,
+  color,
+  setDiscriptionToggle,
+  discriptionToggle,
+  position,
+}) {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
-  const [boxPosition, setBoxPosition] = useState({ x: 5*spacing, y: 0, z: 10*level });
-
+  const [boxPosition, setBoxPosition] = useState({
+    x: 5 * spacing,
+    y: 0,
+    z: 10 * level,
+  });
 
   // Basic expand state
   const [expand, setExpand] = useState(false);
@@ -21,9 +30,9 @@ function ComponentBox({ level, spacing, color,setDiscriptionToggle, discriptionT
       ref={mesh}
       scale={props.scale}
       onClick={() => {
-        setExpand(!expand)
-        setDiscriptionToggle(!discriptionToggle)
-      }
+        setExpand(!expand);
+        setDiscriptionToggle(!discriptionToggle);
+      }}
     >
       <boxBufferGeometry attach="geometry" args={[1, 0.2, 1]} />
       <meshStandardMaterial attach="material" color={color} />

@@ -1,43 +1,43 @@
-import React, { Children, useState } from 'react';
+import React from 'react';
 import ComponentBox from './ComponentBox';
-import { componentAtomTreeMock } from '../../mock/mockComponentTree';
+// import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
-let data = [
-  {
-    children: [
-      {
-        children: [],
-        parent: 'APP',
-        name: 'Level 1-A',
-        level: 1,
-        state: 'state',
-        atom: 'atoms',
-      },
-      {
-        children: [
-          {
-            children: [],
-            parent: 'Level 1-B',
-            name: 'Level 2-A',
-            level: 2,
-            state: 'state',
-            atom: 'atoms',
-          },
-        ],
-        parent: 'APP',
-        name: 'Level 1-B',
-        level: 1,
-        state: 'state',
-        atom: 'atoms',
-      },
-    ],
-    parent: null,
-    name: 'APP',
-    level: 0,
-    state: 'state',
-    atom: 'atoms',
-  },
-];
+// let data = [
+//   {
+//     children: [
+//       {
+//         children: [],
+//         parent: 'APP',
+//         name: 'Level 1-A',
+//         level: 1,
+//         state: 'state',
+//         atom: 'atoms',
+//       },
+//       {
+//         children: [
+//           {
+//             children: [],
+//             parent: 'Level 1-B',
+//             name: 'Level 2-A',
+//             level: 2,
+//             state: 'state',
+//             atom: 'atoms',
+//           },
+//         ],
+//         parent: 'APP',
+//         name: 'Level 1-B',
+//         level: 1,
+//         state: 'state',
+//         atom: 'atoms',
+//       },
+//     ],
+//     parent: null,
+//     name: 'APP',
+//     level: 0,
+//     state: 'state',
+//     atom: 'atoms',
+//   },
+// ];
 
 function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
   // const treeArray = [];
