@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ComponentBox from './ComponentBox';
 // import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
@@ -38,10 +38,10 @@ import ComponentBox from './ComponentBox';
 //     atom: 'atoms',
 //   },
 // ];
-const ComponentBoxes: React.FC = ({
+function ComponentBoxes({
   setDiscriptionToggle,
   discriptionToggle,
-}) => {
+}): ReactNode {
   // const treeArray = [];
   // let spacing = 0;
   // const traverseTree = data => {
@@ -126,6 +126,6 @@ const ComponentBoxes: React.FC = ({
       />
     </>
   );
-};
+}
 
 export default ComponentBoxes;

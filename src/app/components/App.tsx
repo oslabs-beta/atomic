@@ -25,7 +25,7 @@ port.onMessage.addListener((message: { action: string; payload: any }) => {
   console.log('Received message from background script: ', message);
 });
 
-const App: React.FC = () => {
+function App(): ReactNode {
   console.log('hello from App.tsx');
   return (
     <div className="app">
@@ -37,6 +37,6 @@ const App: React.FC = () => {
       </button>
     </div>
   );
-};
+}
 
 export default App;

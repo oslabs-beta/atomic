@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, ReactNode } from 'react';
 import { useSpring, animated } from 'react-spring/three';
 
-const ComponentBox: React.FC = ({
+function ComponentBox({
   level,
   spacing,
   color,
   setDiscriptionToggle,
   discriptionToggle,
   position,
-}) => {
+}): ReactNode {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
   const [boxPosition, setBoxPosition] = useState({
@@ -38,6 +38,6 @@ const ComponentBox: React.FC = ({
       <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );
-};
+}
 
 export default ComponentBox;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ReactJson from 'react-json-view';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
@@ -23,7 +23,7 @@ const theme = {
   base0F: '#cc6633',
 };
 
-const StateTree: React.FC = () => {
+function StateTree(): ReactNode {
   return (
     <div className="stateTree" style={{ overflowY: 'auto' }}>
       {componentAtomTreeMock && (
@@ -41,6 +41,6 @@ const StateTree: React.FC = () => {
       )}
     </div>
   );
-};
+}
 
 export default StateTree;

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 
-const StateDiff: React.FC = () => {
+function StateDiff():ReactNode{
   return (
     <div className="stateDiff">
       <p>State Diff</p>

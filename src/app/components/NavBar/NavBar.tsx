@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface NavBarProps {
   setTab: React.Dispatch<React.SetStateAction<string>>;
@@ -6,7 +6,7 @@ interface NavBarProps {
   tab: string;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ setTab, tabsList, tab }) => {
+function NavBar({ setTab, tabsList, tab }): ReactNode {
   const tabButtons = tabsList.reduce<JSX.Element[]>((acc, name) => {
     acc.push(
       <button
@@ -28,6 +28,6 @@ const NavBar: React.FC<NavBarProps> = ({ setTab, tabsList, tab }) => {
   }, []);
   // render the array of NavBar buttons generated above
   return <div className="navBar">{tabButtons}</div>;
-};
+}
 
 export default NavBar;

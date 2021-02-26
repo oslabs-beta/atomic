@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import * as THREE from 'three';
 
-const Line: React.FC = ({ defaultStart, defaultEnd }) => {
+function Line({ defaultStart, defaultEnd }): ReactNode {
   // const [start, setStart] = useState(defaultStart);
   // const [end, setEnd] = useState(defaultEnd);
   const [startX, startY, startZ] = defaultStart;
@@ -17,6 +17,6 @@ const Line: React.FC = ({ defaultStart, defaultEnd }) => {
       <meshStandardMaterial attach="material" color={'white'} />
     </mesh>
   );
-};
+}
 
 export default Line;

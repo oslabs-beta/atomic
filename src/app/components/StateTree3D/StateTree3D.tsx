@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from '@react-three/drei';
 import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
 import Lines from './Lines';
 
-const StateTree3D: React.FC = () => {
+function StateTree3D(): ReactNode {
   const [discriptionToggle, setDiscriptionToggle] = useState(false);
 
   return (
@@ -72,6 +72,6 @@ const StateTree3D: React.FC = () => {
       )}
     </>
   );
-};
+}
 
 export default StateTree3D;
