@@ -25,27 +25,20 @@ function List<ListItem>({
 
 // Make a connection between different contexts inside the extension.
 
-// Connection type	              	
-// DevTool App to background script		
+// Connection type
+// DevTool App to background script
 // Initiate connection attempt from DevTool App
 // runtime.connect()
 // Handle connection attempt
 // runtime.onConnect
-const port = chrome.runtime.connect({name: "port-from-app-to-bg" });
-
+const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
 
 // Port through which messages can be sent and received. The port's  onDisconnect event is fired if the extension does not exist.
 console.log('runtime.Port -> ', port);
-console.log('')
 
-port.onMessage.addListener(
-  (message: {
-    action: string;
-    payload: Record<string, unknown>;
-  }) => {
-    console.log('Received message from background script: ', message);
-  }
-);
+port.onMessage.addListener((message: { action: string; payload: any }) => {
+  console.log('Received message from background script: ', message);
+});
 
 function App({ team }: { team: string }) {
   console.log('hello from App.tsx');
@@ -56,7 +49,9 @@ function App({ team }: { team: string }) {
         items={['Giovanni', 'Logan', 'Stanley', 'Chandni']}
         render={(item: string) => <div>{item}</div>}
       ></List>
-      <button onClick={() => port.postMessage({ action: 'hello from DevTool App' })}>
+      <button
+        onClick={() => port.postMessage({ action: 'hello from DevTool App' })}
+      >
         POST TO Background.ts
       </button>
     </>
