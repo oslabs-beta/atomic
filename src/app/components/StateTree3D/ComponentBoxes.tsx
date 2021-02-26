@@ -82,7 +82,7 @@ function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
       />
       <ComponentBox
         position={[0, 0, -2]}
-        color="purple"
+        color="blue"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
       />
@@ -94,6 +94,30 @@ function ComponentBoxes({ setDiscriptionToggle, discriptionToggle }) {
       />
       <ComponentBox
         position={[-4, 0, -2]}
+        color="purple"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+      <ComponentBox
+        position={[2, 0, 0]}
+        color="purple"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+      <ComponentBox
+        position={[-2, 0, 0]}
+        color="blue"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+      <ComponentBox
+        position={[-4, 0, 2]}
+        color="purple"
+        setDiscriptionToggle={setDiscriptionToggle}
+        discriptionToggle={discriptionToggle}
+      />
+      <ComponentBox
+        position={[0, 0, 2]}
         color="purple"
         setDiscriptionToggle={setDiscriptionToggle}
         discriptionToggle={discriptionToggle}
