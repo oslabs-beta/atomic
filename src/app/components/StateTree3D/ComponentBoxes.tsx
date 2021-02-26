@@ -43,7 +43,7 @@ function ComponentBoxes({
   discriptionToggle,
 }: {
   setDiscriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  discriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  discriptionToggle: boolean;
 }): JSX.Element {
   // const treeArray = [];
   // let spacing = 0;

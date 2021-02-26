@@ -13,7 +13,7 @@ function ComponentBox({
   spacing?: number;
   color: string;
   setDiscriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  discriptionToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  discriptionToggle: boolean;
   position: number[];
 }): JSX.Element {
   // This reference will give us direct access to the mesh
