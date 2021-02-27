@@ -30,7 +30,7 @@ function StateTree(): JSX.Element {
         <ReactJson
           src={componentAtomTreeMock}
           style={{
-            fontSize: '13px',
+            fontSize: '14px',
             paddingTop: '15px',
             fontFamily: 'Helvetica',
           }}
