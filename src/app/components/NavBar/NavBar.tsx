@@ -7,7 +7,7 @@ interface NavBarProps {
 }
 
 function NavBar({ setTab, tabsList, tab }: NavBarProps): JSX.Element {
-  const tabButtons = tabsList.reduce<JSX.Element[]>((acc, name) => {
+  const tabButtons = tabsList.reduce<React.ReactNode[]>((acc, name) => {
     acc.push(
       <button
         className="navBarButtons"
