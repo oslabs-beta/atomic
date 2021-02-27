@@ -7,6 +7,27 @@ body {
   background-color: #212121;
   font-family: Helvetica;
 }
+::-webkit-scrollbar {
+  background-color: transparent;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+button {
+  outline: none;
+}
+button:hover {
+  background-color: #212121;
+}
 
 /* APP: */
 .app,
@@ -32,7 +53,7 @@ body {
   flex-shrink: 1;
   min-width: 200px;
   background-color: #2c2c2c;
-  border: 1px solid #d4d4d4;
+  border-left: 0.3px solid #7c7c7c;
   text-align: center;
   color: #e6e6e6;
 }
@@ -48,11 +69,12 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 8;
-  border: 1px solid #d4d4d4;
+  /* border-left: 0.3px solid #7c7c7c; */
   background-color: #202020;
   color: #e6e6e6;
   width: 100%;
-  padding: 5px;
+  padding: 0px;
+  margin: 0px;
 }
 /* NAVBAR COMPONENT: */
 .navBar {
@@ -60,7 +82,7 @@ body {
   display: flex;
   flex-grow: 0;
   flex-direction: row;
-  border-bottom: 2px solid #d4d4d4;
+  border-bottom: 0.3px solid #7c7c7c;
   background-color: #2c2c2c;
   /* justify-content: flex-end; */
 }
@@ -71,7 +93,6 @@ body {
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
-
   font-weight: bold;
 }
 .navBarButtons:hover {
