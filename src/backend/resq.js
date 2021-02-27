@@ -307,17 +307,17 @@ export function findSelectorInTree(
           searchFn && typeof searchFn === 'function'
             ? searchFn
             : child => {
-              if (typeof child.name === 'string') {
-                return matchSelector(selector, child.name);
-              } else if (
-                child.name !== null &&
-                typeof child.name === 'object'
-              ) {
-                return matchSelector(selector, child.name.displayName);
-              }
+                if (typeof child.name === 'string') {
+                  return matchSelector(selector, child.name);
+                } else if (
+                  child.name !== null &&
+                  typeof child.name === 'object'
+                ) {
+                  return matchSelector(selector, child.name.displayName);
+                }
 
-              return false;
-            },
+                return false;
+              },
           selectFirst
         )
       );
