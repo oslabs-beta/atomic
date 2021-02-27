@@ -155,8 +155,12 @@ export function getProviderState(rootNode) {
   console.log(rootNode);
   let providerState;
   if (rootNode.child.elementType.name === 'Provider') {
-    providerState = rootNode.child.memoizedState.next.baseState.a;
+    providerState = rootNode.child.memoizedState.next.baseState.w;
+
     console.log('PROVIDER state --> ', providerState);
+    console.log('PROVIDER state --> ', providerState.keys());
+    console.log('PROVIDER state --> ', providerState.keys().next().value);
+    // console.log('PROVIDER state --> ', providerState.keys().next().value);
   }
 }
 
