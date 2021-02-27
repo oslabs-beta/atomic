@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AtomNetwork: React.FC = () => {
+function AtomNetwork(): JSX.Element {
   return (
     <div className="atomNetwork">
       <p>Atom Network</p>
     </div>
   );
-};
+}
 
 export default AtomNetwork;

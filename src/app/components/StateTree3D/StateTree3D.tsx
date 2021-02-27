@@ -5,8 +5,8 @@ import AtomSpheres from './AtomSpheres';
 import ComponentBoxes from './ComponentBoxes';
 import Lines from './Lines';
 
-const StateTree3D: React.FC = () => {
-  const [discriptionToggle, setDiscriptionToggle] = useState(false);
+function StateTree3D(): JSX.Element {
+  const [discriptionToggle, setDiscriptionToggle] = useState<boolean>(false);
 
   return (
     <>
@@ -72,6 +72,6 @@ const StateTree3D: React.FC = () => {
       )}
     </>
   );
-};
+}
 
 export default StateTree3D;
