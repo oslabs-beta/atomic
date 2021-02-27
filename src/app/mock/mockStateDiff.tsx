@@ -8,7 +8,7 @@ export const filteredCurSnapMock = {
     nodeDeps: ['squaresAtom'],
   },
   nextValueAtom: {
-    contents: 'X',
+    contents: null,
     nodeDeps: ['squaresAtom'],
   },
   resetSquaresAtom: {
@@ -16,7 +16,7 @@ export const filteredCurSnapMock = {
     nodeDeps: ['squaresAtom'],
   },
   selectSquaresAtom: {
-    contents: [null, null, null, null, null, null, null, null, null],
+    contents: null,
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
   },
   squaresAtom: {
@@ -35,7 +35,7 @@ export const filteredPrevSnapMock = {
     nodeDeps: ['squaresAtom'],
   },
   nextValueAtom: {
-    contents: 'O',
+    contents: null,
     nodeDeps: ['squaresAtom'],
   },
   resetSquaresAtom: {
@@ -43,7 +43,7 @@ export const filteredPrevSnapMock = {
     nodeDeps: ['squaresAtom'],
   },
   selectSquaresAtom: {
-    contents: ['X', null, null, 'X', null, null, 'O', null, null],
+    contents: null,
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
   },
   squaresAtom: {
