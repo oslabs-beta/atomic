@@ -29,9 +29,9 @@ const renderRectSvgNode = ({
     <text fill="white" strokeWidth="0.1" x="20">
       {nodeDatum.name}
     </text>
-    {nodeDatum.atom && (
+    {nodeDatum.atom.length > 0 && (
       <text fill="#e0bf63" x="20" dy="15" strokeWidth="0.1" fontSize="10px">
-        State: {`${nodeDatum.atom}`}
+        atom: {`${nodeDatum.atom}`}
       </text>
     )}
   </g>
