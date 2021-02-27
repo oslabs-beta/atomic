@@ -34,6 +34,7 @@ function StateTree(): JSX.Element {
             paddingTop: '15px',
             fontFamily: 'Helvetica',
           }}
+          collapsed={1}
           theme={theme}
           indentWidth={3}
           enableClipboard={false}
