@@ -2,13 +2,13 @@ import React from 'react';
 import SnapShotContainer from './SnapShotContainer';
 import VisualContainer from './VisualContainer';
 
-const MainContainer: React.FC = () => {
+function MainContainer(): JSX.Element {
   return (
     <div className="mainContainer">
       <VisualContainer />
       <SnapShotContainer />
     </div>
   );
-};
+}
 
 export default MainContainer;

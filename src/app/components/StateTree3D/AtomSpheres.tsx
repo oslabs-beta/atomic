@@ -1,8 +1,13 @@
 import React from 'react';
 import AtomSphere from './AtomSphere';
 
-const AtomSpheres: React.FC = () => {
-  return <AtomSphere position={[0, 4, -4]} color="gray" />;
-};
+function AtomSpheres(): JSX.Element {
+  return (
+    <>
+      <AtomSphere position={[0, 4, -4]} color="gray" />
+      <AtomSphere position={[2, 4, -2]} color="gray" />
+    </>
+  );
+}
 
 export default AtomSpheres;
