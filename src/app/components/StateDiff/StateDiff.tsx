@@ -1,11 +1,11 @@
 import React from 'react';
 
-const StateDiff: React.FC = () => {
+function StateDiff(): JSX.Element {
   return (
     <div className="stateDiff">
       <p>State Diff</p>
     </div>
   );
-};
+}
 
 export default StateDiff;

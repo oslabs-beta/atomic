@@ -6,10 +6,14 @@ import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
 
-const VisualContainer: React.FC = () => {
+interface navType {
+  [tabName: string]: JSX.Element;
+}
+
+function VisualContainer(): JSX.Element {
   const [tab, setTab] = useState<string>('State Tree 3D');
 
-  const navLists = {
+  const navLists: navType = {
     'State Diff': <StateDiff />,
     'State Tree': <StateTree />,
     'State Tree 3D': <StateTree3D />,
@@ -25,6 +29,6 @@ const VisualContainer: React.FC = () => {
       {navLists[tab]}
     </div>
   );
-};
+}
 
 export default VisualContainer;

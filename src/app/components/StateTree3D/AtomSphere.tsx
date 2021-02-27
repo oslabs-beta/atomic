@@ -1,12 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { useSpring, animated } from 'react-spring/three';
 
-const AtomSphere: React.FC = ({ position, color }) => {
+function AtomSphere({
+  position,
+  color,
+}: {
+  position: number[];
+  color: string;
+}): JSX.Element {
   // This reference will give us direct access to the mesh
   const mesh: any = useRef();
 
   // Basic expand state
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState<boolean>(false);
   // React spring expand animation
   const props = useSpring({
     scale: expand ? [1.4, 1.4, 1.4] : [1, 1, 1],
@@ -24,6 +30,6 @@ const AtomSphere: React.FC = ({ position, color }) => {
       <meshStandardMaterial attach="material" color={color} />
     </animated.mesh>
   );
-};
+}
 
 export default AtomSphere;

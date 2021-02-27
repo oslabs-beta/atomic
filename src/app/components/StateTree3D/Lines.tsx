@@ -1,7 +1,7 @@
 import React from 'react';
 import Line from './Line';
 
-const Lines: React.FC = () => {
+function Lines(): JSX.Element {
   return (
     <>
       {/* component to component */}
@@ -17,8 +17,10 @@ const Lines: React.FC = () => {
       {/* component to atom */}
       <Line defaultStart={[0, 4, -4]} defaultEnd={[-2, 0, -5]} />
       <Line defaultStart={[0, 4, -4]} defaultEnd={[4, 0, -2]} />
+      <Line defaultStart={[2, 4, -2]} defaultEnd={[-2, 0, 0]} />
+      <Line defaultStart={[2, 4, -2]} defaultEnd={[4, 0, -2]} />
     </>
   );
-};
+}
 
 export default Lines;
