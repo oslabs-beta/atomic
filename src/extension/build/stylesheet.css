@@ -93,9 +93,10 @@ button:hover {
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
-  font-weight: bold;
+ 
 }
 .navBarButtons:hover {
   color: #e6e6e6;
   border: none;
+
 }
