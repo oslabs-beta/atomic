@@ -14,7 +14,7 @@ interface TreeNode {
   children?: TreeNode[];
 }
 
-const data = componentAtomTreeMock;
+const data: TreeNode = componentAtomTreeMock;
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 30 };
 
@@ -97,7 +97,7 @@ function ComponentTreeCopy({
                 ))}
 
                 {tree.descendants().map((node, key) => {
-                  const widthFunc = name => {
+                  const widthFunc = (name:string) => {
                     let nodeLength = name.length;
                     if (nodeLength < 5) return nodeLength + 25;
                     if (nodeLength < 10) return nodeLength + 35;
@@ -158,7 +158,8 @@ function ComponentTreeCopy({
                       )}
                       <text
                         dy=".33em"
-                        fontSize={9}
+                        fontSize={ node.depth === 0
+                          ? 12 :9}
                         fontFamily="Arial"
                         textAnchor="middle"
                         style={{ pointerEvents: 'none' }}
