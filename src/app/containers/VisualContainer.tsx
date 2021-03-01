@@ -15,9 +15,9 @@ function VisualContainer(): JSX.Element {
 
   const navLists: navType = {
     'State Diff': <StateDiff />,
-    'State Tree': <StateTree />,
+    'Component Tree': <StateTree />,
     'State Tree 3D': <StateTree3D />,
-    'Component Tree': <ComponentTree />,
+    'Component Graph': <ComponentTree />,
     'Atom Network': <AtomNetwork />,
   };
 
