@@ -1,4 +1,4 @@
-export const filteredCurSnapMock = {
+export const curSnapMock = {
   statusAtom: {
     contents: 'Next Player: X',
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
@@ -22,10 +22,10 @@ export const filteredCurSnapMock = {
   squaresAtom: {
     contents: [null, null, null, null, null, null, null, null, null],
     nodeDeps: [],
-  }
+  },
 };
 
-export const filteredPrevSnapMock = {
+export const prevSnapMock = {
   statusAtom: {
     contents: 'Next Player: O',
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
@@ -49,5 +49,5 @@ export const filteredPrevSnapMock = {
   squaresAtom: {
     contents: ['X', null, null, 'X', null, null, 'O', null, null],
     nodeDeps: [],
-  }
+  },
 };
