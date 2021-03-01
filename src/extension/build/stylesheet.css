@@ -53,7 +53,7 @@ button:hover {
   flex-shrink: 1;
   min-width: 200px;
   background-color: #2c2c2c;
-  border-left: 0.3px solid #7c7c7c;
+  border-right: 0.3px solid #7c7c7c;
   text-align: center;
   color: #e6e6e6;
 }
