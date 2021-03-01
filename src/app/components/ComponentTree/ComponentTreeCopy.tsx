@@ -11,7 +11,8 @@ import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 interface TreeNode {
   name: string;
   isExpanded?: boolean;
-  children?: TreeNode[];
+  children: TreeNode[];
+  atom: string[]
 }
 
 const data: TreeNode = componentAtomTreeMock;
