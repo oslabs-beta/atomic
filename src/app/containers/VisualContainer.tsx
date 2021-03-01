@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
+import { ParentSize } from '@visx/responsive';
 import NavBar from '../components/NavBar/NavBar';
 import StateTree3D from '../components/StateTree3D/StateTree3D';
 import AtomNetwork from '../components/AtomNetwork/AtomNetwork';
 import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
+import ComponentTreeCopy from '../components/ComponentTree/ComponentTreeCopy';
 
 interface navType {
   [tabName: string]: JSX.Element;
 }
 
 function VisualContainer(): JSX.Element {
-  const [tab, setTab] = useState<string>('State Tree 3D');
+  const [tab, setTab] = useState<string>('Component Graph');
 
   const navLists: navType = {
     'State Diff': <StateDiff />,
     'Component Tree': <StateTree />,
     'State Tree 3D': <StateTree3D />,
-    'Component Graph': <ComponentTree />,
+    'Component Graph': (
+      <ParentSize>
+        {({ width, height }) => (
+          <ComponentTreeCopy  width={width} height={height} />
+        )}
+      </ParentSize>
+    ),
     'Atom Network': <AtomNetwork />,
   };
 
