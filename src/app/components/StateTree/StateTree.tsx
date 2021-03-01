@@ -3,24 +3,23 @@ import ReactJson from 'react-json-view';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
 const theme = {
-  scheme: 'monokai',
-  author: 'wimer hazenberg (http://www.monokai.nl)',
+  scheme: 'custom',
   base00: '#202020',
   base01: '#383830',
   base02: '#49483e',
   base03: '#75715e',
-  base04: '#a59f85',
+  base04: '#424242',
   base05: '#f8f8f2',
   base06: '#f5f4f1',
   base07: '#f9f8f5',
   base08: '#f92672',
-  base09: '#fd971f',
+  base09: '#dba86e',
   base0A: '#f4bf75',
-  base0B: '#a6e22e',
-  base0C: '#a1efe4',
-  base0D: '#66d9ef',
-  base0E: '#ae81ff',
-  base0F: '#cc6633',
+  base0B: '#bde272',
+  base0C: '#41b69c',
+  base0D: '#1cb5c9',
+  base0E: '#7f5dc0',
+  base0F: '#d13164',
 };
 
 function StateTree(): JSX.Element {
@@ -34,7 +33,7 @@ function StateTree(): JSX.Element {
             paddingTop: '15px',
             fontFamily: 'Helvetica',
           }}
-          collapsed={1}
+          collapsed={3}
           theme={theme}
           indentWidth={3}
           enableClipboard={false}
