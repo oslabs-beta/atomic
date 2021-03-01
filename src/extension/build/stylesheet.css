@@ -28,7 +28,9 @@ button {
 button:hover {
   background-color: #212121;
 }
-
+select {
+  outline: none;
+}
 /* APP: */
 .app,
 #app {
