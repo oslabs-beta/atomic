@@ -90,17 +90,17 @@ function ComponentTreeCopy({
                     key={i}
                     data={link}
                     percent={stepPercent}
-                    stroke="#8e8e8e"
+                    stroke="#7c7c7c"
                     strokeWidth="1"
                     fill="none"
                   />
                 ))}
 
                 {tree.descendants().map((node, key) => {
-                  const widthFunc = (name:string) => {
+                  const widthFunc = (name: string) => {
                     let nodeLength = name.length;
-                    if (nodeLength < 5) return nodeLength + 25;
-                    if (nodeLength < 10) return nodeLength + 35;
+                    if (nodeLength < 5) return nodeLength + 30;
+                    if (nodeLength < 10) return nodeLength + 40;
                     return nodeLength + 70;
                   };
                   const width = widthFunc(node.data.name);
@@ -143,12 +143,12 @@ function ComponentTreeCopy({
                           width={width}
                           y={-height / 2}
                           x={-width / 2}
-                          fill="#202020"
+                          fill={node.data.atom.length ? '#7f5dc0' : '#1cb5c9'}
                           rx={4}
-                          stroke={node.data.children ? '#03c0dc' : '#26deb0'}
+                          stroke={'black'}
                           strokeWidth={1}
-                          strokeDasharray={node.data.children ? '0' : '2,2'}
-                          strokeOpacity={node.data.children ? 1 : 0.6}
+                          strokeDasharray={0}
+                          strokeOpacity={1}
                           onClick={() => {
                             node.data.isExpanded = !node.data.isExpanded;
                             console.log(node);
@@ -158,17 +158,16 @@ function ComponentTreeCopy({
                       )}
                       <text
                         dy=".33em"
-                        fontSize={ node.depth === 0
-                          ? 12 :9}
+                        fontSize={node.depth === 0 ? 12 : 11}
                         fontFamily="Arial"
                         textAnchor="middle"
                         style={{ pointerEvents: 'none' }}
                         fill={
                           node.depth === 0
                             ? 'white'
-                            : node.children
+                            : node.data.atom.length
                             ? 'white'
-                            : '#26deb0'
+                            : 'black'
                         }
                       >
                         {node.data.name}
