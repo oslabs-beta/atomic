@@ -24,7 +24,7 @@ const theme = {
 
 function StateTree(): JSX.Element {
   return (
-    <div className="stateTree" style={{ overflowY: 'auto' }}>
+    <div className="stateTree" >
       {componentAtomTreeMock && (
         <ReactJson
           src={componentAtomTreeMock}
@@ -33,7 +33,7 @@ function StateTree(): JSX.Element {
             paddingTop: '15px',
             fontFamily: 'Helvetica',
           }}
-          collapsed={3}
+          // collapsed={3}
           theme={theme}
           indentWidth={3}
           enableClipboard={false}
