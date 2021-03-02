@@ -92,6 +92,7 @@ select {
   overflow: hidden;
   position: fixed;
   top: 0;
+  z-index: 1;
 }
 .navBarButtons {
   color: #ffffff;
@@ -100,10 +101,8 @@ select {
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
- 
 }
 .navBarButtons:hover {
   color: #e6e6e6;
   border: none;
-
 }
