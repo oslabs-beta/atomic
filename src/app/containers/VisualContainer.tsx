@@ -6,7 +6,7 @@ import AtomNetwork from '../components/AtomNetwork/AtomNetwork';
 import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
-import ComponentTreeCopy from '../components/ComponentTree/ComponentTreeCopy';
+import ComponentTree from '../components/ComponentTree/ComponentTree';
 
 interface navType {
   [tabName: string]: JSX.Element;
@@ -22,7 +22,7 @@ function VisualContainer(): JSX.Element {
     'Component Graph': (
       <ParentSize>
         {({ width, height }) => (
-          <ComponentTreeCopy  width={width} height={height} />
+          <ComponentTree  width={width} height={height} />
         )}
       </ParentSize>
     ),
