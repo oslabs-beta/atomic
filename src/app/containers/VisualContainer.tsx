@@ -3,7 +3,6 @@ import { ParentSize } from '@visx/responsive';
 import NavBar from '../components/NavBar/NavBar';
 import StateTree3D from '../components/StateTree3D/StateTree3D';
 import AtomNetwork from '../components/AtomNetwork/AtomNetwork';
-import ComponentTree from '../components/ComponentTree/ComponentTree';
 import StateDiff from '../components/StateDiff/StateDiff';
 import StateTree from '../components/StateTree/StateTree';
 import ComponentTree from '../components/ComponentTree/ComponentTree';
