@@ -13,7 +13,7 @@ interface navType {
 }
 
 function VisualContainer(): JSX.Element {
-  const [tab, setTab] = useState<string>('Component Graph');
+  const [tab, setTab] = useState<string>('State Diff');
 
   const navLists: navType = {
     'State Diff': <StateDiff />,
