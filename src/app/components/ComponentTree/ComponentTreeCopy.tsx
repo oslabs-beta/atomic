@@ -17,7 +17,7 @@ interface TreeNode {
 
 const data: TreeNode = componentAtomTreeMock;
 
-const defaultMargin = { top: 30, left: 30, right: 30, bottom: 30 };
+const defaultMargin = { top: 30, left: 40, right: 40, bottom: 40 };
 
 export type LinkTypesProps = {
   width: number;
@@ -82,7 +82,7 @@ function ComponentTreeCopy({
           <Tree
             root={hierarchy(data, d => (d.isExpanded ? null : d.children))}
             size={[sizeWidth, sizeHeight]}
-            separation={(a, b) => (a.parent === b.parent ? 1 : 0.5) / a.depth}
+            separation={(a, b) => (a.parent === b.parent ? .55 : 0.5) / a.depth}
           >
             {tree => (
               <Group top={origin.y} left={origin.x}>
