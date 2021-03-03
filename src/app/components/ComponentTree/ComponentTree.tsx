@@ -133,7 +133,7 @@ function ComponentTreeCopy({
                     <Group top={top} left={left} key={key}>
                       {node.depth === 0 && (
                         <rect
-                          height={height}
+                          height={height+2}
                           width={width}
                           y={-height / 2}
                           x={-width / 2}
