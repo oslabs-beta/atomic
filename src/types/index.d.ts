@@ -1,4 +1,4 @@
-// snapshot taken by recoilize module
+// snapshot taken by atomic module
 export type stateSnapshot = {
   filteredSnapshot: filteredSnapshot;
   componentAtomTree: componentAtomTree;
@@ -24,7 +24,7 @@ export type selectedTypes = {
   [name: string]: string;
 };
 
-// object of either atom
+// object of each atom
 export type node = {
   // user defined node state
   contents: any;

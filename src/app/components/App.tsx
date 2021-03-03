@@ -25,6 +25,8 @@ console.log('runtime.Port -> ', port);
 port.onMessage.addListener((message: { action: string; payload: any }) => {
   console.log('Received message from background script: ', message);
 });
+console.log('hello from App.tsx');
+
 
 //FRONTEND:
 interface SnapshotHistoryContext {
@@ -50,13 +52,10 @@ export const selectedContext = createContext<SelectedContext | null>(null);
 export const filterContext = createContext<FilterContext | null>(null);
 
 function App(): JSX.Element {
-  // useState hook to update the snapshotHistory array
-  // array of snapshots
+  // useState hook to update the snapshotHistory array -> array of snapshots
   const [snapshotHistory, setSnapshotHistory] = useState<stateSnapshot[]>([]);
-  // selected will be an array with objects containing filteredSnapshot key names (the atoms and selectors)
-  // ex: [{name: 'Atom1'}, {name: 'Atom2'}, {name: 'Selector1'}, ...]
+  // selected will be an array of objects containing filteredSnapshot atom names
   // -> ex: [{Atom1: node}, {Atom2: node}, {Selector1: node}, ...]
-
   const [selected, setSelected] = useState<selectedTypes[]>([]);
   // Filter is an array of objects containing differences between snapshots
   let [filter, setFilter] = useState<stateSnapshotDiff[]>([]);
@@ -94,8 +93,8 @@ function App(): JSX.Element {
   //   </div>
   // );
 
-  console.log('hello from App.tsx');
-  return <div className="app">{renderMainContainer}</div>;
+  
+  return (<div className="app">{renderMainContainer}</div>);
 }
 
 export default App;
