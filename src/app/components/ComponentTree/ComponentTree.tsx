@@ -23,7 +23,7 @@ function useForceUpdate() {
 
 const data: TreeNode = componentAtomTreeMock;
 
-const defaultMargin = { top: 30, left: 40, right: 40, bottom: 40 };
+const defaultMargin = { top: 15, left: 40, right: 40, bottom: 40 };
 
 export type LinkTypesProps = {
   width: number;
