@@ -3,7 +3,6 @@ import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
 import { pointRadial } from 'd3-shape';
-import useForceUpdate from './useForceUpdate';
 import LinkControls from './LinkControls';
 import getLinkComponent from './getLinkComponent';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
@@ -12,7 +11,14 @@ interface TreeNode {
   name: string;
   isExpanded?: boolean;
   children: TreeNode[];
-  atom: string[]
+  atom: string[];
+}
+
+//MAY NOT NEED: This function will force a change in state and cause a re-render of the component.
+//Actual state change is irrelevant
+function useForceUpdate() {
+  const [, setValue] = useState<number>(0);
+  return () => setValue(value => value + 1); // update state to force render
 }
 
 const data: TreeNode = componentAtomTreeMock;
@@ -82,7 +88,9 @@ function ComponentTreeCopy({
           <Tree
             root={hierarchy(data, d => (d.isExpanded ? null : d.children))}
             size={[sizeWidth, sizeHeight]}
-            separation={(a, b) => (a.parent === b.parent ? .55 : 0.5) / a.depth}
+            separation={(a, b) =>
+              (a.parent === b.parent ? 0.55 : 0.5) / a.depth
+            }
           >
             {tree => (
               <Group top={origin.y} left={origin.x}>

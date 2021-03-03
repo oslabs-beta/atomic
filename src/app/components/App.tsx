@@ -84,11 +84,11 @@ function App(): JSX.Element {
   //   <div className="notFoundContainer">
   //     <img className="logo" src={LOGO_URL} />
   //     <p>
-  //       Supported only with Recoil apps with the Recoilize NPM module. Follow
+  //       Supported only with Jotai apps with the Atomic NPM module. Follow
   //       the installation instructions at
   //       <br />
-  //       <a target="_blank" href="https://github.com/open-source-labs/Recoilize">
-  //         Recoilize
+  //       <a target="_blank" href="">
+  //         ATOMIC
   //       </a>
   //     </p>
   //   </div>
