@@ -13,15 +13,16 @@ export type stateSnapshotDiff = {
 };
 
 export type filteredSnapshot = {
-  // key of atom name with the value of an atom
+  // key of atom name(s) with the value of an atom
   [atomName: string]: node;
 };
 
 export type filteredSnapshotDiff = {
   [atomName: string]: nodeDiff;
 };
+
 export type selectedTypes = {
-  [name: string]: string;
+  name: string;
 };
 
 // object of each atom
@@ -35,4 +36,33 @@ export type node = {
 export type nodeDiff = {
   contents?: any;
   nodeDeps?: string[] | string[][];
+};
+
+export type componentAtomTree = {
+  children: object[];
+  name: string;
+  tag: number;
+  atom: string[];
+  state: {};
+  props: {};
+  // actualDuration: number;
+  // treeBaseDuration: number;
+  // wasSuspended: boolean;
+};
+
+export type componentAtomTreeDiff = {
+  children: object[] | object[][]
+  name: string | string[];
+  tag: number | number[];
+  atom: string[] | string[][];
+  state: {} | {}[];
+  props: {} | {}[];
+  // actualDuration: number | number[];
+  // treeBaseDuration: number | number[];
+  // wasSuspended: boolean | boolean[];
+};
+
+
+export type atom = {
+  [name: string]: any;
 };
