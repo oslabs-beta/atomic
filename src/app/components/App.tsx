@@ -8,6 +8,7 @@ import {
   stateSnapshotDiff,
   filteredSnapshot,
 } from '../../types';
+import {curSnapMock, prevSnapMock} from "../mock/mockStateDiff"
 
 interface SnapshotHistoryContext {
   snapshotHistory: Partial<stateSnapshot[]>;
