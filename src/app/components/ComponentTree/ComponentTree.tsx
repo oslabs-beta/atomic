@@ -95,6 +95,24 @@ function ComponentTreeCopy({
 
   const LinkComponent = getLinkComponent({ layout, linkType, orientation });
 
+  const stateInfo = () => {
+    let stateArray = [];
+    for (const key in tooltipData.state) {
+      stateArray.push(
+        <>
+          <strong>{key}</strong>
+          <ul>
+            <li>Value: {JSON.stringify(tooltipData.state[key].values)}</li>
+            <li>
+              Dependents: {JSON.stringify(tooltipData.state[key].dependencies)}
+            </li>
+          </ul>
+        </>
+      );
+    }
+    return stateArray;
+  };
+
   return totalWidth < 10 ? null : (
     <div>
       <LinkControls
@@ -264,6 +282,17 @@ function ComponentTreeCopy({
               {tooltipData.atom.join(', ')}
             </div>
           )}
+          <div>
+            <strong style={{ color: '#f4bf75' }}>{tooltipData.atom[0]}</strong>
+            <br />
+            Value:{' '}
+            {JSON.stringify(tooltipData.state[tooltipData.atom[0]].values)}
+            <br />
+            Dependents:{' '}
+            {JSON.stringify(
+              tooltipData.state[tooltipData.atom[0]].dependencies
+            )}
+          </div>
         </TooltipInPortal>
       )}
     </div>
