@@ -78,7 +78,7 @@ function ComponentTreeCopy({
     tooltipOpen,
     showTooltip,
     hideTooltip,
-  } = useTooltip();
+  }: any = useTooltip();
 
   const { containerRef, TooltipInPortal } = useTooltipInPortal({
     detectBounds: true,
@@ -282,17 +282,15 @@ function ComponentTreeCopy({
               {tooltipData.atom.join(', ')}
             </div>
           )}
-          <div>
-            <strong style={{ color: '#f4bf75' }}>{tooltipData.atom[0]}</strong>
-            <br />
-            Value:{' '}
-            {JSON.stringify(tooltipData.state[tooltipData.atom[0]].values)}
-            <br />
-            Dependents:{' '}
-            {JSON.stringify(
-              tooltipData.state[tooltipData.atom[0]].dependencies
-            )}
-          </div>
+          {tooltipData.atom.map((item: string) => (
+            <div>
+              <strong style={{ color: '#f4bf75' }}>{item}</strong>
+              <br />
+              Value: {JSON.stringify(tooltipData.state[item].values)}
+              <br />
+              Dependents: {JSON.stringify(tooltipData.state[item].dependencies)}
+            </div>
+          ))}
         </TooltipInPortal>
       )}
     </div>
