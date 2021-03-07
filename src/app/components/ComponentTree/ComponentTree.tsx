@@ -25,6 +25,7 @@ function useForceUpdate() {
 
 const data: TreeNode = componentAtomTreeMock;
 
+//Component graph margins
 const defaultMargin = { top: 15, left: 40, right: 40, bottom: 40 };
 
 export type LinkTypesProps = {
@@ -68,6 +69,8 @@ function ComponentTreeCopy({
       sizeHeight = innerWidth;
     }
   }
+
+  //Hover box:
   const {
     tooltipData,
     tooltipLeft,
@@ -117,6 +120,7 @@ function ComponentTreeCopy({
           >
             {tree => (
               <Group top={origin.y} left={origin.x}>
+                {/* Component graph lines */}
                 {tree.links().map((link, i) => (
                   <LinkComponent
                     key={i}
@@ -152,13 +156,13 @@ function ComponentTreeCopy({
                     left = node.y;
                   }
 
+                  //Hover box:
                   const handleMouseOver = (event: any) => {
                     const coords: any = localPoint(
                       event.target.ownerSVGElement,
                       event
                     );
                     const tooltipObj = node.data;
-
                     showTooltip({
                       tooltipLeft: coords.x,
                       tooltipTop: coords.y,
@@ -168,6 +172,7 @@ function ComponentTreeCopy({
 
                   return (
                     <Group top={top} left={left} key={key}>
+                      {/* Root component box */}
                       {node.depth === 0 && (
                         <rect
                           height={height + 2}
@@ -183,6 +188,7 @@ function ComponentTreeCopy({
                           }}
                         />
                       )}
+                      {/* Element or component boxes */}
                       {node.depth !== 0 && (
                         <rect
                           height={height}
@@ -204,6 +210,7 @@ function ComponentTreeCopy({
                           onMouseOut={hideTooltip}
                         />
                       )}
+                      {/* Text in boxed */}
                       <text
                         dy=".33em"
                         fontSize={node.depth === 0 ? 12 : 11}
@@ -228,6 +235,7 @@ function ComponentTreeCopy({
           </Tree>
         </Group>
       </svg>
+      {/* Hover box */}
       {tooltipOpen && tooltipData && (
         <TooltipInPortal
           // set this to random so it correctly updates with parent bounds
@@ -236,6 +244,7 @@ function ComponentTreeCopy({
           left={tooltipLeft}
           style={tooltipStyleBox}
         >
+          {/* Hover name: */}
           <div>
             {tooltipData.name[0] &&
             tooltipData.name[0] === tooltipData.name[0].toUpperCase() ? (
@@ -248,7 +257,7 @@ function ComponentTreeCopy({
 
             {tooltipData.name}
           </div>
-
+          {/* Hover atom: */}
           {tooltipData.atom.length > 0 && (
             <div>
               <strong style={{ color: '#41b69c' }}>Atoms: </strong>
