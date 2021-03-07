@@ -278,17 +278,19 @@ function ComponentTreeCopy({
           {/* Hover atom: */}
           {tooltipData.atom.length > 0 && (
             <div>
-              <strong style={{ color: '#41b69c' }}>Atoms: </strong>
+              <strong style={{ color: '#41b69c' }}>Atom(s): </strong>
               {tooltipData.atom.join(', ')}
             </div>
           )}
+          {/* Hover state: */}
           {tooltipData.atom.map((item: string) => (
             <div>
-              <strong style={{ color: '#f4bf75' }}>{item}</strong>
+              <strong style={{ color: '#f4bf75' }}>{item}:</strong>
               <br />
-              Value: {JSON.stringify(tooltipData.state[item].values)}
+              -Value: {JSON.stringify(tooltipData.state[item].values)}
               <br />
-              Dependents: {JSON.stringify(tooltipData.state[item].dependencies)}
+              -Dependents:{' '}
+              {JSON.stringify(tooltipData.state[item].dependencies)}
             </div>
           ))}
         </TooltipInPortal>
