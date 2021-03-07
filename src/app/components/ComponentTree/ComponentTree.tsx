@@ -44,7 +44,7 @@ function ComponentTreeCopy({
   const [linkType, setLinkType] = useState<string>('diagonal');
   const [stepPercent, setStepPercent] = useState<number>(0.5);
   const forceUpdate = useForceUpdate();
-  const [hoverName, setHoverName] = useState("empty");
+  const [hoverName, setHoverName] = useState<string[]>(['empty']);
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
 
@@ -94,7 +94,7 @@ function ComponentTreeCopy({
   };
 
   const LinkComponent = getLinkComponent({ layout, linkType, orientation });
-console.log({hoverName});
+  console.log({ hoverName });
 
   return totalWidth < 10 ? null : (
     <div>
@@ -169,12 +169,20 @@ console.log({hoverName});
                       tooltipTop: coords.y,
                       tooltipData: tooltipObj,
                     });
-                    setHoverName(node.data.name)
+                    setHoverName(node.data.atom);
                   };
 
-                  const handleMouseOut = ()=>{
-                    hideTooltip()
-                    setHoverName("empty")
+                  const handleMouseOut = () => {
+                    hideTooltip();
+                    setHoverName(['empty']);
+                  };
+
+                  function atomColor() {
+                    for (let i = 0; i < hoverName.length; i++) {
+                      if (node.data.atom.includes(hoverName[i])) return '#d13164';
+                    }
+                    if (node.data.atom.length) return '#7f5dc0';
+                    return '#1cb5c9';
                   }
 
                   return (
@@ -202,12 +210,7 @@ console.log({hoverName});
                           width={width}
                           y={-height / 2}
                           x={-width / 2}
-                          fill={   
-                            node.data.name === hoverName
-                            ? 'yellow'
-                            : node.data.atom.length
-                            ? '#7f5dc0'
-                            : '#1cb5c9'}
+                          fill={atomColor()}
                           rx={4}
                           stroke={'black'}
                           strokeWidth={1}
