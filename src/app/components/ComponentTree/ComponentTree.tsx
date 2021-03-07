@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
+import { useTooltip, useTooltipInPortal, defaultStyles } from '@visx/tooltip';
+import { localPoint } from '@visx/event';
 import { pointRadial } from 'd3-shape';
 import LinkControls from './LinkControls';
 import getLinkComponent from './getLinkComponent';
@@ -66,6 +68,27 @@ function ComponentTreeCopy({
       sizeHeight = innerWidth;
     }
   }
+  const {
+    tooltipData,
+    tooltipLeft,
+    tooltipTop,
+    tooltipOpen,
+    showTooltip,
+    hideTooltip,
+  } = useTooltip();
+
+  const { containerRef, TooltipInPortal } = useTooltipInPortal({
+    detectBounds: true,
+    scroll: true,
+  });
+  const tooltipStyles = {
+    ...defaultStyles,
+    minWidth: 60,
+    backgroundColor: "black",
+    color: 'white',
+    fontSize: '14px',
+    lineHeight: '18px',
+  };
 
   const LinkComponent = getLinkComponent({ layout, linkType, orientation });
 
@@ -129,11 +152,25 @@ function ComponentTreeCopy({
                     left = node.y;
                   }
 
+                  const handleMouseOver = (event, datum) => {
+                    const coords = localPoint(
+                      event.target.ownerSVGElement,
+                      event
+                    );
+                    const tooltipObj = Object.assign({}, node.data);
+                  
+                    showTooltip({
+                      tooltipLeft: coords.x,
+                      tooltipTop: coords.y,
+                      tooltipData: tooltipObj,
+                    });
+                  };
+
                   return (
                     <Group top={top} left={left} key={key}>
                       {node.depth === 0 && (
                         <rect
-                          height={height+2}
+                          height={height + 2}
                           width={width}
                           y={-height / 2}
                           x={-width / 2}
@@ -163,6 +200,8 @@ function ComponentTreeCopy({
                             console.log(node);
                             forceUpdate();
                           }}
+                          onMouseOver={handleMouseOver}
+                          onMouseOut={hideTooltip}
                         />
                       )}
                       <text
@@ -189,6 +228,26 @@ function ComponentTreeCopy({
           </Tree>
         </Group>
       </svg>
+      {tooltipOpen && tooltipData && (
+        <TooltipInPortal
+          // set this to random so it correctly updates with parent bounds
+          key={Math.random()}
+          top={tooltipTop}
+          left={tooltipLeft}
+          style={tooltipStyles}
+        >
+          <div>
+            <strong>Component/Element: </strong>
+            {tooltipData.name}
+          </div>
+          {tooltipData.atom.length > 0 && (
+            <div>
+              <strong style={{color: "#7f5dc0"}}>Atoms: </strong>
+              {tooltipData.atom.join(', ')}
+            </div>
+          )}
+        </TooltipInPortal>
+      )}
     </div>
   );
 }
