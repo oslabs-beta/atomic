@@ -81,12 +81,12 @@ function ComponentTreeCopy({
     detectBounds: true,
     scroll: true,
   });
-  const tooltipStyles = {
+  const tooltipStyleBox = {
     ...defaultStyles,
     minWidth: 60,
-    backgroundColor: "black",
+    backgroundColor: 'black',
     color: 'white',
-    fontSize: '14px',
+    fontSize: '13px',
     lineHeight: '18px',
   };
 
@@ -152,13 +152,13 @@ function ComponentTreeCopy({
                     left = node.y;
                   }
 
-                  const handleMouseOver = (event, datum) => {
-                    const coords = localPoint(
+                  const handleMouseOver = (event: any) => {
+                    const coords: any = localPoint(
                       event.target.ownerSVGElement,
                       event
                     );
-                    const tooltipObj = Object.assign({}, node.data);
-                  
+                    const tooltipObj = node.data;
+
                     showTooltip({
                       tooltipLeft: coords.x,
                       tooltipTop: coords.y,
@@ -234,7 +234,7 @@ function ComponentTreeCopy({
           key={Math.random()}
           top={tooltipTop}
           left={tooltipLeft}
-          style={tooltipStyles}
+          style={tooltipStyleBox}
         >
           <div>
             <strong>Component/Element: </strong>
@@ -242,7 +242,7 @@ function ComponentTreeCopy({
           </div>
           {tooltipData.atom.length > 0 && (
             <div>
-              <strong style={{color: "#7f5dc0"}}>Atoms: </strong>
+              <strong style={{ color: '#7f5dc0' }}>Atoms: </strong>
               {tooltipData.atom.join(', ')}
             </div>
           )}
