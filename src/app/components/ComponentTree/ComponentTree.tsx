@@ -234,7 +234,7 @@ function ComponentTreeCopy({
                         fontSize={node.depth === 0 ? 12 : 11}
                         fontFamily="Arial"
                         textAnchor="middle"
-                        style={{ pointerEvents: 'none' }}
+                        style={{ pointerEvents: 'none' , fontWeight: "bold"}}
                         fill={
                           node.depth === 0
                             ? 'white'
