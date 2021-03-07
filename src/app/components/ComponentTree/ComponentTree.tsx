@@ -237,12 +237,21 @@ function ComponentTreeCopy({
           style={tooltipStyleBox}
         >
           <div>
-            <strong>Component/Element: </strong>
+            {tooltipData.name[0] &&
+            tooltipData.name[0] === tooltipData.name[0].toUpperCase() ? (
+              <strong style={{ color: '#7f5dc0' }}>Component: </strong>
+            ) : tooltipData.name[0] ? (
+              <strong style={{ color: '#1cb5c9' }}>Element: </strong>
+            ) : (
+              'No Component or Element'
+            )}
+
             {tooltipData.name}
           </div>
+
           {tooltipData.atom.length > 0 && (
             <div>
-              <strong style={{ color: '#7f5dc0' }}>Atoms: </strong>
+              <strong style={{ color: '#41b69c' }}>Atoms: </strong>
               {tooltipData.atom.join(', ')}
             </div>
           )}
