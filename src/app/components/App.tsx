@@ -8,7 +8,7 @@ import {
   stateSnapshotDiff,
   filteredSnapshot,
 } from '../../types';
-import {curSnapMock, prevSnapMock} from "../mock/mockStateDiff"
+import { curSnapMock, prevSnapMock } from '../mock/mockStateDiff';
 
 interface SnapshotHistoryContext {
   snapshotHistory: Partial<stateSnapshot[]>;
@@ -39,7 +39,7 @@ function App(): JSX.Element {
   // ex: [{name: 'Atom1'}, {name: 'Atom2'}, {name: 'Selector1'}, ...]??
   const [selected, setSelected] = useState<selectedTypes[]>([]);
   // Filter is an array of objects containing differences between snapshots
-  let [filter, setFilter] = useState<stateSnapshotDiff[]>([]);
+  const [filter, setFilter] = useState<stateSnapshotDiff[]>([]);
 
   // Whenever snapshotHistory changes, useEffect will run, and selected will be updated
   useEffect(() => {
@@ -91,9 +91,9 @@ function App(): JSX.Element {
   useEffect(() => {
     const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
 
-    // Port through which messages can be sent and received. The port's  onDisconnect event is fired if the extension does not exist.
+    // Port through which messages can be sent and received. The port's onDisconnect event is fired if the extension does not exist.
     console.log('runtime.Port -> ', port);
-    
+
     // INITIALIZE connection to bg script
     //TODO: update action name to match bg script
     port.postMessage({
@@ -101,25 +101,33 @@ function App(): JSX.Element {
       tabId: chrome.devtools.inspectedWindow.tabId,
     });
 
-    // listen for messages FROM bg script
+    // listen for messages FROM background script
     port.onMessage.addListener((message: { action: string; payload: any }) => {
       console.log('Received message from background script: ', message);
-        const {action, payload} = message
-        if(action === "recordSnapshot"){
-            //Set the initial selected useState -> ex: [{name: 'Atom1'}, {name: 'Atom2'}]
-            if (!payload[1] || !filter.length) {
-              //This ensure we only set initially
-              const initialArray: selectedTypes[] = []
-              //iterate over intial payload received from bg
-              for(let key in payload[0].filteredSnapshot){
-                //TODO:Thurs
-              }
-            }
+      const { action, payload } = message;
+      if (action === 'recordSnapshot') {
+        //Set the initial selected useState -> ex: [{name: 'Atom1'}, {name: 'Atom2'}]
+        if (!payload[1] || !filter.length) {
+          //This ensure we only set initially
+          const initialArray: selectedTypes[] = [];
+          //iterate over initial payload received from bg
+          for (let key in payload[0].filteredSnapshot) {
+            // key = atom name
+            initialArray.push({ name: key });
+          }
+          setSelected(initialArray);
         }
+        // reset snapshot history state with payload
+        // payload = array of objects containing atom name keys & node values
+        setSnapshotHistory(payload);
+        //Set filter Array
+        //TODO: possible refactor if statement
+        if (!payload[1] || filter.length === 0) {
+          //TODO: WED
+      }
     });
     console.log('hello from App.tsx');
   }, []);
-
 
   const renderMainContainer: JSX.Element = (
     <filterContext.Provider value={{ filter, setFilter }}>
@@ -139,7 +147,7 @@ function App(): JSX.Element {
       </selectedContext.Provider>
     </filterContext.Provider>
   );
-  // Render module not found message if snapHistory is null, this means we have not detected Atomic app 
+  // Render module not found message if snapHistory is null, this means we have not detected Atomic app
   // const renderModuleNotFoundContainer: JSX.Element = (
   //   <div className="notFoundContainer">
   //     <img className="logo" src={LOGO_URL} />
