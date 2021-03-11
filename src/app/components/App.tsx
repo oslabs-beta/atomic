@@ -39,7 +39,7 @@ function App(): JSX.Element {
   // ex: [{name: 'Atom1'}, {name: 'Atom2'}, {name: 'Selector1'}, ...]??
   const [selected, setSelected] = useState<selectedTypes[]>([]);
   // Filter is an array of objects containing differences between snapshots
-  const [filter, setFilter] = useState<stateSnapshotDiff[]>([]);
+  let [filter, setFilter] = useState<stateSnapshotDiff[]>([]);
 
   // Whenever snapshotHistory changes, useEffect will run, and selected will be updated
   useEffect(() => {
@@ -104,7 +104,9 @@ function App(): JSX.Element {
     // listen for messages FROM background script
     port.onMessage.addListener((message: { action: string; payload: any }) => {
       console.log('Received message from background script: ', message);
-      const { action, payload } = message;
+      let { action, payload } = message;
+      payload= [prevSnapMock, curSnapMock]
+      //!Where is filtersnapshot coming from????
       if (action === 'recordSnapshot') {
         //Set the initial selected useState -> ex: [{name: 'Atom1'}, {name: 'Atom2'}]
         if (!payload[1] || !filter.length) {
@@ -123,7 +125,24 @@ function App(): JSX.Element {
         //Set filter Array
         //TODO: possible refactor if statement
         if (!payload[1] || filter.length === 0) {
-          //TODO: WED
+          filter = payload;
+          setFilter(payload);
+        } else if (filter.length === 0) {
+          filter.push(payload[0]);
+          setFilter(filter);
+        } else {
+          // push the difference between the objects of atoms with thier nodes
+          const delta:any = diff(
+            payload[payload.length - 2],
+            payload[payload.length - 1]
+          );
+          // filter = array of objects containing differences between snapshots
+          // payload = array of objects containing atom name keys & node values
+          if (filter.length < payload.length) {
+            filter.push(delta);
+            setFilter(filter);
+          }
+        }
       }
     });
     console.log('hello from App.tsx');
