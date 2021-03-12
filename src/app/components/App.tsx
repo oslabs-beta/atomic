@@ -2,12 +2,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { diff } from 'jsondiffpatch';
 import MainContainer from '../containers/MainContainer';
-import {
-  stateSnapshot,
-  selectedTypes,
-  stateSnapshotDiff,
-  filteredSnapshot,
-} from '../../types';
+import { stateSnapshot, selectedTypes, stateSnapshotDiff } from '../../types';
 import { curSnapMock, prevSnapMock } from '../mock/mockStateDiff';
 
 interface SnapshotHistoryContext {
@@ -105,8 +100,11 @@ function App(): JSX.Element {
     port.onMessage.addListener((message: { action: string; payload: any }) => {
       console.log('Received message from background script: ', message);
       let { action, payload } = message;
-      payload= [prevSnapMock, curSnapMock]
-      //!Where is filtersnapshot coming from????
+      payload = [
+        { filteredSnapshot: prevSnapMock },
+        { filteredSnapshot: curSnapMock },
+      ];
+
       if (action === 'recordSnapshot') {
         //Set the initial selected useState -> ex: [{name: 'Atom1'}, {name: 'Atom2'}]
         if (!payload[1] || !filter.length) {
@@ -132,7 +130,7 @@ function App(): JSX.Element {
           setFilter(filter);
         } else {
           // push the difference between the objects of atoms with thier nodes
-          const delta:any = diff(
+          const delta: any = diff(
             payload[payload.length - 2],
             payload[payload.length - 1]
           );
