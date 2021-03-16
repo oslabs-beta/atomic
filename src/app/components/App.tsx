@@ -2,8 +2,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { diff } from 'jsondiffpatch';
 import MainContainer from '../containers/MainContainer';
-import { stateSnapshot, selectedTypes, stateSnapshotDiff } from '../../types';
-import { curSnapMock, prevSnapMock } from '../../app/mock/mockStateDiff';
+import { stateSnapshot} from '../../types';
+import { prevSnapMock } from '../../app/mock/mockStateDiff';
 // interface SnapshotHistoryContext {
 //   snapshotHistory: Partial<stateSnapshot[]>;
 //   setSnapshotHistory: React.Dispatch<React.SetStateAction<stateSnapshot[]>>;
@@ -61,12 +61,15 @@ function App(): JSX.Element {
 
   //FOR TESTING:
   const handleNewData = () => {
-    setSnapshotHistory(prevState => [...prevState, prevSnapMock]);
+    const copy = {...prevSnapMock}
+    copy.resetSquaresAtom = {...copy.resetSquaresAtom}
+    copy.resetSquaresAtom.contents = Math.floor(Math.random()*10000)
+    setSnapshotHistory(prevState => [...prevState, copy]);
   };
 
   const renderMainContainer: JSX.Element = (
     <>
-      {/* <MainContainer atomState={atomState} /> */}
+      {/* <MainContainer  /> */}
       <button onClick={handleNewData}>POST TO Background.ts</button>
       <p>{JSON.stringify(snapshotHistory)}</p>
     </>
