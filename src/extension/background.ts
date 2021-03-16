@@ -32,12 +32,10 @@ function connected(port: any) {
 
   // listen to all messages from dev tool app
   portFromAPP.onMessage.addListener(message => {
-    console.log(message);
     const { action } = message;
-    console.log('connected to devtool');
+
     switch (action) {
-      case 'GET_SNAPSHOT': {
-        console.log('received call to GET_SNAPSHOT');
+      case 'DEV_INITIALIZED': {
         // respond by sending message to dev tool app
         portFromAPP.postMessage({
           action: 'RECORD_SNAPSHOT',
