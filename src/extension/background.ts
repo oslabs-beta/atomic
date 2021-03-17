@@ -23,6 +23,8 @@ sends the APP a message using the port.
 starts listening to messages received on the port, and logs them.
 */
 
+import { curSnapMock, prevSnapMock } from '../app/mock/mockStateDiff';
+
 let portFromAPP: {
   postMessage: (message: { action: string; payload: any }) => void;
   onMessage: { addListener: (arg0: (m: any) => void) => void };
@@ -34,12 +36,27 @@ let portFromAPP: {
 
 function connected(port: any) {
   portFromAPP = port;
+  // post messages to dev tool app
   portFromAPP.postMessage({ action: 'CONNECTED', payload: 'hi there APP!' });
-  portFromAPP.onMessage.addListener(function (message: any) {
-    console.log(message);
+
+  // listen to all messages from dev tool app
+  portFromAPP.onMessage.addListener(message => {
+    const { action } = message;
+
+    switch (action) {
+      case 'DEV_INITIALIZED': {
+        // respond by sending message to dev tool app
+        portFromAPP.postMessage({
+          action: 'RECORD_SNAPSHOT',
+          payload: { atomState: curSnapMock },
+        });
+        break;
+      }
+    }
   });
 }
 
+// receive initial onConnect message from dev tool app (only happens once)
 chrome.runtime.onConnect.addListener(connected);
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.

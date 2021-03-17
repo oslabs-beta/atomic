@@ -128,7 +128,7 @@ export const componentAtomTreeMock = {
               tag: 0,
               atom: ['selectSquaresAtom'],
               state: {
-                values: {
+                selectSquaresAtom: {values: {
                   squares: [
                     null,
                     null,
@@ -142,7 +142,7 @@ export const componentAtomTreeMock = {
                   ],
                 },
                 update: { selectSquare: 'f () {}' },
-                dependencies: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
+                dependencies: ['squaresAtom', 'winnerAtom', 'nextValueAtom']}
               },
               props: {},
               children: [
@@ -267,7 +267,7 @@ export const componentAtomTreeMock = {
       tag: 0,
       atom: ['windowSize', 'winnerAtom'],
       state: {
-        useWindowSize: { values: { width: 38, height: 185 }, dependencies: [] },
+        windowSize: { values: { width: 38, height: 185 }, dependencies: [] },
         winnerAtom: {
           values: { gameWinner: null },
           dependencies: ['squaresAtom'],
