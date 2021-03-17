@@ -7,8 +7,6 @@
 //Content scripts can communicate with their parent extension
 //by exchanging messages and storing values using the storage API.
 
-// let firstMessage = true;
-
 window.addEventListener('message', msg => {
   if (
     msg.data.source != 'react-devtools-bridge' &&
@@ -25,6 +23,7 @@ window.addEventListener('message', msg => {
   }
 });
 
+// send initial message to background script
 chrome.runtime.sendMessage({ action: 'injectScript' });
 
 console.log('running content-script.ts');
