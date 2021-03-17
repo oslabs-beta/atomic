@@ -1,18 +1,17 @@
 /* eslint-disable no-console */
 import React, { createContext, useState, useEffect } from 'react';
-import { diff } from 'jsondiffpatch';
 import MainContainer from '../containers/MainContainer';
-import { stateSnapshot} from '../../types';
-import { prevSnapMock } from '../../app/mock/mockStateDiff';
-// interface SnapshotHistoryContext {
-//   snapshotHistory: Partial<stateSnapshot[]>;
-//   setSnapshotHistory: React.Dispatch<React.SetStateAction<stateSnapshot[]>>;
-// }
+import { stateSnapshot } from '../../types';
+
+interface SnapshotHistoryContext {
+  snapshotHistory: Partial<stateSnapshot[]>;
+  setSnapshotHistory: React.Dispatch<React.SetStateAction<stateSnapshot[]>>;
+}
 
 // contexts created for our state values to later reference in child components
-// export const snapshotHistoryContext = createContext<SnapshotHistoryContext | null>(
-//   null
-// );
+export const snapshotHistoryContext = createContext<SnapshotHistoryContext | null>(
+  null
+);
 
 function App(): JSX.Element {
   // useState hook to update the snapshotHistory array -> array of snapshots
@@ -59,19 +58,15 @@ function App(): JSX.Element {
     });
   }, []);
 
-  //FOR TESTING:
-  const handleNewData = () => {
-    const copy = {...prevSnapMock}
-    copy.resetSquaresAtom = {...copy.resetSquaresAtom}
-    copy.resetSquaresAtom.contents = Math.floor(Math.random()*10000)
-    setSnapshotHistory(prevState => [...prevState, copy]);
-  };
-
   const renderMainContainer: JSX.Element = (
     <>
-      {/* <MainContainer  /> */}
-      <button onClick={handleNewData}>POST TO Background.ts</button>
-      <p>{JSON.stringify(snapshotHistory)}</p>
+      <snapshotHistoryContext.Provider
+        value={{ snapshotHistory, setSnapshotHistory }}
+      >
+        <MainContainer />
+      </snapshotHistoryContext.Provider>
+
+      {/* <p>{JSON.stringify(snapshotHistory)}</p> */}
     </>
   );
   // Render module not found message if snapHistory is null, this means we have not detected Atomic app
