@@ -4,7 +4,7 @@ import { prevSnapMock } from '../../app/mock/mockStateDiff';
 import Snapshot from '../components/Snapshot/Snapshot';
 
 function SnapShotContainer(): JSX.Element {
-  const { snapshotHistory, setSnapshotHistory } = useContext(
+  const { snapshotHistory, setSnapshotHistory } = useContext<any>(
     snapshotHistoryContext
   );
 
@@ -12,7 +12,7 @@ function SnapShotContainer(): JSX.Element {
     const copy = { ...prevSnapMock };
     copy.resetSquaresAtom = { ...copy.resetSquaresAtom };
     copy.resetSquaresAtom.contents = Math.floor(Math.random() * 10000);
-    setSnapshotHistory(prevState => [...prevState, copy]);
+    setSnapshotHistory((prevState: any) => [...prevState, copy]);
   };
 
   return (
@@ -29,10 +29,9 @@ function SnapShotContainer(): JSX.Element {
       </p>
       <button onClick={handleNewData}>ADD SnapShot</button>
       <p>SnapShotContainer</p>
-      {snapshotHistory.map((snapshot, idx) => {
-        console.log('idx in SnapShotContainer: ', idx);
-        return <Snapshot key={idx.toString()} idx={idx} snapshot={snapshot} />;
-      })}
+      {snapshotHistory.map((snapshot: any, idx: number) => (
+        <Snapshot key={idx.toString()} idx={idx} snapshot={snapshot} />
+      ))}
       {/* <p>{JSON.stringify(snapshotHistory)}</p> */}
     </div>
   );
