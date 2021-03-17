@@ -2,12 +2,11 @@ import React from 'react';
 import SnapShotContainer from './SnapShotContainer';
 import VisualContainer from './VisualContainer';
 
-function MainContainer({ atomState }): JSX.Element {
+function MainContainer(): JSX.Element {
   return (
     <div className="mainContainer">
       <SnapShotContainer />
       <VisualContainer />
-      <p>{atomState}</p>
     </div>
   );
 }
