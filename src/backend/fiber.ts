@@ -64,6 +64,7 @@ export default (): (() => void) => {
       })(devTools.onCommitFiberRoot);
     }
     // throttledUpdateSnapshot();
+    return fiberRoot;
   };
 
   //traverse fiber generate snapshot. {} //reactTime tree generator to get object //reatime getHooks to get atomName useState
