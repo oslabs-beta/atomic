@@ -78,7 +78,7 @@
     "react-spring-three": "^1.0.4",
     "react-three-fiber": "^5.1.4",
     "resq": "^1.10.0",
-    "three": "^0.122.0"
+    "three": "^0.126.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
