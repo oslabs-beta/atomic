@@ -27,12 +27,13 @@ function SnapShotContainer(): JSX.Element {
       >
         ATOMIC{' '}
       </p>
-      <button onClick={handleNewData}>ADD SnapShot</button>
-      <p>SnapShotContainer</p>
+      <div>
+        <button onClick={handleNewData} style={{marginBottom:"15px"}}>ADD SnapShot</button>
+      </div>
+
       {snapshotHistory.map((snapshot: any, idx: number) => (
-        <Snapshot key={idx.toString()} idx={idx} snapshot={snapshot} />
+        <Snapshot key={idx} idx={idx} snapshot={snapshot} />
       ))}
-      {/* <p>{JSON.stringify(snapshotHistory)}</p> */}
     </div>
   );
 }

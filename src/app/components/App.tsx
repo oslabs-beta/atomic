@@ -8,15 +8,23 @@ interface SnapshotHistoryContext {
   setSnapshotHistory: React.Dispatch<React.SetStateAction<stateSnapshot[]>>;
 }
 
+interface SnapshotIndexContext {
+  snapshotIndex: number;
+  setSnapshotIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
 // contexts created for our state values to later reference in child components
 export const snapshotHistoryContext = createContext<SnapshotHistoryContext | null>(
   null
 );
+export const snapshotIndexContext = createContext<
+  SnapshotIndexContext | number
+>(0);
 
 function App(): JSX.Element {
   // useState hook to update the snapshotHistory array -> array of snapshots
   const [snapshotHistory, setSnapshotHistory] = useState<stateSnapshot[]>([]);
-
+  const [snapshotIndex, setSnapshotIndex] = useState<number>(0);
   //***********
   //CHROME EXTENSION CONNECTION:
   // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connect
@@ -63,10 +71,12 @@ function App(): JSX.Element {
       <snapshotHistoryContext.Provider
         value={{ snapshotHistory, setSnapshotHistory }}
       >
-        <MainContainer />
+        <snapshotIndexContext.Provider
+          value={{ snapshotIndex, setSnapshotIndex }}
+        >
+          <MainContainer />
+        </snapshotIndexContext.Provider>
       </snapshotHistoryContext.Provider>
-
-      {/* <p>{JSON.stringify(snapshotHistory)}</p> */}
     </>
   );
   // Render module not found message if snapHistory is null, this means we have not detected Atomic app
