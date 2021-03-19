@@ -7,13 +7,11 @@ interface snapshotProps {
 }
 
 function Snapshot({ idx }: snapshotProps): JSX.Element {
-  const { _, setSnapshotIndex } = useContext<any>(
-    snapshotIndexContext
-  );
+  const { _, setSnapshotIndex } = useContext<any>(snapshotIndexContext);
+
   const handleClick = () => {
     setSnapshotIndex(idx);
   };
-
 
   return (
     <div className="snapshot">
