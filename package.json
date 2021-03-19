@@ -73,6 +73,7 @@
     "react-dom": "^17.0.1",
     "react-fiber-traverse": "^0.0.8",
     "react-hot-loader": "^4.13.0",
+    "react-html-parser": "^2.0.2",
     "react-json-view": "^1.21.1",
     "react-spring": "^8.0.27",
     "react-spring-three": "^1.0.4",
