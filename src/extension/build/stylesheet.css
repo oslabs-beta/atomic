@@ -58,7 +58,7 @@ select {
   border-right: 0.3px solid #7c7c7c;
   text-align: center;
   color: #e6e6e6;
-  position: fixed; 
+  position: fixed;
   overflow-y: auto;
 }
 
@@ -106,4 +106,56 @@ select {
 .navBarButtons:hover {
   color: #e6e6e6;
   border: none;
+}
+
+/* STATE DIFF: */
+/* Snapshot conponent: */
+.snapshot {
+  display: flex;
+  justify-content: space-evenly;
+}
+/* Raw slider: */
+.rawSwitch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 14px;
+}
+.rawSwitch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.rawSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+.rawSlider:before {
+  position: absolute;
+  content: '';
+  height: 17px;
+  width: 17px;
+  left: 0px;
+  bottom: -1.4px;
+  background-color: white;
+  transition: 0.4s;
+}
+input:checked + .rawSlider {
+  background-color: #1cb5c9;
+}
+input:checked + .rawSlider:before {
+  transform: translateX(16px);
+}
+/* Rounded sliders */
+.rawSlider.round {
+  border-radius: 34px;
+}
+.rawSlider.round:before {
+  border-radius: 50%;
 }

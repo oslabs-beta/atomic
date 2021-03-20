@@ -28,13 +28,13 @@ ul.jsondiffpatch-delta {
 .jsondiffpatch-added .jsondiffpatch-value pre,
 .jsondiffpatch-modified .jsondiffpatch-right-value pre,
 .jsondiffpatch-textdiff-added {
-  background: #41b69c;
+  background: #328b78;
 }
 .jsondiffpatch-deleted .jsondiffpatch-property-name,
 .jsondiffpatch-deleted pre,
 .jsondiffpatch-modified .jsondiffpatch-left-value pre,
 .jsondiffpatch-textdiff-deleted {
-  background: red;
+  background: rgb(182, 2, 2);
   text-decoration: line-through;
 }
 .jsondiffpatch-unchanged,

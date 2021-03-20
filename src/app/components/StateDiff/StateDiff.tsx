@@ -27,8 +27,15 @@ function StateDiff(): JSX.Element {
   return (
     <div className="stateDiff">
       {/* <p>{JSON.stringify(snapshotHistory[snapshotIndex])}</p>  */}
-      <div>
-        <button
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          margin: '1rem 1rem 0 0',
+          alignItems: 'center',
+        }}
+      >
+        {/* <button
           id="raw"
           className="rawToggle"
           style={{ color: rawToggle ? '#E6E6E6' : '#989898' }}
@@ -37,7 +44,22 @@ function StateDiff(): JSX.Element {
           }}
         >
           Raw
-        </button>
+        </button> */}
+        <label
+          className="rawSwitch"
+        
+        >
+          <input type="checkbox"   onClick={() => {
+            setRawToggle(!rawToggle);
+            console.log('rawToggle', rawToggle)
+          }}/>
+          <span className="rawSlider round"></span>
+        </label>
+        <h3
+          style={{ marginLeft: '5px', color: rawToggle ? '#1cb5c9' : 'white' }}
+        >
+          Raw
+        </h3>
       </div>
       {ReactHtmlParser(html)}
     </div>
