@@ -8,7 +8,7 @@ function StateDiff(): JSX.Element {
   const { snapshotIndex, setSnapshotIndex } = useContext<any>(
     snapshotIndexContext
   );
-  const [rawToggle, setRawToggle] = useState(false);
+  const [rawToggle, setRawToggle] = useState<boolean>(false);
 
   //Set previous and  current snapshots
   let previousSnapshot = snapshotHistory[snapshotIndex - 1];
@@ -26,24 +26,22 @@ function StateDiff(): JSX.Element {
 
   return (
     <div className="stateDiff">
-      <div >{ReactHtmlParser(html)}</div>
+      <div>{ReactHtmlParser(html)}</div>
       <div
         style={{
           display: 'flex',
-          marginRight: "25px",
+          marginRight: '25px',
           alignItems: 'center',
-        
         }}
       >
-        <label className="rawSwitch">
+        <label className="toggleSwitch">
           <input
             type="checkbox"
             onClick={() => {
               setRawToggle(!rawToggle);
-              console.log('rawToggle', rawToggle);
             }}
           />
-          <span className="rawSlider round"></span>
+          <span className="toggleSlider round"></span>
         </label>
         <h3
           style={{ marginLeft: '7px', color: rawToggle ? '#1cb5c9' : 'white' }}

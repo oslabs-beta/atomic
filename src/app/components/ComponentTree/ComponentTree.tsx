@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactJson from 'react-json-view';
 import { componentAtomTreeMock } from '../../mock/mockComponentTree';
 
@@ -23,23 +23,52 @@ const theme = {
 };
 
 function ComponentTree(): JSX.Element {
+  const [expandToggle, setExpandToggle] = useState<boolean>(true);
+
   return (
-    <div className="stateTree" >
-      {componentAtomTreeMock && (
-        <ReactJson
-          src={componentAtomTreeMock}
+    <div className="stateTree">
+      <div>
+        {componentAtomTreeMock && (
+          <ReactJson
+            src={componentAtomTreeMock}
+            style={{
+              fontSize: '12px',
+              paddingTop: '15px',
+              paddingLeft: '10px',
+              fontFamily: 'Helvetica',
+            }}
+            collapsed={expandToggle ? 3 : false}
+            theme={theme}
+            indentWidth={3}
+            enableClipboard={false}
+          />
+        )}
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          marginRight: '25px',
+          alignItems: 'center',
+        }}
+      >
+        <label className="toggleSwitch">
+          <input
+            type="checkbox"
+            onClick={() => {
+              setExpandToggle(!expandToggle);
+            }}
+          />
+          <span className="toggleSlider round"></span>
+        </label>
+        <h3
           style={{
-            fontSize: '12px',
-            paddingTop: '15px',
-            paddingLeft: "10px",
-            fontFamily: 'Helvetica',
+            marginLeft: '7px',
+            color: !expandToggle ? '#1cb5c9' : 'white',
           }}
-          collapsed={3}
-          theme={theme}
-          indentWidth={3}
-          enableClipboard={false}
-        />
-      )}
+        >
+          Expand
+        </h3>
+      </div>
     </div>
   );
 }

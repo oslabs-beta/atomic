@@ -130,26 +130,26 @@ select {
 }
 
 /* STATE DIFF: */
-.stateDiff {
+.stateDiff, .stateTree{
   display: flex;
   justify-content: space-between;
-  margin: 30px 20px;
+  margin: 20px 20px;
   align-items: flex-start;
 
 }
 /* Raw slider (State Diff component): */
-.rawSwitch {
+.toggleSwitch {
   position: relative;
   display: inline-block;
   width: 30px;
   height: 14px;
 }
-.rawSwitch input {
+.toggleSwitch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.rawSlider {
+.toggleSlider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -159,7 +159,7 @@ select {
   background-color: #ccc;
   transition: 0.4s;
 }
-.rawSlider:before {
+.toggleSlider:before {
   position: absolute;
   content: '';
   height: 18px;
@@ -169,16 +169,16 @@ select {
   background-color: white;
   transition: 0.4s;
 }
-input:checked + .rawSlider {
+input:checked + .toggleSlider {
   background-color: #1cb5c9;
 }
-input:checked + .rawSlider:before {
+input:checked + .toggleSlider:before {
   transform: translateX(15px);
 }
 /* Rounded sliders */
-.rawSlider.round {
+.toggleSlider.round {
   border-radius: 34px;
 }
-.rawSlider.round:before {
+.toggleSlider.round:before {
   border-radius: 50%;
 }
