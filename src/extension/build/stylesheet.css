@@ -59,9 +59,19 @@ select {
   text-align: center;
   color: #e6e6e6;
   position: fixed;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
-
+.header {
+  border-bottom: 0.3px solid #7c7c7c;
+  overflow: hidden;
+  background-color: #2c2c2c;
+  /* justify-content: flex-end; */
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  min-width: 185px;
+}
 /* VISUAL CONTAINER: 
 1. NavBar
 2. StateTre3D
@@ -77,7 +87,7 @@ select {
   background-color: #202020;
   color: #e6e6e6;
   width: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding-left: 187px;
   margin-top: 35px;
 }
@@ -108,13 +118,25 @@ select {
   border: none;
 }
 
-/* STATE DIFF: */
-/* Snapshot conponent: */
+/* SNAPSHOT: */
+.snapshotList {
+  margin-top: 100px;
+}
 .snapshot {
   display: flex;
   justify-content: space-evenly;
+  margin-top: 5px;
 }
-/* Raw slider: */
+
+/* STATE DIFF: */
+.stateDiff {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 1rem;
+  align-items: flex-start;
+
+}
+/* Raw slider (State Diff component): */
 .rawSwitch {
   position: relative;
   display: inline-block;
@@ -139,10 +161,10 @@ select {
 .rawSlider:before {
   position: absolute;
   content: '';
-  height: 17px;
-  width: 17px;
+  height: 18px;
+  width: 18px;
   left: 0px;
-  bottom: -1.4px;
+  bottom: -1.8px;
   background-color: white;
   transition: 0.4s;
 }
@@ -150,7 +172,7 @@ input:checked + .rawSlider {
   background-color: #1cb5c9;
 }
 input:checked + .rawSlider:before {
-  transform: translateX(16px);
+  transform: translateX(15px);
 }
 /* Rounded sliders */
 .rawSlider.round {

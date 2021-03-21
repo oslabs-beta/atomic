@@ -24,25 +24,28 @@ function SnapShotContainer(): JSX.Element {
 
   return (
     <div className="snapShotsContainer">
-      <p
-        style={{
-          fontWeight: 'bold',
-          fontSize: '17px',
-          paddingTop: '0px',
-          marginTop: '10px',
-        }}
-      >
-        ATOMIC{' '}
-      </p>
-      <div>
-        <button onClick={handleNewData} style={{ marginBottom: '15px' }}>
-          ADD SnapShot
-        </button>
+      <div className="header">
+        <p
+          style={{
+            fontWeight: 'bold',
+            fontSize: '17px',
+            paddingTop: '0px',
+            marginTop: '10px',
+          }}
+        >
+          ATOMIC{' '}
+        </p>
+        <div>
+          <button onClick={handleNewData} style={{ marginBottom: '15px' }}>
+            ADD SnapShot
+          </button>
+        </div>
       </div>
-
-      {snapshotHistory.map((snapshot: any, idx: number) => (
-        <Snapshot key={idx} idx={idx} snapshot={snapshot} />
-      ))}
+      <div className="snapshotList">
+        {snapshotHistory.map((snapshot: any, idx: number) => (
+          <Snapshot key={idx} idx={idx} snapshot={snapshot} />
+        ))}
+      </div>
       <div ref={snapshotEndRef} />
     </div>
   );

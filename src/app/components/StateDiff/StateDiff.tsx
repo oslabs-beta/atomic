@@ -14,9 +14,9 @@ function StateDiff(): JSX.Element {
   let previousSnapshot = snapshotHistory[snapshotIndex - 1];
   let currentSnapshot = snapshotHistory[snapshotIndex];
   //Diff between previous and  current snapshots
-  const delta = diff(previousSnapshot, currentSnapshot);
+  const delta: any = diff(previousSnapshot, currentSnapshot);
 
-  const html = formatters.html.format(delta, previousSnapshot);
+  const html: any = formatters.html.format(delta, previousSnapshot);
   // conditionally render changes depending on boolean
   formatters.html.showUnchanged(rawToggle);
 
@@ -26,42 +26,31 @@ function StateDiff(): JSX.Element {
 
   return (
     <div className="stateDiff">
-      {/* <p>{JSON.stringify(snapshotHistory[snapshotIndex])}</p>  */}
+      <div >{ReactHtmlParser(html)}</div>
       <div
         style={{
           display: 'flex',
-          justifyContent: 'flex-end',
-          margin: '1rem 1rem 0 0',
+          margin: '1rem 1rem',
           alignItems: 'center',
+        
         }}
       >
-        {/* <button
-          id="raw"
-          className="rawToggle"
-          style={{ color: rawToggle ? '#E6E6E6' : '#989898' }}
-          onClick={() => {
-            setRawToggle(!rawToggle);
-          }}
-        >
-          Raw
-        </button> */}
-        <label
-          className="rawSwitch"
-        
-        >
-          <input type="checkbox"   onClick={() => {
-            setRawToggle(!rawToggle);
-            console.log('rawToggle', rawToggle)
-          }}/>
+        <label className="rawSwitch">
+          <input
+            type="checkbox"
+            onClick={() => {
+              setRawToggle(!rawToggle);
+              console.log('rawToggle', rawToggle);
+            }}
+          />
           <span className="rawSlider round"></span>
         </label>
         <h3
-          style={{ marginLeft: '5px', color: rawToggle ? '#1cb5c9' : 'white' }}
+          style={{ marginLeft: '7px', color: rawToggle ? '#1cb5c9' : 'white' }}
         >
           Raw
         </h3>
       </div>
-      {ReactHtmlParser(html)}
     </div>
   );
 }
