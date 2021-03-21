@@ -1,15 +1,13 @@
 .jsondiffpatch-delta {
-  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier,
-    monospace;
-  font-size: 12px;
+  font-family: Helvetica;
+  font-size: 13px;
   margin: 0;
   padding: 0 0 0 12px;
   display: inline-block;
 }
 .jsondiffpatch-delta pre {
-  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier,
-    monospace;
-  font-size: 12px;
+  font-family: Helvetica;
+  font-size: 13px;
   margin: 0;
   padding: 0;
   display: inline-block;
