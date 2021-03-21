@@ -5,7 +5,7 @@
 // import ComponentBoxes from './ComponentBoxes';
 // import Lines from './Lines';
 
-// function StateTree3D(): JSX.Element {
+// function ComponentTree3D(): JSX.Element {
 //   const [discriptionToggle, setDiscriptionToggle] = useState<boolean>(false);
 
 //   return (
@@ -74,4 +74,4 @@
 //   );
 // }
 
-// export default StateTree3D;
+// export default ComponentTree3D;
