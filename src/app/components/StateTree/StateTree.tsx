@@ -31,9 +31,10 @@ function StateTree(): JSX.Element {
           style={{
             fontSize: '12px',
             paddingTop: '15px',
+            paddingLeft: "10px",
             fontFamily: 'Helvetica',
           }}
-          // collapsed={3}
+          collapsed={3}
           theme={theme}
           indentWidth={3}
           enableClipboard={false}

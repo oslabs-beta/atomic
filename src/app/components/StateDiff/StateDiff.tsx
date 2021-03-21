@@ -30,7 +30,7 @@ function StateDiff(): JSX.Element {
       <div
         style={{
           display: 'flex',
-          margin: '1rem 1rem',
+          marginRight: "25px",
           alignItems: 'center',
         
         }}

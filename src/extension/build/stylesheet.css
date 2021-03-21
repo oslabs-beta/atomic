@@ -93,7 +93,7 @@ select {
   width: 100%;
   overflow-y: scroll;
   padding-left: 187px;
-  margin-top: 35px;
+  margin-top: 30px;
 }
 /* NAVBAR COMPONENT: */
 .navBar {
@@ -133,7 +133,7 @@ select {
 .stateDiff {
   display: flex;
   justify-content: space-between;
-  margin: 1rem 1rem;
+  margin: 30px 20px;
   align-items: flex-start;
 
 }
