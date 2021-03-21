@@ -49,6 +49,7 @@
     "@react-spring/three": "^9.0.0-rc.3",
     "@react-three/drei": "^3.8.6",
     "@types/chrome": "0.0.130",
+    "@types/react-html-parser": "^2.0.1",
     "@visx/axis": "^1.0.0",
     "@visx/brush": "^1.2.0",
     "@visx/clip-path": "^1.0.0",

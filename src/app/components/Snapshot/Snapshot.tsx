@@ -15,7 +15,7 @@ function Snapshot({ idx }: snapshotProps): JSX.Element {
 
   return (
     <div className="snapshot">
-      <p>snapshot {idx}</p>
+      <h4>Snapshot {idx}</h4>
       <button onClick={handleClick}>Jump</button>
     </div>
   );

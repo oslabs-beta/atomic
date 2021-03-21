@@ -61,17 +61,21 @@ select {
   position: fixed;
   overflow-y: scroll;
 }
+.snapshotList {
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
 .header {
   border-bottom: 0.3px solid #7c7c7c;
   overflow: hidden;
   background-color: #2c2c2c;
-  /* justify-content: flex-end; */
   overflow: hidden;
   position: fixed;
   top: 0;
   z-index: 1;
   min-width: 185px;
 }
+
 /* VISUAL CONTAINER: 
 1. NavBar
 2. StateTre3D
@@ -119,9 +123,6 @@ select {
 }
 
 /* SNAPSHOT: */
-.snapshotList {
-  margin-top: 100px;
-}
 .snapshot {
   display: flex;
   justify-content: space-evenly;
