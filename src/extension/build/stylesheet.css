@@ -182,3 +182,36 @@ input:checked + .toggleSlider:before {
 .toggleSlider.round:before {
   border-radius: 50%;
 }
+
+/* COMPONENT GRAPH: */
+/* Step Slider: */
+.slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 8px;
+  border-radius: 5px;
+  background: #1cb5c9;
+  outline: none;
+  opacity: 0.9;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+.slider:hover {
+  opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
