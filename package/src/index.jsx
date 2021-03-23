@@ -113,7 +113,7 @@ function AtomicDebugger({ children }) {
   );
 }
 
-function useAtomicDevTool(atom, label) {
+function useAtomicDevtool(atom, label) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState()
   const setAtomState = useContext(AtomUpdateContext);
 
@@ -138,9 +138,9 @@ function useAtomicDevTool(atom, label) {
   return useAtom(atom);
 }
 
-module.exports = {
+export {
   AtomicDebugger,
   AtomStateContext,
   AtomUpdateContext,
-  useAtomicDevTool,
+  useAtomicDevtool,
 };
