@@ -1,11 +1,16 @@
 /* eslint-disable no-console */
 import React, { createContext, useState, useEffect } from 'react';
 import MainContainer from '../containers/MainContainer';
-import { stateSnapshot } from '../../types';
+import { snapshot } from '../../types';
 
 interface SnapshotHistoryContext {
-  snapshotHistory: Partial<stateSnapshot[]>;
-  setSnapshotHistory: React.Dispatch<React.SetStateAction<stateSnapshot[]>>;
+  snapshotHistory: Partial<snapshot>[];
+  setSnapshotHistory: React.Dispatch<React.SetStateAction<snapshot[]>>;
+}
+
+interface ComponentTreeHistoryContext {
+  ComponentTreeHistory: Partial<[]>;
+  setSnapshotHistory: React.Dispatch<React.SetStateAction<[]>>;
 }
 
 interface SnapshotIndexContext {
@@ -20,10 +25,14 @@ export const snapshotHistoryContext = createContext<SnapshotHistoryContext | nul
 export const snapshotIndexContext = createContext<
   SnapshotIndexContext | number
 >(0);
+export const componentTreeHistoryContext = createContext<ComponentTreeHistoryContext | null>(
+  null
+);
 
 function App(): JSX.Element {
   // useState hook to update the snapshotHistory array -> array of snapshots
-  const [snapshotHistory, setSnapshotHistory] = useState<stateSnapshot[]>([]);
+  const [snapshotHistory, setSnapshotHistory] = useState<[]>([]);
+  const [componentTreeHistory, setComponentTreeHistory] = useState<[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState<number>(0);
   //***********
   //CHROME EXTENSION CONNECTION:
