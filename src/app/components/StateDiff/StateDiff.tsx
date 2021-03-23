@@ -10,10 +10,10 @@ function StateDiff(): JSX.Element {
   );
   const [rawToggle, setRawToggle] = useState<boolean>(false);
 
-  //Set previous and  current snapshots
+  //Set previous and current snapshots
   let previousSnapshot = snapshotHistory[snapshotIndex - 1];
   let currentSnapshot = snapshotHistory[snapshotIndex];
-  //Diff between previous and  current snapshots
+  //Diff between previous and current snapshots
   const delta: any = diff(previousSnapshot, currentSnapshot);
 
   const html: any = formatters.html.format(delta, previousSnapshot);
