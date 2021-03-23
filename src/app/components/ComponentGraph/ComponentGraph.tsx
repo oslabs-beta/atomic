@@ -94,7 +94,6 @@ function ComponentGraph({
   };
 
   const LinkComponent = getLinkComponent({ layout, linkType, orientation });
-  console.log({ hoverName });
 
   return totalWidth < 10 ? null : (
     <div>
@@ -137,7 +136,7 @@ function ComponentGraph({
                   const widthFunc = (name: string) => {
                     let nodeLength = name.length;
                     if (nodeLength < 5) return nodeLength + 30;
-                    if (nodeLength < 10) return nodeLength + 40;
+                    if (nodeLength < 10) return nodeLength + 45;
                     return nodeLength + 70;
                   };
                   const width = widthFunc(node.data.name);
