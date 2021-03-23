@@ -1,6 +1,6 @@
 {
   "name": "atomic-devtools",
-  "version": "1.0.1",
+  "version": "1.0.7",
   "description": "Library to connect your Jotai application to Atomic Devtools Extension",
   "main": "index.js",
   "scripts": {
@@ -12,5 +12,17 @@
     "jotai": "^0.15.3"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.12.13"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-jsx"
+    ]
+  }
 }

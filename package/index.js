@@ -100,13 +100,12 @@ function AtomicDebugger(props) {
   }
 
   console.log('atomsToDevtool --> ', atomsToDevtool);
+  //consumer
+  // <AtomStateContext.Provider value={atomState}>
   return (
-    //consumer
-    // <AtomStateContext.Provider value={atomState}>
     <AtomUpdateContext.Provider value={setAtomState}>
       {props.children}
     </AtomUpdateContext.Provider>
-    // </AtomStateContext.Provider>
   );
 }
 
@@ -135,7 +134,7 @@ function useAtomicDevTool(atom, label) {
   return useAtom(atom);
 }
 
-export {
+module.exports = {
   AtomicDebugger,
   AtomStateContext,
   AtomUpdateContext,
