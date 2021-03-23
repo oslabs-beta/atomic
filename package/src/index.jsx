@@ -63,7 +63,7 @@ function AtomicDebugger({ children }) {
   //mutable source holds 'a' which is atomStore and 'm' which is mountedStore
   //get atomStore from Provider store
   const atomStore = store.a;
-  //console.log("atomStore - > ", atomStore);
+  console.log('atomStore - > ', atomStore);
 
   //Create a serializable object of atom state to send to devtool
   const atomsToDevtool = {};
@@ -76,21 +76,30 @@ function AtomicDebugger({ children }) {
     atomsToDevtool[label] = { ...atomStore.get(atom) };
   }
 
-  const traverseDeps = atom => {
+  const traverseDeps = (label, atom) => {
+    // console.log("label in traverseDeps ---> ", label);
+    // console.log("atom in traverseDeps ---> ", atom);
+
     if (
-      atom.d.length === 1 ||
-      atom.debugLabel === atom.d[0].debugLabel ||
-      atom.toString() === atom.d[0].toString()
+      atom.d.size === 1 &&
+      (label === atom.d.keys().next().value.debugLabel ||
+        label === atom.d.keys().next().value.toString())
     )
       return;
 
     atom.d.forEach((ref, dep) => {
+      // console.log("dep in forEach ---> ", dep);
+
       let dependantAtom = atomsToDevtool[dep.debugLabel || dep.toString()];
       if (!dependantAtom) {
         dependantAtom = {
           ...atomStore.get(dep),
         };
-        traverseDeps(dependantAtom);
+
+        atomsToDevtool[dep.debugLabel || dep.toString()] = dependantAtom;
+        label = dep.debugLabel || dep.toString();
+
+        traverseDeps(label, dependantAtom);
       }
     });
   };
@@ -99,10 +108,11 @@ function AtomicDebugger({ children }) {
   const atomDeps = [];
   // iterate over Map of atom dependancies and push label to array
 
-  for (const atom of Object.values(atomsToDevtool)) {
-    traverseDeps(atom);
+  for (const [label, atom] of Object.entries(atomsToDevtool)) {
+    traverseDeps(label, atom);
   }
 
+  console.log('atomsToDevtool --- > ', atomsToDevtool);
   //replace Map reference with serializable array of dependacies
 
   //consumer
