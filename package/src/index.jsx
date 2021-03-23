@@ -72,24 +72,12 @@ function AtomicDebugger({ children }) {
   //in order to aquire the atomState of each atom from WeakMap
   for (const [label, atom] of Object.entries(atomState)) {
     //Create copy of atom state per atom in Provider store
-
     atomsToDevtool[label] = { ...atomStore.get(atom) };
   }
 
+  //travers deps in atomsToDevtools and find missing atoms (global)
   const traverseDeps = (label, atom) => {
-    // console.log("label in traverseDeps ---> ", label);
-    // console.log("atom in traverseDeps ---> ", atom);
-
-    if (
-      atom.d.size === 1 &&
-      (label === atom.d.keys().next().value.debugLabel ||
-        label === atom.d.keys().next().value.toString())
-    )
-      return;
-
     atom.d.forEach((ref, dep) => {
-      // console.log("dep in forEach ---> ", dep);
-
       let dependantAtom = atomsToDevtool[dep.debugLabel || dep.toString()];
       if (!dependantAtom) {
         dependantAtom = {
@@ -104,15 +92,16 @@ function AtomicDebugger({ children }) {
     });
   };
 
-  //Array of atom dependancy labels
-  const atomDeps = [];
-  // iterate over Map of atom dependancies and push label to array
-
   for (const [label, atom] of Object.entries(atomsToDevtool)) {
     traverseDeps(label, atom);
   }
 
+  //Array of atom dependancy labels
+  const atomDeps = [];
+  // iterate over Map of atom dependancies and push label to array
+
   console.log('atomsToDevtool --- > ', atomsToDevtool);
+
   //replace Map reference with serializable array of dependacies
 
   //consumer
