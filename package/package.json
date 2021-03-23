@@ -1,0 +1,11 @@
+{
+  "name": "atomic-devtools",
+  "version": "1.0.1",
+  "description": "A Chrome Extenstion development tool for analyzing applications using Jotai as a state-management library ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
