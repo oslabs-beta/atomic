@@ -96,13 +96,26 @@ function AtomicDebugger({ children }) {
     traverseDeps(label, atom);
   }
 
-  //Array of atom dependancy labels
-  const atomDeps = [];
   // iterate over Map of atom dependancies and push label to array
 
   console.log('atomsToDevtool --- > ', atomsToDevtool);
 
+  for (const [label, atom] of Object.entries(atomsToDevtool)) {
+    //Array of atom dependancy labels
+    const atomDeps = [];
+
+    atom.d.forEach((ref, dep) => {
+      atomDeps.push(dep.debugLabel || dep.toString());
+    });
+    atom.d = atomDeps;
+  }
+
+  console.log('atomsToDevtool --- > ', atomsToDevtool);
   //replace Map reference with serializable array of dependacies
+
+  const atomsToDevtoolString = JSON.stringify(atomsToDevtool);
+  // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
+  console.log('testing --- > ');
 
   //consumer
   // <AtomStateContext.Provider value={atomState}>
