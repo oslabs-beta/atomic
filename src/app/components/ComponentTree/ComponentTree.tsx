@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ReactJson from 'react-json-view';
-import { componentAtomTreeMock } from '../../mock/mockComponentTree';
+import { componentTreeHistoryContext, snapshotIndexContext } from '../App';
 
 const theme = {
   scheme: 'custom',
@@ -24,13 +24,30 @@ const theme = {
 
 function ComponentTree(): JSX.Element {
   const [expandToggle, setExpandToggle] = useState<boolean>(true);
+  const { componentTreeHistory, setComponentTreeHistory } = useContext<any>(
+    componentTreeHistoryContext
+  );
+  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
+    snapshotIndexContext
+  );
+
+  //!Do we need?
+  // useEffect(() => setSnapshotIndex(componentTreeHistory.length - 1), [
+  //   componentTreeHistory.length,
+  // ]);
+    useEffect(() => {
+      console.log('snapshotIndex: ', snapshotIndex)
+      componentTreeHistory[snapshotIndex]
+    }, [
+    componentTreeHistory.length,
+  ]);
 
   return (
     <div className="stateTree">
       <div>
-        {componentAtomTreeMock && (
+        {componentTreeHistory[snapshotIndex] && (
           <ReactJson
-            src={componentAtomTreeMock}
+            src={componentTreeHistory[snapshotIndex]}
             style={{
               fontSize: '12px',
               paddingTop: '15px',

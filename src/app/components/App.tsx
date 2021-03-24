@@ -75,6 +75,7 @@ function App(): JSX.Element {
 
       if (action === 'RECORD_SNAPSHOT') {
         setSnapshotHistory(prevState => [...prevState, payload.atomState]);
+       
       }
       if (action === 'RECORD_COMPONENT_TREE') {
         setComponentTreeHistory(prevState => [
@@ -84,6 +85,8 @@ function App(): JSX.Element {
       }
     });
   }, []);
+
+
 
   const renderMainContainer: JSX.Element = (
     <>

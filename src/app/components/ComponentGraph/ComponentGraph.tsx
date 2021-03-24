@@ -53,10 +53,11 @@ function ComponentGraph({
   const innerHeight = totalHeight - margin.top - margin.bottom;
 
   const data: TreeNode = componentTreeHistory[snapshotIndex];
-
-  useEffect(() => setSnapshotIndex(componentTreeHistory.length - 1), [
-    componentTreeHistory,
-  ]);
+  
+  //!Do we need?
+  // useEffect(() => setSnapshotIndex(componentTreeHistory.length - 1), [
+  //   componentTreeHistory,
+  // ]);
 
   let origin: { x: number; y: number };
   let sizeWidth: number;
