@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -7,7 +7,7 @@ import { localPoint } from '@visx/event';
 import { pointRadial } from 'd3-shape';
 import LinkControls from './LinkControls';
 import getLinkComponent from './getLinkComponent';
-import { componentAtomTreeMock } from '../../mock/mockComponentTree';
+import { componentTreeHistoryContext, snapshotIndexContext } from '../App';
 
 interface TreeNode {
   name: string;
@@ -23,8 +23,6 @@ function useForceUpdate() {
   return () => setValue(value => value + 1); // update state to force render
 }
 
-const data: TreeNode = componentAtomTreeMock;
-
 //Component graph margins
 const defaultMargin = { top: 15, left: 40, right: 40, bottom: 40 };
 
@@ -39,6 +37,12 @@ function ComponentGraph({
   height: totalHeight,
   margin = defaultMargin,
 }: LinkTypesProps) {
+  const { componentTreeHistory, setComponentTreeHistory } = useContext<any>(
+    componentTreeHistoryContext
+  );
+  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
+    snapshotIndexContext
+  );
   const [layout, setLayout] = useState<string>('cartesian');
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
@@ -47,6 +51,12 @@ function ComponentGraph({
   const [hoverName, setHoverName] = useState<string[]>(['empty']);
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
+
+  const data: TreeNode = componentTreeHistory[snapshotIndex];
+
+  useEffect(() => setSnapshotIndex(componentTreeHistory.length - 1), [
+    componentTreeHistory,
+  ]);
 
   let origin: { x: number; y: number };
   let sizeWidth: number;
