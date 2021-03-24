@@ -1,16 +1,18 @@
 /* eslint-disable no-console */
 import React, { createContext, useState, useEffect } from 'react';
 import MainContainer from '../containers/MainContainer';
-import { snapshot } from '../../types';
+import { snapshot, componentTree } from '../../types';
 
 interface SnapshotHistoryContext {
-  snapshotHistory: Partial<snapshot>[];
+  snapshotHistory: snapshot[];
   setSnapshotHistory: React.Dispatch<React.SetStateAction<snapshot[]>>;
 }
 
 interface ComponentTreeHistoryContext {
-  ComponentTreeHistory: Partial<[]>;
-  setSnapshotHistory: React.Dispatch<React.SetStateAction<[]>>;
+  componentTreeHistory: componentTree[];
+  setComponentTreeHistory: React.Dispatch<
+    React.SetStateAction<componentTree[]>
+  >;
 }
 
 interface SnapshotIndexContext {
@@ -31,9 +33,11 @@ export const componentTreeHistoryContext = createContext<ComponentTreeHistoryCon
 
 function App(): JSX.Element {
   // useState hook to update the snapshotHistory array -> array of snapshots
-  const [snapshotHistory, setSnapshotHistory] = useState<[]>([]);
-  const [componentTreeHistory, setComponentTreeHistory] = useState<[]>([]);
+  const [snapshotHistory, setSnapshotHistory] = useState<snapshot[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState<number>(0);
+  const [componentTreeHistory, setComponentTreeHistory] = useState<
+    componentTree[]
+  >([]);
   //***********
   //CHROME EXTENSION CONNECTION:
   // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connect
@@ -72,6 +76,12 @@ function App(): JSX.Element {
       if (action === 'RECORD_SNAPSHOT') {
         setSnapshotHistory(prevState => [...prevState, payload.atomState]);
       }
+      if (action === 'RECORD_COMPONENT_TREE') {
+        setComponentTreeHistory(prevState => [
+          ...prevState,
+          payload.componentTree,
+        ]);
+      }
     });
   }, []);
 
@@ -83,7 +93,11 @@ function App(): JSX.Element {
         <snapshotIndexContext.Provider
           value={{ snapshotIndex, setSnapshotIndex }}
         >
-          <MainContainer />
+          <componentTreeHistoryContext.Provider
+            value={{ componentTreeHistory, setComponentTreeHistory }}
+          >
+            <MainContainer />
+          </componentTreeHistoryContext.Provider>
         </snapshotIndexContext.Provider>
       </snapshotHistoryContext.Provider>
     </>
