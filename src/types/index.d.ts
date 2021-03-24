@@ -1,18 +1,17 @@
+
+//Snapshot State(Atom(s)) taken from Atomic dev tool
 export type snapshot = {
   contents: any;
   nodeDeps: string[];
 };
 
-
-// export type componentAtomTree = {
-//   children: object[];
-//   name: string;
-//   tag: number;
-//   atom: string[];
-//   state: {};
-//   props: {};
-//   // actualDuration: number;
-//   // treeBaseDuration: number;
-//   // wasSuspended: boolean;
-// };
+//Component Tree taken from Atomic dev tool
+export type componentTree = {
+  children: object[];
+  name: string;
+  tag: number;
+  atom: string[];
+  state: {};
+  props: {};
+};
 
