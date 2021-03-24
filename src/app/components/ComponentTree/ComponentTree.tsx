@@ -31,11 +31,6 @@ function ComponentTree(): JSX.Element {
     snapshotIndexContext
   );
 
-  //!Do we need?
-  // useEffect(() => setSnapshotIndex(componentTreeHistory.length - 1), [
-  //   componentTreeHistory.length,
-  // ]);
-
   return (
     <div className="stateTree">
       <div>

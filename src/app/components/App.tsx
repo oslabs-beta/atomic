@@ -75,7 +75,6 @@ function App(): JSX.Element {
 
       if (action === 'RECORD_SNAPSHOT') {
         setSnapshotHistory(prevState => [...prevState, payload.atomState]);
-       
       }
       if (action === 'RECORD_COMPONENT_TREE') {
         setComponentTreeHistory(prevState => [
@@ -86,7 +85,10 @@ function App(): JSX.Element {
     });
   }, []);
 
-
+  useEffect(() => {
+    console.log('snapshotIndex useEffect', snapshotIndex);
+    setSnapshotIndex(snapshotHistory.length ? snapshotHistory.length - 1 : 0);
+  }, [snapshotHistory]);
 
   const renderMainContainer: JSX.Element = (
     <>

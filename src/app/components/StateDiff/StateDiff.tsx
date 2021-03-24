@@ -20,11 +20,6 @@ function StateDiff(): JSX.Element {
   // conditionally render changes depending on boolean
   formatters.html.showUnchanged(rawToggle);
 
-  //!Do we need?
-  // useEffect(() => setSnapshotIndex(snapshotHistory.length - 1), [
-  //   snapshotHistory,
-  // ]);
-
   return (
     <div className="stateDiff">
       <div>{ReactHtmlParser(html)}</div>
