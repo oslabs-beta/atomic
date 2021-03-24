@@ -21,9 +21,9 @@ function StateDiff(): JSX.Element {
   formatters.html.showUnchanged(rawToggle);
 
   //!Do we need?
-  useEffect(() => setSnapshotIndex(snapshotHistory.length - 1), [
-    snapshotHistory,
-  ]);
+  // useEffect(() => setSnapshotIndex(snapshotHistory.length - 1), [
+  //   snapshotHistory,
+  // ]);
 
   return (
     <div className="stateDiff">
