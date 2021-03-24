@@ -1,6 +1,6 @@
 {
   "name": "atomic-devtools",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "Library to connect your Jotai application to Atomic Devtools Extension",
   "main": "dist/module/index.js",
   "files": [
@@ -11,16 +11,12 @@
     "compile": "babel --root-mode upward src/index.jsx  --out-dir dist/module",
     "clean": "rm -rf dist",
     "build": "npm run clean && npm run compile"
-
   },
-
   "peerDependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "jotai": "^0.15.3"
+    "jotai": "^0.15.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
-
   "author": "",
   "license": "MIT"
-
 }
