@@ -54,7 +54,7 @@ function App(): JSX.Element {
   // Handle connection attempt
   // runtime.onConnect
 
-  //TODO: is useEffect needed??
+
   useEffect(() => {
     const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
 
@@ -62,7 +62,6 @@ function App(): JSX.Element {
     console.log('runtime.Port -> ', port);
 
     // INITIALIZE connection to bg script
-    //TODO: update action name to match bg script
     port.postMessage({
       action: 'DEV_INITIALIZED',
       tabId: chrome.devtools.inspectedWindow.tabId,
@@ -86,7 +85,6 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    console.log('snapshotIndex useEffect', snapshotIndex);
     setSnapshotIndex(snapshotHistory.length ? snapshotHistory.length - 1 : 0);
   }, [snapshotHistory]);
 

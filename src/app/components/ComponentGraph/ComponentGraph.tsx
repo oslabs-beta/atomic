@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -14,13 +14,6 @@ interface TreeNode {
   isExpanded?: boolean;
   children: TreeNode[];
   atom: string[];
-}
-
-//MAY NOT NEED: This function will force a change in state and cause a re-render of the component.
-//Actual state change is irrelevant
-function useForceUpdate() {
-  const [, setValue] = useState<number>(0);
-  return () => setValue(value => value + 1); // update state to force render
 }
 
 //Component graph margins
@@ -47,7 +40,6 @@ function ComponentGraph({
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
   const [stepPercent, setStepPercent] = useState<number>(0.5);
-  const forceUpdate = useForceUpdate();
   const [hoverName, setHoverName] = useState<string[]>(['empty']);
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
@@ -204,8 +196,6 @@ function ComponentGraph({
                           rx={4}
                           onClick={() => {
                             node.data.isExpanded = !node.data.isExpanded;
-                            console.log(node);
-                            forceUpdate();
                           }}
                         />
                       )}
@@ -224,8 +214,6 @@ function ComponentGraph({
                           strokeOpacity={1}
                           onClick={() => {
                             node.data.isExpanded = !node.data.isExpanded;
-                            console.log(node);
-                            forceUpdate();
                           }}
                           onMouseOver={handleMouseOver}
                           onMouseOut={handleMouseOut}

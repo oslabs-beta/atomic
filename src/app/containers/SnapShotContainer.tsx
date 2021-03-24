@@ -28,11 +28,13 @@ function SnapShotContainer(): JSX.Element {
     copy2.name = `${Math.floor(Math.random() * 10000)}`;
     setComponentTreeHistory((prevState: any) => [...prevState, copy2]);
   };
-  useEffect(() => console.log('componentTreeHistory: ', componentTreeHistory), [componentTreeHistory])
+  useEffect(() => console.log('componentTreeHistory: ', componentTreeHistory), [
+    componentTreeHistory,
+  ]);
   //Testing end
 
   useEffect(() => scrollToBottom(), [snapshotHistory]);
- 
+
   const scrollToBottom = (): void => {
     snapshotEndRef?.current?.scrollIntoView({ behavior: 'smooth' });
   };

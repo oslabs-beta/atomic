@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactJson from 'react-json-view';
 import { componentTreeHistoryContext, snapshotIndexContext } from '../App';
 
@@ -24,12 +24,8 @@ const theme = {
 
 function ComponentTree(): JSX.Element {
   const [expandToggle, setExpandToggle] = useState<boolean>(true);
-  const { componentTreeHistory, setComponentTreeHistory } = useContext<any>(
-    componentTreeHistoryContext
-  );
-  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
-    snapshotIndexContext
-  );
+  const { componentTreeHistory } = useContext<any>(componentTreeHistoryContext);
+  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
 
   return (
     <div className="stateTree">

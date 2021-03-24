@@ -1,13 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { diff, formatters } from 'jsondiffpatch';
 import ReactHtmlParser from 'react-html-parser';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 function StateDiff(): JSX.Element {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
-    snapshotIndexContext
-  );
+  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
   const [rawToggle, setRawToggle] = useState<boolean>(false);
 
   //Set previous and current snapshots

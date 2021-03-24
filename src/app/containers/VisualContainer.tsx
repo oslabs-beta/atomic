@@ -19,7 +19,7 @@ function VisualContainer(): JSX.Element {
     'Component Graph': (
       <ParentSize>
         {({ width, height }) => (
-          <ComponentGraph  width={width} height={height} />
+          <ComponentGraph width={width} height={height} />
         )}
       </ParentSize>
     ),
