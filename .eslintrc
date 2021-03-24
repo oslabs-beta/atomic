@@ -25,10 +25,15 @@
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "semi": "error",
-    "prettier/prettier": "error",
     "no-console": "warn",
     "no-unused-vars": "warn",
-    "func-names": "off"
+    "func-names": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
     // "@typescript-eslint/no-require-imports": "error"
   },
   "ignorePatterns": ["src/__tests__/**, **/*.spec.js"],

@@ -115,10 +115,8 @@ function AtomicDebugger({ children }) {
 
   const atomsToDevtoolString = JSON.stringify(atomsToDevtool);
   // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
-  console.log('testing --- > ');
+  console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
 
-  //consumer
-  // <AtomStateContext.Provider value={atomState}>
   return (
     <AtomUpdateContext.Provider value={setAtomState}>
       {children}

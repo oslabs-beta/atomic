@@ -12,7 +12,10 @@
     "clean": "rm dist/bundle.js",
     "format": "prettier --write '**/*.tsx' '**/*.js' --ignore-path .gitignore",
     "lint": "eslint '**/*.tsx' '**/*.js' --ignore-path .gitignore",
-    "lint:fix": "eslint --fix '**/*.tsx' '**/*.js' --ignore-path .gitignore"
+    "lint:fix": "eslint --fix '**/*.tsx' '**/*.js' --ignore-path .gitignore",
+    "compile:package": "babel package/src/index.jsx  --out-dir package/dist/module",
+    "clean:package": "rm -rf package/dist",
+    "build:package": "npm run clean:package && npm run compile:package"
   },
   "repository": {
     "type": "git",
@@ -91,7 +94,7 @@
     "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
