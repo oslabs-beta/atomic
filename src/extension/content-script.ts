@@ -7,6 +7,8 @@
 //Content scripts can communicate with their parent extension
 //by exchanging messages and storing values using the storage API.
 
+//Create __ATOMIC_DEVTOOLS_EXTENSION__
+
 window.addEventListener('message', msg => {
   if (
     msg.data.source != 'react-devtools-bridge' &&
