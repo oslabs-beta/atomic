@@ -44,11 +44,8 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.13.7",
     "@babel/preset-typescript": "^7.13.0",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@react-spring/three": "^9.0.0-rc.3",
-    "@react-three/drei": "^3.8.6",
     "@types/chrome": "0.0.130",
+    "@types/react-html-parser": "^2.0.1",
     "@visx/axis": "^1.0.0",
     "@visx/brush": "^1.2.0",
     "@visx/clip-path": "^1.0.0",
@@ -73,12 +70,9 @@
     "react-dom": "^17.0.1",
     "react-fiber-traverse": "^0.0.8",
     "react-hot-loader": "^4.13.0",
+    "react-html-parser": "^2.0.2",
     "react-json-view": "^1.21.1",
-    "react-spring": "^8.0.27",
-    "react-spring-three": "^1.0.4",
-    "react-three-fiber": "^5.1.4",
-    "resq": "^1.10.0",
-    "three": "^0.122.0"
+    "resq": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

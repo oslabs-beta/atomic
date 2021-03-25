@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { snapshotIndexContext } from '../App';
 
 interface snapshotProps {
   snapshot?: any;
@@ -6,13 +7,16 @@ interface snapshotProps {
 }
 
 function Snapshot({ idx }: snapshotProps): JSX.Element {
-  // console.log('snapshot in Snapshot: ', snapshot);
-  // console.log('key in Snapshot: ', key);
-  // console.log('idx in Snapshot: ', idx);
+  const { _, setSnapshotIndex } = useContext<any>(snapshotIndexContext);
+
+  const handleClick = () => {
+    setSnapshotIndex(idx);
+  };
+
   return (
     <div className="snapshot">
-      <button>Idx {idx}</button>
-      <p>snapshot</p>
+      <h4>Snapshot {idx}</h4>
+      <button onClick={handleClick}>Jump</button>
     </div>
   );
 }
