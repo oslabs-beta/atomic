@@ -87,6 +87,7 @@ function LinkControls({
             onChange={e => setStepPercent(Number(e.target.value))}
             value={stepPercent}
             disabled={linkType !== 'step' || layout === 'polar'}
+            className="slider"
           />
         </>
       )}
