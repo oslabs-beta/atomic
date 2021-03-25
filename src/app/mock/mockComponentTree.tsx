@@ -265,12 +265,16 @@ export const componentAtomTreeMock = {
     {
       name: 'End',
       tag: 0,
-      atom: ['windowSize', 'winnerAtom'],
+      atom: ['windowSize', 'winnerAtom', "statusAtom"],
       state: {
         windowSize: { values: { width: 38, height: 185 }, dependencies: [] },
         winnerAtom: {
           values: { gameWinner: null },
           dependencies: ['squaresAtom'],
+        },
+        statusAtom: {
+          values: { gameStatus: null },
+          dependencies: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
         },
       },
       props: {},

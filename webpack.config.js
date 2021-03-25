@@ -55,6 +55,9 @@ const config = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
+    fallback: {
+      buffer: false,
+    },
   },
   devtool: 'eval-source-map',
 
