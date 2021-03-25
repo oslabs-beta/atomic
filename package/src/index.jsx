@@ -19,6 +19,8 @@ function AtomicDebugger({ children }) {
   // .current
   // .stateNode.current)
 
+  window.__ATOMIC_DEVTOOLS_EXTENSION__();
+
   //Deeclareing state to build serializable atomState to send to devtool
   //setAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
   //and atom() wrapper atomic()
