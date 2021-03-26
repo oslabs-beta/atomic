@@ -20,26 +20,6 @@ function AtomicDebugger({ children }) {
   // .current
   // .stateNode.current)
 
-  useEffect(() => {
-    let extension;
-
-    extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
-
-    console.log('window in AtomicDebugger is ---> ', window);
-    console.log(
-      'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
-      window.__ATOMIC_DEVTOOLS_EXTENSION__
-    );
-    console.log(
-      'window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK in AtomicDebugger is ---> ',
-      window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK
-    );
-
-    try {
-      extension();
-    } catch {}
-  }, []);
-
   //Deeclareing state to build serializable atomState to send to devtool
   //setAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
   //and atom() wrapper atomic()
@@ -138,14 +118,12 @@ function AtomicDebugger({ children }) {
   // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
   console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
 
-  return (
-    <AtomUpdateContext.Provider value={setAtomState}>
-      {children}
-    </AtomUpdateContext.Provider>
-  );
-}
+  const logMessage = message => {
+    if (message.action === 'TEST') {
+      console.log('received message from content-script to receive ');
+    }
+  };
 
-function useAtomicDevtool(atom, label) {
   useEffect(() => {
     let extension;
 
@@ -156,11 +134,26 @@ function useAtomicDevtool(atom, label) {
       'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
       window.__ATOMIC_DEVTOOLS_EXTENSION__
     );
+    console.log(
+      'window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK in AtomicDebugger is ---> ',
+      window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK
+    );
+
+    window.addEventListener('message', logMessage);
 
     try {
       extension();
     } catch {}
   }, []);
+
+  return (
+    <AtomUpdateContext.Provider value={setAtomState}>
+      {children}
+    </AtomUpdateContext.Provider>
+  );
+}
+
+function useAtomicDevtool(atom, label) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState()
   const setAtomState = useContext(AtomUpdateContext);
 
@@ -180,6 +173,22 @@ function useAtomicDevtool(atom, label) {
 
   //for React Devtools...
   useDebugValue(atom, () => label);
+
+  useEffect(() => {
+    let extension;
+
+    extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
+
+    console.log('window in AtomicDebugger is ---> ', window);
+    console.log(
+      'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
+      window.__ATOMIC_DEVTOOLS_EXTENSION__
+    );
+
+    try {
+      extension();
+    } catch {}
+  }, [atom]);
 
   //return useAtom to maintain functionality
   return useAtom(atom);
