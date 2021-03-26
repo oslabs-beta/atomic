@@ -6,117 +6,122 @@ import React, {
   useEffect,
 } from 'react';
 
-import { useAtom, SECRET_INTERNAL_getStoreContext } from 'jotai';
+import { useAtom } from 'jotai';
 
 const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext('test');
 
 // eslint-disable-next-line react/prop-types
 function AtomicDebugger({ children }) {
-  //get rootFiber from within debugger component
-  // console.log('state -> ', document.getElementById('root')
-  // ._reactRootContainer
-  // ._internalRoot
-  // .current
-  // .stateNode.current)
-
-  //Deeclareing state to build serializable atomState to send to devtool
+  //declaring state to build serializable atomState to send to devtool
   //setAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
-  //and atom() wrapper atomic()
   const [atomState, setAtomState] = useState({});
-
-  //investigate when and if we need useEffect to avoid update warnings with rendering
-  // useEffect(() => {
-  //}, []);
-
-  // TODO connect to dev tool to notify for state changes
-  // consume provider atomic state
-  // useMutableSource
-  // iterate over atomic state provided by Provider
-  // to get dependancy data from weakMap
-
   // console.log('atomState', atomState);
 
-  //Get store context from Jotai Provider (replace with non-internal-secret method if possible)
-  //Ideally aquire Provider context internally if possible
+  // get rootFiber from within debugger component
+  const fiberRoot = document.getElementById('root')._reactRootContainer
+    ._internalRoot.current.stateNode.current;
 
-  const storeContext = SECRET_INTERNAL_getStoreContext();
-  // console.log("storeContext", storeContext);
+  let providerStateContext;
 
-  //Get the current value of the store context which is understood to be the mutable source
-  //Look into the difference between currentValue and currentValue2
+  if (fiberRoot.child) {
+    providerStateContext =
+      fiberRoot.child.child.memoizedState.memoizedState.current;
 
-  const storeMap = storeContext._currentValue[0];
-  // console.log('storeMap', storeMap);
+    console.log('STATE CONTEXT ===> ', providerStateContext);
 
-  //get key Symbols for mutable source
-  const storeContextSymbols = Object.getOwnPropertySymbols(storeMap);
-  // console.log("storeContextSymbols", storeContextSymbols);
+    //investigate when and if we need useEffect to avoid update warnings with rendering
+    // useEffect(() => {
+    //}, []);
 
-  //get first symbol for Provider store in mutable source
-  const storeSymbol = storeContextSymbols[0];
-  // console.log("storeSymbol", storeSymbol);
+    // TODO connect to dev tool to notify for state changes
+    // consume provider atomic state
+    // useMutableSource
+    // iterate over atomic state provided by Provider
+    // to get dependancy data from weakMap
 
-  //Get store from mutable source
-  const store = storeMap[storeSymbol];
-  // console.log('store', store);
+    //Get store context from Jotai Provider (replace with non-internal-secret method if possible)
+    //Ideally aquire Provider context internally if possible
 
-  //mutable source holds 'a' which is atomStore and 'm' which is mountedStore
-  //get atomStore from Provider store
-  const atomStore = store.a;
-  console.log('atomStore - > ', atomStore);
+    // const storeContext = SECRET_INTERNAL_getStoreContext();
+    // console.log('storeContext', storeContext);
 
-  //Create a serializable object of atom state to send to devtool
-  const atomsToDevtool = {};
+    //Get the current value of the store context which is understood to be the mutable source
+    //Look into the difference between currentValue and currentValue2
 
-  //Iterating through atate of Atoms acculated through applications use of useAtomicDevtool() and atomic()
-  //in order to aquire the atomState of each atom from WeakMap
-  for (const [label, atom] of Object.entries(atomState)) {
-    //Create copy of atom state per atom in Provider store
-    atomsToDevtool[label] = { ...atomStore.get(atom) };
+    // const storeMap = storeContext._currentValue[0];
+    const storeMap = providerStateContext[0];
+    console.log('storeMap', storeMap);
+
+    //get key Symbols for mutable source
+    const storeContextSymbols = Object.getOwnPropertySymbols(storeMap);
+    // console.log("storeContextSymbols", storeContextSymbols);
+
+    //get first symbol for Provider store in mutable source
+    const storeSymbol = storeContextSymbols[0];
+    // console.log("storeSymbol", storeSymbol);
+
+    //Get store from mutable source
+    const store = storeMap[storeSymbol];
+    // console.log('store', store);
+
+    //mutable source holds 'a' which is atomStore and 'm' which is mountedStore
+    //get atomStore from Provider store
+    const atomStore = store.a;
+    console.log('atomStore - > ', atomStore);
+
+    //Create a serializable object of atom state to send to devtool
+    const atomsToDevtool = {};
+
+    //Iterating through atate of Atoms acculated through applications use of useAtomicDevtool() and atomic()
+    //in order to aquire the atomState of each atom from WeakMap
+    for (const [label, atom] of Object.entries(atomState)) {
+      //Create copy of atom state per atom in Provider store
+      atomsToDevtool[label] = { ...atomStore.get(atom) };
+    }
+
+    //travers deps in atomsToDevtools and find missing atoms (global)
+    const traverseDeps = (label, atom) => {
+      atom.d.forEach((ref, dep) => {
+        let dependantAtom = atomsToDevtool[dep.debugLabel || dep.toString()];
+        if (!dependantAtom) {
+          dependantAtom = {
+            ...atomStore.get(dep),
+          };
+
+          atomsToDevtool[dep.debugLabel || dep.toString()] = dependantAtom;
+          label = dep.debugLabel || dep.toString();
+
+          traverseDeps(label, dependantAtom);
+        }
+      });
+    };
+
+    for (const [label, atom] of Object.entries(atomsToDevtool)) {
+      traverseDeps(label, atom);
+    }
+
+    // iterate over Map of atom dependancies and push label to array
+    console.log('atomsToDevtool --- > ', atomsToDevtool);
+
+    for (const [label, atom] of Object.entries(atomsToDevtool)) {
+      //Array of atom dependancy labels
+      const atomDeps = [];
+
+      atom.d.forEach((ref, dep) => {
+        atomDeps.push(dep.debugLabel || dep.toString());
+      });
+
+      //replace Map reference with serializable array of dependacies
+      atom.d = atomDeps;
+    }
+
+    console.log('atomsToDevtool --- > ', atomsToDevtool);
+
+    const atomsToDevtoolString = JSON.stringify(atomsToDevtool);
+    // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
+    console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
   }
-
-  //travers deps in atomsToDevtools and find missing atoms (global)
-  const traverseDeps = (label, atom) => {
-    atom.d.forEach((ref, dep) => {
-      let dependantAtom = atomsToDevtool[dep.debugLabel || dep.toString()];
-      if (!dependantAtom) {
-        dependantAtom = {
-          ...atomStore.get(dep),
-        };
-
-        atomsToDevtool[dep.debugLabel || dep.toString()] = dependantAtom;
-        label = dep.debugLabel || dep.toString();
-
-        traverseDeps(label, dependantAtom);
-      }
-    });
-  };
-
-  for (const [label, atom] of Object.entries(atomsToDevtool)) {
-    traverseDeps(label, atom);
-  }
-
-  // iterate over Map of atom dependancies and push label to array
-
-  console.log('atomsToDevtool --- > ', atomsToDevtool);
-
-  for (const [label, atom] of Object.entries(atomsToDevtool)) {
-    //Array of atom dependancy labels
-    const atomDeps = [];
-
-    atom.d.forEach((ref, dep) => {
-      atomDeps.push(dep.debugLabel || dep.toString());
-    });
-    atom.d = atomDeps;
-  }
-
-  console.log('atomsToDevtool --- > ', atomsToDevtool);
-  //replace Map reference with serializable array of dependacies
-
-  const atomsToDevtoolString = JSON.stringify(atomsToDevtool);
-  // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
-  console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
 
   const logMessage = message => {
     if (message.action === 'TEST') {
@@ -133,10 +138,6 @@ function AtomicDebugger({ children }) {
   console.log(
     'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
     window.__ATOMIC_DEVTOOLS_EXTENSION__
-  );
-  console.log(
-    'window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK in AtomicDebugger is ---> ',
-    window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK
   );
 
   window.addEventListener('message', logMessage);
