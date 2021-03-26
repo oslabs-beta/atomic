@@ -1,3 +1,12 @@
+/**
+ * this is a comment
+ * TODO this is a todo
+ * *this is an inportant
+ * ?this is a query
+ * !This is a warning
+ * @param myParam desciption
+ */
+
 /* eslint-disable no-console */
 
 /*
@@ -54,10 +63,6 @@ function connected(port: any) {
 
 // receive initial onConnect message from dev tool app (only happens once)
 chrome.runtime.onConnect.addListener(connected);
-
-/*
-Event listener rece
-*/
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
