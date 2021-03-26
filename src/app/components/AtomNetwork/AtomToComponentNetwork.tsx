@@ -4,6 +4,7 @@ import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
 import { pointRadial } from 'd3-shape';
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
+import { Zoom } from '@visx/zoom';
 
 let snapshot: any[] = [
   {
@@ -21,6 +22,15 @@ let snapshot: any[] = [
     },
   },
 ];
+
+const initialTransform = {
+  scaleX: 1,
+  scaleY: 1,
+  translateX: 15.62,
+  translateY: 55.59,
+  skewX: 0,
+  skewY: 0,
+};
 
 function AtomToComponent(atom: string) {
   let atomComponentData = {};
@@ -82,9 +92,20 @@ function AtomToComponentNetwork({
 
   return totalWidth < 10 ? null : (
     <div>
+      <Zoom
+        width={totalWidth}
+        height={totalHeight}
+        scaleXMin={1 / 2}
+        scaleXMax={4}
+        scaleYMin={1 / 2}
+        scaleYMax={4}
+        transformMatrix={initialTransform}
+      >
+        {zoom => (
       <svg width={totalWidth} height={totalHeight}>
         <LinearGradient id="links-gradient" from="#de638a" to="#d13164" />
         <rect width={totalWidth} height={totalHeight} rx={14} fill="#202020" />
+        <g transform={zoom.toString()}>
         <Group top={margin.top} left={margin.left}>
           <Tree
             root={hierarchy(data, d => (d.isExpanded ? null : d.components))}
@@ -169,7 +190,29 @@ function AtomToComponentNetwork({
             )}
           </Tree>
         </Group>
+        </g>
+        <rect
+                width={totalWidth}
+                height={totalHeight}
+                rx={14}
+                fill="transparent"
+                onTouchStart={zoom.dragStart}
+                onTouchMove={zoom.dragMove}
+                onTouchEnd={zoom.dragEnd}
+                onMouseDown={zoom.dragStart}
+                onMouseMove={zoom.dragMove}
+                onMouseUp={zoom.dragEnd}
+                onMouseLeave={() => {
+                  if (zoom.isDragging) zoom.dragEnd();
+                }}
+                onDoubleClick={event => {
+                  const point = localPoint(event) || { x: 0, y: 0 };
+                  zoom.scale({ scaleX: 1.1, scaleY: 1.1, point });
+                }}
+              />
       </svg>
+          )}
+          </Zoom>
     </div>
   );
 }
