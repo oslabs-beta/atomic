@@ -3,6 +3,7 @@ import React, {
   useContext,
   useState,
   useDebugValue,
+  useEffect,
 } from 'react';
 
 import { useAtom, SECRET_INTERNAL_getStoreContext } from 'jotai';
@@ -19,11 +20,25 @@ function AtomicDebugger({ children }) {
   // .current
   // .stateNode.current)
 
-  console.log('window in AtomicDebugger is ---> ', window);
-  console.log(
-    'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
-    window.__ATOMIC_DEVTOOLS_EXTENSION__
-  );
+  useEffect(() => {
+    let extension;
+
+    extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
+
+    console.log('window in AtomicDebugger is ---> ', window);
+    console.log(
+      'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
+      window.__ATOMIC_DEVTOOLS_EXTENSION__
+    );
+    console.log(
+      'window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK in AtomicDebugger is ---> ',
+      window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK
+    );
+
+    try {
+      extension();
+    } catch {}
+  }, []);
 
   //Deeclareing state to build serializable atomState to send to devtool
   //setAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
@@ -131,11 +146,21 @@ function AtomicDebugger({ children }) {
 }
 
 function useAtomicDevtool(atom, label) {
-  console.log('window in useAtomicDevtool is ---> ', window);
-  console.log(
-    'window.__ATOMIC_DEVTOOLS_EXTENSION__ in useAtomicDevtool is ---> ',
-    window.__ATOMIC_DEVTOOLS_EXTENSION__
-  );
+  useEffect(() => {
+    let extension;
+
+    extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
+
+    console.log('window in AtomicDebugger is ---> ', window);
+    console.log(
+      'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
+      window.__ATOMIC_DEVTOOLS_EXTENSION__
+    );
+
+    try {
+      extension();
+    } catch {}
+  }, []);
   //Use context provided by AtomicDebugger component to retrieve setAtomState()
   const setAtomState = useContext(AtomUpdateContext);
 

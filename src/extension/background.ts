@@ -88,13 +88,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           code: `
             // Function will attach script to the DOM
             const injectScript = (file, tag) => {
-              const htmlBody = document.getElementsByTagName(tag)[0];
+              // const htmlBody = document.getElementsByTagName(tag)[0];
               const script = document.createElement('script');
               script.setAttribute('type', 'text/javascript');
               script.setAttribute('src', file);
-              htmlBody.appendChild(script);
+              // htmlBody.appendChild(script);
+              document.documentElement.appendChild(script);
             };
-            injectScript(chrome.runtime.getURL('bundles/backend.bundle.js'), 'body');
+            injectScript(chrome.runtime.getURL('bundles/backend.bundle.js'), 'head');
           `,
         },
         _ => {
