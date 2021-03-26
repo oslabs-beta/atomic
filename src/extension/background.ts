@@ -24,6 +24,7 @@ starts listening to messages received on the port, and logs them.
 */
 
 import { curSnapMock, prevSnapMock } from '../app/mock/mockStateDiff';
+import { componentAtomTreeMock } from '../app/mock/mockComponentTree';
 
 let portFromAPP: {
   postMessage: (message: { action: string; payload: any }) => void;
@@ -49,6 +50,10 @@ function connected(port: any) {
         portFromAPP.postMessage({
           action: 'RECORD_SNAPSHOT',
           payload: { atomState: curSnapMock },
+        });
+        portFromAPP.postMessage({
+          action: 'RECORD_COMPONENT_TREE',
+          payload: { componentTree: componentAtomTreeMock },
         });
         break;
       }
