@@ -215,3 +215,12 @@ input:checked + .toggleSlider:before {
   background: white;
   cursor: pointer;
 }
+
+/* ATOM NETWORK */
+.atomNetwork{
+  height: 100%;
+  background-color: #202020;
+  color: #e6e6e6;
+  width: 100%;
+  margin: 10px 10px;
+}
