@@ -7,8 +7,6 @@
 //Content scripts can communicate with their parent extension
 //by exchanging messages and storing values using the storage API.
 
-//Create __ATOMIC_DEVTOOLS_EXTENSION__
-
 window.addEventListener('message', msg => {
   if (
     msg.data.source != 'react-devtools-bridge' &&
@@ -25,7 +23,31 @@ window.addEventListener('message', msg => {
   }
 });
 
+// Inject backend bundle
+
 // send initial message to background script
-chrome.runtime.sendMessage({ action: 'injectScript' });
+// chrome.runtime.sendMessage({ action: 'injectScript' });
+
+const injectCode = (code: string) => {
+  const script = document.createElement('script');
+  script.textContent = code;
+  script.setAttribute('type', 'text/javascript');
+  // script.setAttribute('src', file);
+  // script.src = chrome.extension.getURL('bundles/backend.bundle.js');
+  script.async = false;
+  document.documentElement.appendChild(script);
+  // script?.parentNode?.removeChild(script);
+};
+
+//Create __ATOMIC_DEVTOOLS_EXTENSION__ hook to inject
+const initHook = `
+window.__ATOMIC_DEVTOOLS_EXTENSION__ = () => {
+    console.log('__ATOMIC_DEVTOOLS_EXTENSION__ is accessible');
+  };
+`;
+
+injectCode(`${initHook}`);
+// injectCode(chrome.runtime.getURL('bundles/backend.bundle.js'));
+// injectCode(`${initHook}`);
 
 console.log('running content-script.ts');

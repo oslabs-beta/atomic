@@ -81,32 +81,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   // Injects JavaScript code into a page. (Inject backend.bundle.js to the current tab)
 
   switch (action) {
-    case 'injectScript': {
-      chrome.tabs.executeScript(
-        tabId!, // optional integer
-        {
-          code: `
-            // Function will attach script to the DOM
-            const injectScript = (file, tag) => {
-              // const htmlBody = document.getElementsByTagName(tag)[0];
-              const script = document.createElement('script');
-              script.setAttribute('type', 'text/javascript');
-              script.setAttribute('src', file);
-              // htmlBody.appendChild(script);
-              document.documentElement.appendChild(script);
-            };
-            injectScript(chrome.runtime.getURL('bundles/backend.bundle.js'), 'head');
-          `,
-        },
-        _ => {
-          const e = chrome.runtime.lastError;
-          if (e !== undefined) {
-            console.log(tabId, _, e);
-          }
-        }
-      );
-      break;
-    }
+    // case 'injectScript': {
+    //   chrome.tabs.executeScript(
+    //     tabId!, // optional integer
+    //     {
+    //       code: `
+    //         // Function will attach script to the DOM
+    //         const injectScript = (file, tag) => {
+    //           // const htmlBody = document.getElementsByTagName(tag)[0];
+    //           const script = document.createElement('script');
+    //           script.setAttribute('type', 'text/javascript');
+    //           script.setAttribute('src', file);
+    //           // htmlBody.appendChild(script);
+    //           document.documentElement.appendChild(script);
+    //         };
+    //         injectScript(chrome.runtime.getURL('bundles/backend.bundle.js'), 'head');
+    //       `,
+    //     },
+    //     _ => {
+    //       const e = chrome.runtime.lastError;
+    //       if (e !== undefined) {
+    //         console.log(tabId, _, e);
+    //       }
+    //     }
+    //   );
+    //   break;
+    // }
 
     case 'testGetFiber': {
       console.log(`case 'testGetFiber': portFromAPP -> `, portFromAPP);
@@ -118,4 +118,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
   }
 });
+
 console.log('running background.ts');
