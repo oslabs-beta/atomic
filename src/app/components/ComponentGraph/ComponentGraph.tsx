@@ -105,7 +105,7 @@ function ComponentGraph({
 
   return totalWidth < 10 ? null : (
     <div>
-      <div style={{ position: 'fixed'}}>
+      <div style={{ position: 'fixed' }}>
         <LinkControls
           layout={layout}
           orientation={orientation}
@@ -293,25 +293,6 @@ function ComponentGraph({
                 </Tree>
               </Group>
             </g>
-            {/* <rect
-              width={totalWidth}
-              height={totalWidth}
-              rx={14}
-              fill="transparent"
-              onTouchStart={zoom.dragStart}
-              onTouchMove={zoom.dragMove}
-              onTouchEnd={zoom.dragEnd}
-              onMouseDown={zoom.dragStart}
-              onMouseMove={zoom.dragMove}
-              onMouseUp={zoom.dragEnd}
-              onMouseLeave={() => {
-                if (zoom.isDragging) zoom.dragEnd();
-              }}
-              onDoubleClick={event => {
-                const point = localPoint(event) || { x: 0, y: 0 };
-                zoom.scale({ scaleX: 1.1, scaleY: 1.1, point });
-              }}
-            /> */}
           </svg>
         )}
       </Zoom>
