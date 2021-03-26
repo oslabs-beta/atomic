@@ -36,7 +36,7 @@ const injectCode = (code: string) => {
   // script.src = chrome.extension.getURL('bundles/backend.bundle.js');
   script.async = false;
   document.documentElement.appendChild(script);
-  // script?.parentNode?.removeChild(script);
+  script?.parentNode?.removeChild(script);
 };
 
 //Create __ATOMIC_DEVTOOLS_EXTENSION__ hook to inject

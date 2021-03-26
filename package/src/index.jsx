@@ -124,27 +124,27 @@ function AtomicDebugger({ children }) {
     }
   };
 
-  useEffect(() => {
-    let extension;
+  // useEffect(() => {
+  let extension;
 
-    extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
+  extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
 
-    console.log('window in AtomicDebugger is ---> ', window);
-    console.log(
-      'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
-      window.__ATOMIC_DEVTOOLS_EXTENSION__
-    );
-    console.log(
-      'window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK in AtomicDebugger is ---> ',
-      window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK
-    );
+  console.log('window in AtomicDebugger is ---> ', window);
+  console.log(
+    'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
+    window.__ATOMIC_DEVTOOLS_EXTENSION__
+  );
+  console.log(
+    'window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK in AtomicDebugger is ---> ',
+    window.__REACT_CONTEXT_DEVTOOL_GLOBAL_HOOK
+  );
 
-    window.addEventListener('message', logMessage);
+  window.addEventListener('message', logMessage);
 
-    try {
-      extension();
-    } catch {}
-  }, []);
+  try {
+    extension();
+  } catch {}
+  // }, []);
 
   return (
     <AtomUpdateContext.Provider value={setAtomState}>
@@ -174,21 +174,21 @@ function useAtomicDevtool(atom, label) {
   //for React Devtools...
   useDebugValue(atom, () => label);
 
-  useEffect(() => {
-    let extension;
+  // useEffect(() => {
+  let extension;
 
-    extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
+  extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
 
-    console.log('window in AtomicDebugger is ---> ', window);
-    console.log(
-      'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
-      window.__ATOMIC_DEVTOOLS_EXTENSION__
-    );
+  console.log('window in AtomicDebugger is ---> ', window);
+  console.log(
+    'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
+    window.__ATOMIC_DEVTOOLS_EXTENSION__
+  );
 
-    try {
-      extension();
-    } catch {}
-  }, [atom]);
+  try {
+    extension();
+  } catch {}
+  // }, [atom]);
 
   //return useAtom to maintain functionality
   return useAtom(atom);

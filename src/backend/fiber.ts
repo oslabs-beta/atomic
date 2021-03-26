@@ -31,6 +31,9 @@ let providerState;
 export default (): (() => void) => {
   return () => {
     const devTools = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+    // const sendToAtomicDevtools = window.__ATOMIC_DEVTOOLS_EXTENSION__.send
+
+
     // console.log('devTools --> ', devTools);
     // console.log('reactInstance --> ', reactInstance);
 
@@ -58,6 +61,8 @@ export default (): (() => void) => {
             'testParse in fiber is--> ',
             buildNodeTree(fiberRoot.current)
           );
+
+          // sendToAtomicDevtools(buildNodeTree(fiberRoot.current))
 
           return original(...args);
         };
