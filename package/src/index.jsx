@@ -19,7 +19,11 @@ function AtomicDebugger({ children }) {
   // .current
   // .stateNode.current)
 
-  window.__ATOMIC_DEVTOOLS_EXTENSION__();
+  console.log('window in AtomicDebugger is ---> ', window);
+  console.log(
+    'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
+    window.__ATOMIC_DEVTOOLS_EXTENSION__
+  );
 
   //Deeclareing state to build serializable atomState to send to devtool
   //setAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
@@ -127,6 +131,11 @@ function AtomicDebugger({ children }) {
 }
 
 function useAtomicDevtool(atom, label) {
+  console.log('window in useAtomicDevtool is ---> ', window);
+  console.log(
+    'window.__ATOMIC_DEVTOOLS_EXTENSION__ in useAtomicDevtool is ---> ',
+    window.__ATOMIC_DEVTOOLS_EXTENSION__
+  );
   //Use context provided by AtomicDebugger component to retrieve setAtomState()
   const setAtomState = useContext(AtomUpdateContext);
 
