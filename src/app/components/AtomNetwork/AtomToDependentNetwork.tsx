@@ -28,10 +28,10 @@ let snapshotData: any[] = [
 ];
 
 const initialTransform = {
-  scaleX: 1,
-  scaleY: 1,
-  translateX: 15.62,
-  translateY: 55.59,
+  scaleX: .7,
+  scaleY: .7,
+  translateX: 100,
+  translateY: 100,
   skewX: 0,
   skewY: 0,
 };
