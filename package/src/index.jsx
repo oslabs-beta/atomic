@@ -24,10 +24,15 @@ function AtomicDebugger({ children }) {
 
   let providerStateContext;
 
+  console.log('fiberRoot ---> ', fiberRoot);
+
   if (fiberRoot.child) {
     providerStateContext =
       fiberRoot.child.child.memoizedState.memoizedState.current;
+    //Make sure jotai provider is there.
+    //figure out providerless mode
 
+    console.log('STATE CONTEXT ===> ', fiberRoot.child);
     console.log('STATE CONTEXT ===> ', providerStateContext);
 
     //investigate when and if we need useEffect to avoid update warnings with rendering
