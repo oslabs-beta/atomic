@@ -10,7 +10,14 @@ let snapshot: any[] = [
   {
     statusAtom: {
       contents: 'Next Player: X',
-      nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
+      nodeDeps: [
+        'squaresAtom',
+        'winnerAtom',
+        'nextValueAtom',
+        'test',
+        'componentgraphatom',
+        'nextValueAtom',
+      ],
       components: ['End', 'Status', 'AtomNetwork', 'ComponentGraph', 'NavBar'],
     },
   },
@@ -135,8 +142,9 @@ function AtomToDependentNetwork({
                           let nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 20;
                           if (nodeLength < 10) return nodeLength + 25;
-                          if (nodeLength < 20) return nodeLength + 35;
-                          return nodeLength + 50;
+                          if (nodeLength < 15) return nodeLength + 35;
+                          if (nodeLength < 20) return nodeLength + 50;
+                          return nodeLength + 70;
                         };
                         const radius = radiusFunc(node.data.name);
 

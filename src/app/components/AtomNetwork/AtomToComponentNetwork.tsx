@@ -17,7 +17,7 @@ let snapshot: any[] = [
         'AtomNetwork',
         'ComponentGraph',
         'NavBar',
-        'CompnoentGraph',
+        'CompnoentGraph14235',
       ],
     },
   },
@@ -138,8 +138,9 @@ function AtomToComponentNetwork({
                           let nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 30;
                           if (nodeLength < 10) return nodeLength + 50;
-                          if (nodeLength < 20) return nodeLength + 110;
-                          return nodeLength + 115;
+                          if (nodeLength < 15) return nodeLength + 100;
+                          if (nodeLength < 20) return nodeLength + 127;
+                          return nodeLength + 145;
                         };
                         const width = widthFunc(node.data.name);
                         const height = 25;
@@ -155,8 +156,9 @@ function AtomToComponentNetwork({
                           let nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 20;
                           if (nodeLength < 10) return nodeLength + 25;
-                          if (nodeLength < 20) return nodeLength + 35;
-                          return nodeLength + 50;
+                          if (nodeLength < 15) return nodeLength + 35;
+                          if (nodeLength < 20) return nodeLength + 50;
+                          return nodeLength + 70;
                         };
                         const radius = radiusFunc(node.data.name);
 

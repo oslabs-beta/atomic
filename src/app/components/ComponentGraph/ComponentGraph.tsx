@@ -177,9 +177,10 @@ function ComponentGraph({
                         const widthFunc = (name: string) => {
                           let nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 30;
-                          if (nodeLength < 10) return nodeLength + 45;
-                          if (nodeLength < 20) return nodeLength + 90;
-                          return nodeLength + 70;
+                          if (nodeLength < 10) return nodeLength + 50;
+                          if (nodeLength < 15) return nodeLength + 100;
+                          if (nodeLength < 20) return nodeLength + 127;
+                          return nodeLength + 145;
                         };
                         const width = widthFunc(node.data.name);
                         const height = 20;
