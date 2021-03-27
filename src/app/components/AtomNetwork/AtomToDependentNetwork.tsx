@@ -146,7 +146,7 @@ function AtomToDependentNetwork({
                           let nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 20;
                           if (nodeLength < 10) return nodeLength + 25;
-                          if (nodeLength < 15) return nodeLength + 35;
+                          if (nodeLength < 15) return nodeLength + 40;
                           if (nodeLength < 20) return nodeLength + 50;
                           return nodeLength + 70;
                         };

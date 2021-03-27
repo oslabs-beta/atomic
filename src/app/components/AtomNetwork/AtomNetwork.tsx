@@ -7,7 +7,7 @@ function AtomNetwork(): JSX.Element {
   const [switchToggle, setSwitchToggle] = useState(false);
 
   return (
-    <div className="atomNetwork">
+    <div className="atomNetwork" style={{height:"95vh"}}>
       {/* <div style={{ position: 'fixed' }}>
         <button
           onClick={() => {
