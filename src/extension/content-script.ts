@@ -41,7 +41,9 @@ const injectCode = (code: string) => {
 
 //Create __ATOMIC_DEVTOOLS_EXTENSION__ hook to inject
 const initHook = `
-window.__ATOMIC_DEVTOOLS_EXTENSION__ = () => {
+window.__ATOMIC_DEVTOOLS_EXTENSION__ = (testStringLocation) => {
+
+    console.log('testStringLocation ---> ', testStringLocation);
     console.log('__ATOMIC_DEVTOOLS_EXTENSION__ is accessible');
   };
 `;

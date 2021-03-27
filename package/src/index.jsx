@@ -143,7 +143,7 @@ function AtomicDebugger({ children }) {
   window.addEventListener('message', logMessage);
 
   try {
-    extension();
+    extension('from AtomicDebugger');
   } catch {}
   // }, []);
 
@@ -180,14 +180,14 @@ function useAtomicDevtool(atom, label) {
 
   extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
 
-  console.log('window in AtomicDebugger is ---> ', window);
+  console.log('window in useAtomicDevtool is ---> ', window);
   console.log(
     'window.__ATOMIC_DEVTOOLS_EXTENSION__ in AtomicDebugger is ---> ',
     window.__ATOMIC_DEVTOOLS_EXTENSION__
   );
 
   try {
-    extension();
+    extension('from useAtomicDevtool');
   } catch {}
   // }, [atom]);
 
