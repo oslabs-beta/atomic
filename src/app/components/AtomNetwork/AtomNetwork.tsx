@@ -4,7 +4,7 @@ import AtomToComponentNetwork from './AtomToComponentNetwork';
 import AtomToDependentNetwork from './AtomToDependentNetwork';
 
 function AtomNetwork(): JSX.Element {
-  const [switchToggle, setSwitchToggle] = useState(true);
+  const [switchToggle, setSwitchToggle] = useState(false);
 
   return (
     <div className="atomNetwork" >

@@ -5,8 +5,9 @@ import { LinearGradient } from '@visx/gradient';
 import { pointRadial } from 'd3-shape';
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { Zoom } from '@visx/zoom';
+import { snapshot } from '../../../types';
 
-let snapshot: any[] = [
+let snapshotData: any[] = [
   {
     statusAtom: {
       contents: 'Next Player: X',
@@ -32,9 +33,9 @@ const initialTransform = {
   skewY: 0,
 };
 
-function AtomToDependents(atom): string {
-  let atomDependentData = {};
-  let object = snapshot[0][atom];
+function AtomToDependents(atom: string) {
+  let atomDependentData : any= {};
+  let object: snapshot = snapshotData[0][atom];
   atomDependentData.name = atom;
   atomDependentData.nodeDeps = [];
   object.nodeDeps.map(item => {
@@ -194,10 +195,7 @@ function AtomToDependentNetwork({
               onMouseLeave={() => {
                 if (zoom.isDragging) zoom.dragEnd();
               }}
-              onDoubleClick={event => {
-                const point = localPoint(event) || { x: 0, y: 0 };
-                zoom.scale({ scaleX: 1.1, scaleY: 1.1, point });
-              }}
+             
             />
           </svg>
         )}
