@@ -11,14 +11,7 @@ let snapshot: any[] = [
     statusAtom: {
       contents: 'Next Player: X',
       nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
-      components: [
-        'End',
-        'Status',
-        'AtomNetwork',
-        'ComponentGraph',
-        'NavBar',
-        'CompnoentGraph',
-      ],
+      components: ['End', 'Status', 'AtomNetwork', 'ComponentGraph', 'NavBar'],
     },
   },
 ];
@@ -32,19 +25,6 @@ const initialTransform = {
   skewY: 0,
 };
 
-function AtomToComponent(atom: string) {
-  let atomComponentData = {};
-  let object = snapshot[0][atom];
-  atomComponentData.name = atom;
-  atomComponentData.components = [];
-  object.components.map(item => {
-    atomComponentData.components.push({ name: item });
-  });
-  console.log('atomComponentData', atomComponentData);
-  console.log('object', object);
-  return atomComponentData;
-}
-
 function AtomToDependents(atom): string {
   let atomDependentData = {};
   let object = snapshot[0][atom];
@@ -57,7 +37,7 @@ function AtomToDependents(atom): string {
   return atomDependentData;
 }
 
-const data = AtomToComponent('statusAtom');
+const data = AtomToDependents('statusAtom');
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
@@ -67,7 +47,7 @@ export type LinkTypesProps = {
   margin?: { top: number; right: number; bottom: number; left: number };
 };
 
-function AtomToComponentNetwork({
+function AtomToDependentNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
@@ -114,7 +94,7 @@ function AtomToComponentNetwork({
               <Group top={margin.top} left={margin.left}>
                 <Tree
                   root={hierarchy(data, d =>
-                    d.isExpanded ? null : d.components
+                    d.isExpanded ? null : d.nodeDeps
                   )}
                   size={[sizeWidth, sizeHeight]}
                   separation={(a, b) =>
@@ -134,15 +114,15 @@ function AtomToComponentNetwork({
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        const widthFunc = (name: string) => {
-                          let nodeLength = name.length;
-                          if (nodeLength < 5) return nodeLength + 30;
-                          if (nodeLength < 10) return nodeLength + 50;
-                          if (nodeLength < 20) return nodeLength + 110;
-                          return nodeLength + 115;
-                        };
-                        const width = widthFunc(node.data.name);
-                        const height = 25;
+                        // const widthFunc = (name: string) => {
+                        //   let nodeLength = name.length;
+                        //   if (nodeLength < 5) return nodeLength + 30;
+                        //   if (nodeLength < 10) return nodeLength + 45;
+                        //   if (nodeLength < 20) return nodeLength + 90;
+                        //   return nodeLength + 70;
+                        // };
+                        // const width = widthFunc(node.data.name);
+                        // const height = 20;
 
                         let top: number;
                         let left: number;
@@ -169,18 +149,7 @@ function AtomToComponentNetwork({
                               />
                             )}
                             {node.depth !== 0 && (
-                              <rect
-                                height={height}
-                                width={width}
-                                y={-height / 2}
-                                x={-width / 2}
-                                fill="#7f5dc0"
-                                rx={4}
-                                stroke={'black'}
-                                strokeWidth={1}
-                                strokeDasharray={0}
-                                strokeOpacity={1}
-                              />
+                              <circle r={radius} fill={'#41b69c'} />
                             )}
                             <text
                               dy=".33em"
@@ -229,4 +198,4 @@ function AtomToComponentNetwork({
   );
 }
 
-export default AtomToComponentNetwork;
+export default AtomToDependentNetwork;
