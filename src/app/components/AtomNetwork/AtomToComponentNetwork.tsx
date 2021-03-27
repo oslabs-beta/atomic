@@ -34,7 +34,7 @@ const initialTransform = {
 };
 
 function AtomToComponent(atom: string) {
-  let atomComponentData :any= {};
+  let atomComponentData: any = {};
   let object: snapshot = snapshotData[0][atom];
   atomComponentData.name = atom;
   atomComponentData.components = [];
@@ -208,7 +208,6 @@ function AtomToComponentNetwork({
               onMouseLeave={() => {
                 if (zoom.isDragging) zoom.dragEnd();
               }}
-              
             />
           </svg>
         )}

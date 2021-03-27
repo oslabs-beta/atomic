@@ -54,7 +54,6 @@ function App(): JSX.Element {
   // Handle connection attempt
   // runtime.onConnect
 
-
   useEffect(() => {
     const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
 

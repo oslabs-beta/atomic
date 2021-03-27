@@ -16,8 +16,11 @@ let snapshotData: any[] = [
         'winnerAtom',
         'nextValueAtom',
         'test',
-        'componentgraphatom',
+        'componentgraph',
         'nextValueAtom',
+        'Test125',
+        'test34',
+        'test4784',
       ],
       components: ['End', 'Status', 'AtomNetwork', 'ComponentGraph', 'NavBar'],
     },
@@ -34,7 +37,7 @@ const initialTransform = {
 };
 
 function AtomToDependents(atom: string) {
-  let atomDependentData : any= {};
+  let atomDependentData: any = {};
   let object: snapshot = snapshotData[0][atom];
   atomDependentData.name = atom;
   atomDependentData.nodeDeps = [];
@@ -195,7 +198,6 @@ function AtomToDependentNetwork({
               onMouseLeave={() => {
                 if (zoom.isDragging) zoom.dragEnd();
               }}
-             
             />
           </svg>
         )}
