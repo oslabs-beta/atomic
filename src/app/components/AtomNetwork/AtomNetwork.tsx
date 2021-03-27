@@ -1,34 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 import AtomToComponentNetwork from './AtomToComponentNetwork';
 import AtomToDependentNetwork from './AtomToDependentNetwork';
+import { snapshotTestArray } from '../../mock/mockStateDiff';
+import { snapshotIndexContext } from '../App';
+
+const dropDownStyle = {
+  margin: '0.5em',
+  fontSize: '12px',
+  borderRadius: '4px',
+  backgroundColor: '#242529',
+  color: 'white',
+  padding: '2px',
+};
 
 function AtomNetwork(): JSX.Element {
   const [switchToggle, setSwitchToggle] = useState(false);
+  const [atomName, setAtomName] = useState('');
+  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+
+  const atomNamesArray = Object.keys(snapshotTestArray[snapshotIndex]);
+
+  console.log('snapshotIndex: ', snapshotIndex);
+  console.log(
+    'snapshotTestArray[snapshotIndex]: ',
+    snapshotTestArray[snapshotIndex]
+  );
+  console.log('atomNamesArray', atomNamesArray);
 
   return (
-    <div className="atomNetwork" style={{height:"95vh"}}>
-      {/* <div style={{ position: 'fixed' }}>
-        <button
-          onClick={() => {
-            setSwitchToggle(!switchToggle);
-          }}
-        >
-          Switch
-        </button>
-      </div> */}
+    <div className="atomNetwork" style={{ height: '95vh' }}>
+      <label>Select atom:</label>
+
+      <select
+        onClick={e => e.stopPropagation()}
+        onChange={e => setAtomName(e.target.value)}
+        value={atomName}
+        style={dropDownStyle}
+      >
+        {atomNamesArray.map(atomName => (
+          <option value={atomName}>{atomName}</option>
+        ))}
+      </select>
+      {/* toggle switch */}
       <div
         style={{
           display: 'flex',
           marginRight: '25px',
           alignItems: 'center',
-          position: 'fixed'
+          position: 'fixed',
         }}
       >
         <h3
           style={{
             marginRight: '7px',
-            color: !switchToggle ? '#1cb5c9' : "#7c7c7c",
+            color: !switchToggle ? '#1cb5c9' : '#7c7c7c',
           }}
         >
           Dependents
@@ -45,7 +71,7 @@ function AtomNetwork(): JSX.Element {
         <h3
           style={{
             marginLeft: '7px',
-            color: switchToggle ? '#1cb5c9' : "#7c7c7c",
+            color: switchToggle ? '#1cb5c9' : '#7c7c7c',
           }}
         >
           Components
