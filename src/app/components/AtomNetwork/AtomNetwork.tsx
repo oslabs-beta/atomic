@@ -8,7 +8,7 @@ function AtomNetwork(): JSX.Element {
 
   return (
     <div className="atomNetwork">
-      <div style={{ position: 'fixed' }}>
+      {/* <div style={{ position: 'fixed' }}>
         <button
           onClick={() => {
             setSwitchToggle(!switchToggle);
@@ -16,6 +16,40 @@ function AtomNetwork(): JSX.Element {
         >
           Switch
         </button>
+      </div> */}
+      <div
+        style={{
+          display: 'flex',
+          marginRight: '25px',
+          alignItems: 'center',
+          position: 'fixed'
+        }}
+      >
+        <h3
+          style={{
+            marginRight: '7px',
+            color: !switchToggle ? '#1cb5c9' : "#7c7c7c",
+          }}
+        >
+          Dependents
+        </h3>
+        <label className="toggleSwitch">
+          <input
+            type="checkbox"
+            onClick={() => {
+              setSwitchToggle(!switchToggle);
+            }}
+          />
+          <span className="toggleSlider round"></span>
+        </label>
+        <h3
+          style={{
+            marginLeft: '7px',
+            color: switchToggle ? '#1cb5c9' : "#7c7c7c",
+          }}
+        >
+          Components
+        </h3>
       </div>
       {switchToggle ? (
         <ParentSize>
