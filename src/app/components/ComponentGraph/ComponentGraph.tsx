@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -7,7 +7,11 @@ import { localPoint } from '@visx/event';
 import { pointRadial } from 'd3-shape';
 import LinkControls from './LinkControls';
 import getLinkComponent from './getLinkComponent';
-import { componentTreeHistoryContext, snapshotIndexContext } from '../App';
+import {
+  componentTreeHistoryContext,
+  snapshotIndexContext,
+  snapshotHistoryContext,
+} from '../App';
 import { Zoom } from '@visx/zoom';
 
 const initialTransform = {
@@ -17,6 +21,14 @@ const initialTransform = {
   translateY: 55.59,
   skewX: 0,
   skewY: 0,
+};
+const dropDownStyle = {
+  margin: '0.5em',
+  fontSize: '12px',
+  borderRadius: '4px',
+  backgroundColor: '#242529',
+  color: 'white',
+  padding: '2px',
 };
 
 interface TreeNode {
@@ -40,12 +52,8 @@ function ComponentGraph({
   height: totalHeight,
   margin = defaultMargin,
 }: LinkTypesProps) {
-  const { componentTreeHistory } = useContext<any>(
-    componentTreeHistoryContext
-  );
-  const { snapshotIndex } = useContext<any>(
-    snapshotIndexContext
-  );
+  const { componentTreeHistory } = useContext<any>(componentTreeHistoryContext);
+  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
   const [layout, setLayout] = useState<string>('cartesian');
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
@@ -53,6 +61,11 @@ function ComponentGraph({
   const [hoverName, setHoverName] = useState<string[]>(['empty']);
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
+
+  const [atomName, setAtomName] = useState<string>('');
+  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
+
+  const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   const data: TreeNode = componentTreeHistory[snapshotIndex];
 
@@ -106,16 +119,34 @@ function ComponentGraph({
   return totalWidth < 10 ? null : (
     <div>
       <div style={{ position: 'fixed' }}>
-        <LinkControls
-          layout={layout}
-          orientation={orientation}
-          linkType={linkType}
-          stepPercent={stepPercent}
-          setLayout={setLayout}
-          setOrientation={setOrientation}
-          setLinkType={setLinkType}
-          setStepPercent={setStepPercent}
-        />
+        <div>
+          <LinkControls
+            layout={layout}
+            orientation={orientation}
+            linkType={linkType}
+            stepPercent={stepPercent}
+            setLayout={setLayout}
+            setOrientation={setOrientation}
+            setLinkType={setLinkType}
+            setStepPercent={setStepPercent}
+          />
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+          <label>Atom:</label>
+          <select
+            // onClick={e => e.stopPropagation()}
+            onChange={e => setAtomName(e.target.value)}
+            value={atomName}
+            style={dropDownStyle}
+          >
+            <option value={''}>Select Atom</option>
+            {atomNamesArray.map((atomName, idx) => (
+              <option value={atomName} key={idx}>
+                {atomName}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <Zoom
         width={totalWidth}
@@ -224,7 +255,7 @@ function ComponentGraph({
 
                         function atomColor() {
                           for (let i = 0; i < hoverName.length; i++) {
-                            if (node.data.atom.includes(hoverName[i]))
+                            if (node.data.atom.includes(atomName))
                               return '#d13164';
                           }
                           if (node.data.atom.length) return '#7f5dc0';
