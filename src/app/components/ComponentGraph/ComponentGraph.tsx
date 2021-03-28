@@ -22,14 +22,6 @@ const initialTransform = {
   skewX: 0,
   skewY: 0,
 };
-const dropDownStyle = {
-  margin: '0.5em',
-  fontSize: '12px',
-  borderRadius: '4px',
-  backgroundColor: '#242529',
-  color: 'white',
-  padding: '2px',
-};
 
 interface TreeNode {
   name: string;
@@ -67,9 +59,9 @@ function ComponentGraph({
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-  useEffect(()=>{
-    setAtomName("")
-  },[snapshotIndex])
+  useEffect(() => {
+    setAtomName('');
+  }, [snapshotIndex]);
 
   const data: TreeNode = componentTreeHistory[snapshotIndex];
 
@@ -138,10 +130,10 @@ function ComponentGraph({
         <div style={{ marginLeft: '10px' }}>
           <label>Atom:</label>
           <select
-            // onClick={e => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
             onChange={e => setAtomName(e.target.value)}
             value={atomName}
-            style={dropDownStyle}
+            className="dropdown"
           >
             <option value={''}>Select Atom</option>
             {atomNamesArray.map((atomName, idx) => (
@@ -166,7 +158,11 @@ function ComponentGraph({
             <LinearGradient id="root-gradient" from="#cfa263" to="#d18417" />
             <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
             <LinearGradient id="element-gradient" from="#1cb5c9" to="#167d8a" />
-            <LinearGradient id="component-gradient" from="#7f5dc0" to="#503b7a" />
+            <LinearGradient
+              id="component-gradient"
+              from="#7f5dc0"
+              to="#503b7a"
+            />
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -265,7 +261,8 @@ function ComponentGraph({
                             if (node.data.atom.includes(atomName))
                               return "url('#atom-gradient')";
                           }
-                          if (node.data.atom.length) return "url('#component-gradient')";
+                          if (node.data.atom.length)
+                            return "url('#component-gradient')";
                           return "url('#element-gradient')";
                         }
 
@@ -367,7 +364,7 @@ function ComponentGraph({
           {/* Hover state: */}
           {tooltipData.atom.map((item: string) => (
             <div>
-              <strong style={{ color: "#d13164"}}>{item}:</strong>
+              <strong style={{ color: '#d13164' }}>{item}:</strong>
               <br />
               -Value: {JSON.stringify(tooltipData.state[item].values)}
               <br />

@@ -84,7 +84,11 @@ function AtomToComponentNetwork({
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
             <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
-            <LinearGradient id="component-gradient" from="#7f5dc0" to="#503b7a" />
+            <LinearGradient
+              id="component-gradient"
+              from="#7f5dc0"
+              to="#503b7a"
+            />
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -146,10 +150,7 @@ function AtomToComponentNetwork({
                         return (
                           <Group top={top} left={left} key={key}>
                             {node.depth === 0 && (
-                              <circle
-                                fill="url('#atom-gradient')"
-                                r={radius}
-                              />
+                              <circle fill="url('#atom-gradient')" r={radius} />
                             )}
                             {node.depth !== 0 && (
                               <rect

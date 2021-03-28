@@ -2,7 +2,7 @@ export const curSnapMock = {
   statusAtom: {
     contents: 'Next Player: X',
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
-    components: ['End', 'Status', "test"],
+    components: ['End', 'Status', 'test'],
   },
   winnerAtom: {
     contents: null,
@@ -71,21 +71,36 @@ const one = {
     contents: 'Next player: X',
     components: ['End', 'Status'],
   },
-  resetSquaresAtom: { r: 0, nodeDeps: ['resetSquaresAtom'], contents: null, components: ['Status'] },
+  resetSquaresAtom: {
+    r: 0,
+    nodeDeps: ['resetSquaresAtom'],
+    contents: null,
+    components: ['Status'],
+  },
   selectSquareAtom: {
     r: 1,
     nodeDeps: ['squaresAtom'],
     contents: [null, null, null, null, null, null, null, null, null],
     components: ['Squares'],
   },
-  winnerAtom: { r: 1, nodeDeps: ['squaresAtom'], contents: null,    components: ['End'] },
+  winnerAtom: {
+    r: 1,
+    nodeDeps: ['squaresAtom'],
+    contents: null,
+    components: ['End'],
+  },
   squaresAtom: {
     r: 0,
     nodeDeps: ['squaresAtom'],
     contents: [null, null, null, null, null, null, null, null, null],
     components: [],
   },
-  nextValueAtom: { r: 1, nodeDeps: ['squaresAtom'], contents: 'X', components: [] },
+  nextValueAtom: {
+    r: 1,
+    nodeDeps: ['squaresAtom'],
+    contents: 'X',
+    components: [],
+  },
 };
 const two = {
   statusAtom: {
@@ -94,21 +109,36 @@ const two = {
     contents: 'Next player: O',
     components: ['End', 'Status'],
   },
-  resetSquaresAtom: { r: 0, nodeDeps: ['resetSquaresAtom'], contents: null, components: ['Status'] },
+  resetSquaresAtom: {
+    r: 0,
+    nodeDeps: ['resetSquaresAtom'],
+    contents: null,
+    components: ['Status'],
+  },
   selectSquareAtom: {
     r: 2,
     nodeDeps: ['squaresAtom'],
     contents: [null, null, null, null, 'X', null, null, null, null],
     components: ['Squares'],
   },
-  winnerAtom: { r: 1, nodeDeps: ['squaresAtom'], contents: null ,    components: ['End']},
+  winnerAtom: {
+    r: 1,
+    nodeDeps: ['squaresAtom'],
+    contents: null,
+    components: ['End'],
+  },
   squaresAtom: {
     r: 1,
     nodeDeps: ['squaresAtom'],
     contents: [null, null, null, null, 'X', null, null, null, null],
     components: [],
   },
-  nextValueAtom: { r: 2, nodeDeps: ['squaresAtom'], contents: 'O' , components: [] },
+  nextValueAtom: {
+    r: 2,
+    nodeDeps: ['squaresAtom'],
+    contents: 'O',
+    components: [],
+  },
 };
 const three = {
   statusAtom: {
@@ -117,21 +147,36 @@ const three = {
     contents: 'Next player: X',
     components: ['End', 'Status'],
   },
-  resetSquaresAtom: { r: 0, nodeDeps: ['resetSquaresAtom'], contents: null,components: ['Status'] },
+  resetSquaresAtom: {
+    r: 0,
+    nodeDeps: ['resetSquaresAtom'],
+    contents: null,
+    components: ['Status'],
+  },
   selectSquareAtom: {
     r: 3,
     nodeDeps: ['squaresAtom'],
     contents: [null, null, 'O', null, 'X', null, null, null, null],
     components: ['Squares'],
   },
-  winnerAtom: { r: 1, nodeDeps: ['squaresAtom'], contents: null,    components: ['End'] },
+  winnerAtom: {
+    r: 1,
+    nodeDeps: ['squaresAtom'],
+    contents: null,
+    components: ['End'],
+  },
   squaresAtom: {
     r: 2,
     nodeDeps: ['squaresAtom'],
     contents: [null, null, 'O', null, 'X', null, null, null, null],
     components: [],
   },
-  nextValueAtom: { r: 3, nodeDeps: ['squaresAtom'], contents: 'X',components: []  },
+  nextValueAtom: {
+    r: 3,
+    nodeDeps: ['squaresAtom'],
+    contents: 'X',
+    components: [],
+  },
 };
 const four = {
   statusAtom: {
@@ -140,7 +185,12 @@ const four = {
     contents: 'Next player: O',
     components: ['End', 'Status'],
   },
-  resetSquaresAtom: { r: 0, nodeDeps: ['resetSquaresAtom'], contents: null, components: ['Status'] },
+  resetSquaresAtom: {
+    r: 0,
+    nodeDeps: ['resetSquaresAtom'],
+    contents: null,
+    components: ['Status'],
+  },
   selectSquareAtom: {
     r: 4,
     nodeDeps: ['squaresAtom'],
@@ -154,7 +204,12 @@ const four = {
     contents: [null, null, 'O', null, 'X', 'X', null, null, null],
     components: [],
   },
-  nextValueAtom: { r: 4, nodeDeps: ['squaresAtom'], contents: 'O',components: []  },
+  nextValueAtom: {
+    r: 4,
+    nodeDeps: ['squaresAtom'],
+    contents: 'O',
+    components: [],
+  },
 };
 const five = {
   statusAtom: {
@@ -163,25 +218,50 @@ const five = {
     contents: 'Next player: X',
     components: ['End', 'Status'],
   },
-  resetSquaresAtom: { r: 0, nodeDeps: ['resetSquaresAtom'], contents: null, components: ['Status'] },
+  resetSquaresAtom: {
+    r: 0,
+    nodeDeps: ['resetSquaresAtom'],
+    contents: null,
+    components: ['Status'],
+  },
   selectSquareAtom: {
     r: 5,
     nodeDeps: ['squaresAtom'],
     contents: [null, 'O', 'O', null, 'X', 'X', null, null, null],
     components: ['Squares'],
   },
-  winnerAtom: { r: 1, nodeDeps: ['squaresAtom'], contents: null , components: ['End']},
+  winnerAtom: {
+    r: 1,
+    nodeDeps: ['squaresAtom'],
+    contents: null,
+    components: ['End'],
+  },
   squaresAtom: {
     r: 4,
     nodeDeps: ['squaresAtom'],
     contents: [null, 'O', 'O', null, 'X', 'X', null, null, null],
     components: [],
   },
-  nextValueAtom: { r: 5, nodeDeps: ['squaresAtom'], contents: 'X' , components: [] },
+  nextValueAtom: {
+    r: 5,
+    nodeDeps: ['squaresAtom'],
+    contents: 'X',
+    components: [],
+  },
 };
 const six = {
-  statusAtom: { r: 6, nodeDeps: ['winnerAtom'], contents: 'Winner: X' ,   components: ['End', 'Status'],},
-  resetSquaresAtom: { r: 0, nodeDeps: ['resetSquaresAtom'], contents: null , components: ['Status']},
+  statusAtom: {
+    r: 6,
+    nodeDeps: ['winnerAtom'],
+    contents: 'Winner: X',
+    components: ['End', 'Status'],
+  },
+  resetSquaresAtom: {
+    r: 0,
+    nodeDeps: ['resetSquaresAtom'],
+    contents: null,
+    components: ['Status'],
+  },
   selectSquareAtom: {
     r: 6,
     nodeDeps: ['squaresAtom'],

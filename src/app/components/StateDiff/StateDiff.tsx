@@ -22,11 +22,7 @@ function StateDiff(): JSX.Element {
     <div className="stateDiff">
       <div>{ReactHtmlParser(html)}</div>
       <div
-        style={{
-          display: 'flex',
-          marginRight: '25px',
-          alignItems: 'center',
-        }}
+        className="stateDiffDiv"
       >
         <label className="toggleSwitch">
           <input

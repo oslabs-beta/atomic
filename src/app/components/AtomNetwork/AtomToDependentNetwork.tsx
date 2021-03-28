@@ -39,20 +39,19 @@ function AtomToDependentNetwork({
     let atomDependentData: any = {};
     if (!atom) return;
     else {
-    let object: snapshot = snapshotHistory[snapshotIndex][atom];
-    atomDependentData.name = atom;
-    atomDependentData.nodeDeps = [];
+      let object: snapshot = snapshotHistory[snapshotIndex][atom];
+      atomDependentData.name = atom;
+      atomDependentData.nodeDeps = [];
 
-    object.nodeDeps.map(item => {
-      atomDependentData.nodeDeps.push({ name: item });
-    })
+      object.nodeDeps.map(item => {
+        atomDependentData.nodeDeps.push({ name: item });
+      });
 
-    return atomDependentData;
-  }
+      return atomDependentData;
+    }
   }
 
   const data = AtomToDependents(atomName);
-
 
   const layout = 'polar';
   const linkType = 'line';
@@ -86,8 +85,12 @@ function AtomToDependentNetwork({
       >
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
-              <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
-            <LinearGradient id="dependent-gradient" from="#41b69c" to="#2d806d"/>
+            <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
+            <LinearGradient
+              id="dependent-gradient"
+              from="#41b69c"
+              to="#2d806d"
+            />
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -148,13 +151,13 @@ function AtomToDependentNetwork({
                         return (
                           <Group top={top} left={left} key={key}>
                             {node.depth === 0 && (
-                              <circle
-                                fill="url('#atom-gradient')"
-                                r={radius}
-                              />
+                              <circle fill="url('#atom-gradient')" r={radius} />
                             )}
                             {node.depth !== 0 && (
-                              <circle r={radius} fill={"url('#dependent-gradient')"} />
+                              <circle
+                                r={radius}
+                                fill={"url('#dependent-gradient')"}
+                              />
                             )}
                             <text
                               dy=".33em"
