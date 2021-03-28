@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 import AtomToComponentNetwork from './AtomToComponentNetwork';
 import AtomToDependentNetwork from './AtomToDependentNetwork';
-import { snapshotTestArray } from '../../mock/mockStateDiff';
-import { snapshotIndexContext } from '../App';
+
+import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 const dropDownStyle = {
   margin: '0.5em',
@@ -16,18 +16,16 @@ const dropDownStyle = {
 
 function AtomNetwork(): JSX.Element {
   const [switchToggle, setSwitchToggle] = useState(false);
-  const [atomName, setAtomName] = useState('');
+  const [atomName, setAtomName] = useState<string>('');
+  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
 
-  const atomNamesArray = Object.keys(snapshotTestArray[snapshotIndex]);
+  const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-  console.log('snapshotIndex: ', snapshotIndex);
-  console.log(
-    'snapshotTestArray[snapshotIndex]: ',
-    snapshotTestArray[snapshotIndex]
-  );
-  console.log('atomNamesArray', atomNamesArray);
-
+  useEffect(()=>{
+    setAtomName(atomNamesArray[0])
+  },[snapshotIndex])
+  
   return (
     <div className="atomNetwork" style={{ height: '95vh' }}>
       <div
@@ -40,13 +38,14 @@ function AtomNetwork(): JSX.Element {
       >
       <label>Select Atom:</label>
       <select
-        onClick={e => e.stopPropagation()}
+        // onClick={e => e.stopPropagation()}
         onChange={e => setAtomName(e.target.value)}
         value={atomName}
         style={dropDownStyle}
       >
-        {atomNamesArray.map(atomName => (
-          <option value={atomName}>{atomName}</option>
+        {atomNamesArray.map((atomName, idx) => (
+         
+          <option value={atomName} key={idx}>{atomName}</option>
         ))}
       </select>
         <h3
@@ -77,15 +76,15 @@ function AtomNetwork(): JSX.Element {
         </h3>
       </div>
       {switchToggle ? (
-        <ParentSize>
+        <ParentSize  >
           {({ width, height }) => (
-            <AtomToComponentNetwork width={width} height={height} />
+            <AtomToComponentNetwork atomName={atomName} width={width} height={height} />
           )}
         </ParentSize>
       ) : (
         <ParentSize>
           {({ width, height }) => (
-            <AtomToDependentNetwork width={width} height={height} />
+            <AtomToDependentNetwork atomName={atomName} width={width} height={height} />
           )}
         </ParentSize>
       )}

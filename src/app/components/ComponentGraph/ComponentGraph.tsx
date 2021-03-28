@@ -40,10 +40,10 @@ function ComponentGraph({
   height: totalHeight,
   margin = defaultMargin,
 }: LinkTypesProps) {
-  const { componentTreeHistory, setComponentTreeHistory } = useContext<any>(
+  const { componentTreeHistory } = useContext<any>(
     componentTreeHistoryContext
   );
-  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
+  const { snapshotIndex } = useContext<any>(
     snapshotIndexContext
   );
   const [layout, setLayout] = useState<string>('cartesian');

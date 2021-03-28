@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -6,49 +6,16 @@ import { pointRadial } from 'd3-shape';
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { Zoom } from '@visx/zoom';
 import { snapshot } from '../../../types';
-
-let snapshotData: any[] = [
-  {
-    statusAtom: {
-      contents: 'Next Player: X',
-      nodeDeps: [
-        'squaresAtom',
-        'winnerAtom',
-        'nextValueAtom',
-        'test',
-        'componentgraph',
-        'nextValueAtom',
-        'Test125',
-        'test34',
-        'test4784',
-      ],
-      components: ['End', 'Status', 'AtomNetwork', 'ComponentGraph', 'NavBar'],
-    },
-  },
-];
+import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 const initialTransform = {
-  scaleX: .7,
-  scaleY: .7,
+  scaleX: 0.7,
+  scaleY: 0.7,
   translateX: 100,
   translateY: 100,
   skewX: 0,
   skewY: 0,
 };
-
-function AtomToDependents(atom: string) {
-  let atomDependentData: any = {};
-  let object: snapshot = snapshotData[0][atom];
-  atomDependentData.name = atom;
-  atomDependentData.nodeDeps = [];
-  object.nodeDeps.map(item => {
-    atomDependentData.nodeDeps.push({ name: item });
-  });
-  console.log('atomDependentData', atomDependentData);
-  return atomDependentData;
-}
-
-const data = AtomToDependents('statusAtom');
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
@@ -56,18 +23,43 @@ export type LinkTypesProps = {
   width: number;
   height: number;
   margin?: { top: number; right: number; bottom: number; left: number };
+  atomName?: string;
 };
 
 function AtomToDependentNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
+  atomName,
 }: LinkTypesProps) {
+  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
+  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+
+  function AtomToDependents(atom: string | undefined) {
+    let atomDependentData: any = {};
+    if (!atom) return;
+    else {
+    let object: snapshot = snapshotHistory[snapshotIndex][atom];
+    atomDependentData.name = atom;
+    atomDependentData.nodeDeps = [];
+
+    object.nodeDeps.map(item => {
+      atomDependentData.nodeDeps.push({ name: item });
+    })
+
+    return atomDependentData;
+  }
+  }
+
+  const data = AtomToDependents(atomName);
+
+
   const layout = 'polar';
   const linkType = 'line';
 
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
+  console.log({ atomName });
 
   let origin: { x: number; y: number };
   let sizeWidth: number;

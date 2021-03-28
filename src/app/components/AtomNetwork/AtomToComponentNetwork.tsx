@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -6,47 +6,16 @@ import { pointRadial } from 'd3-shape';
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { Zoom } from '@visx/zoom';
 import { snapshot } from '../../../types';
-
-let snapshotData: any[] = [
-  {
-    statusAtom: {
-      contents: 'Next Player: X',
-      nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
-      components: [
-        'End',
-        'Status',
-        'AtomNetwork',
-        'ComponentGraph',
-        'NavBar',
-        'CompnoentGraph14235',
-      ],
-    },
-  },
-];
+import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 const initialTransform = {
-  scaleX: .7,
-  scaleY: .7,
+  scaleX: 0.7,
+  scaleY: 0.7,
   translateX: 100,
   translateY: 100,
   skewX: 0,
   skewY: 0,
 };
-
-function AtomToComponent(atom: string) {
-  let atomComponentData: any = {};
-  let object: snapshot = snapshotData[0][atom];
-  atomComponentData.name = atom;
-  atomComponentData.components = [];
-  object.components.map(item => {
-    atomComponentData.components.push({ name: item });
-  });
-  console.log('atomComponentData', atomComponentData);
-  console.log('object', object);
-  return atomComponentData;
-}
-
-const data = AtomToComponent('statusAtom');
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
@@ -54,13 +23,35 @@ export type LinkTypesProps = {
   width: number;
   height: number;
   margin?: { top: number; right: number; bottom: number; left: number };
+  atomName?: string;
 };
 
 function AtomToComponentNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
+  atomName,
 }: LinkTypesProps) {
+  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
+  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+
+  function AtomToComponent(atom: string | undefined) {
+    let atomComponentData: any = {};
+    if (!atom) return;
+    else {
+      let object: snapshot = snapshotHistory[snapshotIndex][atom];
+      atomComponentData.name = atom;
+      atomComponentData.components = [];
+      object.components.map(item => {
+        atomComponentData.components.push({ name: item });
+      });
+
+      return atomComponentData;
+    }
+  }
+
+  const data = AtomToComponent(atomName);
+
   const layout = 'polar';
   const linkType = 'line';
 
