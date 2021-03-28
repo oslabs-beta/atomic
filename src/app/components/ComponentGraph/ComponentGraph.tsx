@@ -67,6 +67,10 @@ function ComponentGraph({
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
+  useEffect(()=>{
+    setAtomName("")
+  },[snapshotIndex])
+
   const data: TreeNode = componentTreeHistory[snapshotIndex];
 
   let origin: { x: number; y: number };
