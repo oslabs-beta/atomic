@@ -13,14 +13,15 @@ window.addEventListener('message', msg => {
   if (
     msg.data.source != 'react-devtools-bridge' &&
     msg.data.source != 'react-devtools-content-script' &&
-    msg.data.source != 'react-devtools-inject-backend'
+    msg.data.source != 'react-devtools-inject-backend' &&
+    msg.data.source != 'react-devtools-detector'
   ) {
     console.log('Window MessageEvent -> ', msg);
   }
 
   const { action }: { action: string } = msg.data;
-  if (action === 'testGetFiber') {
-    console.log('message from backend to background -> ', msg);
+  if (action === 'TEST_FROM_DEBUGGER_COMPONENT') {
+    console.log('message from inspected Application to background -> ', msg);
     chrome.runtime.sendMessage(msg.data);
   }
 });
