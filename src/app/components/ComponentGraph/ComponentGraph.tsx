@@ -163,7 +163,10 @@ function ComponentGraph({
       >
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
-            <LinearGradient id="links-gradient" from="#de638a" to="#d13164" />
+            <LinearGradient id="root-gradient" from="#cfa263" to="#d18417" />
+            <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
+            <LinearGradient id="element-gradient" from="#1cb5c9" to="#167d8a" />
+            <LinearGradient id="component-gradient" from="#7f5dc0" to="#503b7a" />
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -260,10 +263,10 @@ function ComponentGraph({
                         function atomColor() {
                           for (let i = 0; i < hoverName.length; i++) {
                             if (node.data.atom.includes(atomName))
-                              return '#d13164';
+                              return "url('#atom-gradient')";
                           }
-                          if (node.data.atom.length) return '#7f5dc0';
-                          return '#1cb5c9';
+                          if (node.data.atom.length) return "url('#component-gradient')";
+                          return "url('#element-gradient')";
                         }
 
                         return (
@@ -275,7 +278,7 @@ function ComponentGraph({
                                 width={width}
                                 y={-height / 2}
                                 x={-width / 2}
-                                fill="url('#links-gradient')"
+                                fill="url('#root-gradient')"
                                 rx={10}
                                 onClick={() => {
                                   node.data.isExpanded = !node.data.isExpanded;
@@ -364,7 +367,7 @@ function ComponentGraph({
           {/* Hover state: */}
           {tooltipData.atom.map((item: string) => (
             <div>
-              <strong style={{ color: '#f4bf75' }}>{item}:</strong>
+              <strong style={{ color: "#d13164"}}>{item}:</strong>
               <br />
               -Value: {JSON.stringify(tooltipData.state[item].values)}
               <br />

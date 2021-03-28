@@ -86,7 +86,8 @@ function AtomToDependentNetwork({
       >
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
-            <LinearGradient id="links-gradient" from="#de638a" to="#d13164" />
+              <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
+            <LinearGradient id="dependent-gradient" from="#41b69c" to="#2d806d"/>
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -148,12 +149,12 @@ function AtomToDependentNetwork({
                           <Group top={top} left={left} key={key}>
                             {node.depth === 0 && (
                               <circle
-                                fill="url('#links-gradient')"
+                                fill="url('#atom-gradient')"
                                 r={radius}
                               />
                             )}
                             {node.depth !== 0 && (
-                              <circle r={radius} fill={'#41b69c'} />
+                              <circle r={radius} fill={"url('#dependent-gradient')"} />
                             )}
                             <text
                               dy=".33em"
