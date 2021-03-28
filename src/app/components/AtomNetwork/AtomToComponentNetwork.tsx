@@ -132,7 +132,7 @@ function AtomToComponentNetwork({
                           return nodeLength + 145;
                         };
                         const width = widthFunc(node.data.name);
-                        const height = 25;
+                        const height = 30;
 
                         let top: number;
                         let left: number;
@@ -166,7 +166,7 @@ function AtomToComponentNetwork({
                                 y={-height / 2}
                                 x={-width / 2}
                                 fill="#7f5dc0"
-                                rx={4}
+                                rx={10}
                                 stroke={'black'}
                                 strokeWidth={1}
                                 strokeDasharray={0}

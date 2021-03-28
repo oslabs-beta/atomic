@@ -30,8 +30,15 @@ function AtomNetwork(): JSX.Element {
 
   return (
     <div className="atomNetwork" style={{ height: '95vh' }}>
-      <label>Select atom:</label>
-
+      <div
+        style={{
+          display: 'flex',
+          marginRight: '25px',
+          alignItems: 'center',
+          position: 'fixed',
+        }}
+      >
+      <label>Select Atom:</label>
       <select
         onClick={e => e.stopPropagation()}
         onChange={e => setAtomName(e.target.value)}
@@ -42,18 +49,10 @@ function AtomNetwork(): JSX.Element {
           <option value={atomName}>{atomName}</option>
         ))}
       </select>
-      {/* toggle switch */}
-      <div
-        style={{
-          display: 'flex',
-          marginRight: '25px',
-          alignItems: 'center',
-          position: 'fixed',
-        }}
-      >
         <h3
           style={{
             marginRight: '7px',
+            marginLeft:"10px",
             color: !switchToggle ? '#1cb5c9' : '#7c7c7c',
           }}
         >

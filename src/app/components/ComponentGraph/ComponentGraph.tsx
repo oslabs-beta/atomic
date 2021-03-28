@@ -183,7 +183,7 @@ function ComponentGraph({
                           return nodeLength + 145;
                         };
                         const width = widthFunc(node.data.name);
-                        const height = 20;
+                        const height = 30;
 
                         let top: number;
                         let left: number;
@@ -241,7 +241,7 @@ function ComponentGraph({
                                 y={-height / 2}
                                 x={-width / 2}
                                 fill="url('#links-gradient')"
-                                rx={4}
+                                rx={10}
                                 onClick={() => {
                                   node.data.isExpanded = !node.data.isExpanded;
                                 }}
@@ -255,7 +255,7 @@ function ComponentGraph({
                                 y={-height / 2}
                                 x={-width / 2}
                                 fill={atomColor()}
-                                rx={4}
+                                rx={10}
                                 stroke={'black'}
                                 strokeWidth={1}
                                 strokeDasharray={0}
