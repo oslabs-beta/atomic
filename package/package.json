@@ -1,6 +1,6 @@
 {
   "name": "atomic-devtools",
-  "version": "1.0.62",
+  "version": "1.0.71",
   "description": "Library to connect your Jotai application to Atomic Devtools Extension",
   "main": "dist/module/index.js",
   "files": [
