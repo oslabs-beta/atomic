@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-
-// import reactConnect from './fiber';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 declare global {
   interface Window {
@@ -9,41 +8,15 @@ declare global {
   }
 }
 
-/*
-From Fiber.ts
-*/
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
-// const fs = require('fs');
-
-import { buildNodeTree, getProviderState } from './resq';
-import { throttle } from './helpers';
+// import { throttle } from './helpers';
+// import { buildNodeTree, getProviderState } from './resq';
 
 export function fiberHelper(target: Window) {
-  const payload = 'test';
-
-  // function updateSnapShotTree(snap: Snapshot, mode: Mode): void {
-  //   // this is the currently active root fiber(the mutable root of the tree)
-  //   if (fiberRoot) {
-  //     const { current } = fiberRoot;
-  //     //Clears circular component table
-  //     circularComponentTable.clear();
-  //     //creates snapshot that is a tree based on properties in fiberRoot object
-  //     snap.tree = createTree(current);
-  //   }
-  //   //sends the updated tree back
-  //   sendSnapshot(snap, mode);
-  // }
-
   let providerState;
 
   const liftedOnCommitFiberRoot = (): (() => void) => {
     return () => {
       const devTools = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-      // const sendToAtomicDevtools = window.__ATOMIC_DEVTOOLS_EXTENSION__.send
-
-      // console.log('devTools --> ', devTools);
-      // console.log('reactInstance --> ', reactInstance);
 
       let fiberRoot = devTools.getFiberRoots(1).values().next().value;
       const reactInstance = devTools ? devTools.renderers.get(1) : null;
@@ -59,11 +32,12 @@ export function fiberHelper(target: Window) {
             // eslint-disable-next-line prefer-destructuring
             console.log('IN ONCOMMITFIBEROOT__________', ...args);
             fiberRoot = args[1];
+
             // if (doWork) {
             //   throttledUpdateSnapshot();
             // }
 
-            providerState = getProviderState(fiberRoot.current);
+            // providerState = getProviderState(fiberRoot.current);
 
             // console.log(
             //   'testParse in fiber is--> ',
@@ -86,21 +60,11 @@ export function fiberHelper(target: Window) {
     //monkey-patch react hook to update snapshot when react reconciler updates.
     //send update to devtool.
   };
+  const sendMessageToContentScripts = (message: any) => {
+    //This message goes from inspected application to content-scripts
+    target.postMessage(message, '*');
+  };
 
-  // const fiber = reactConnect()();
-
-  console.log('target ---> ', target);
-  console.log(
-    'target.__ATOMIC_DEVTOOLS_EXTENSION__ ---> ',
-    target.__ATOMIC_DEVTOOLS_EXTENSION__
-  );
   target.__ATOMIC_DEVTOOLS_EXTENSION__.getFiber = liftedOnCommitFiberRoot();
-
-  target.postMessage(
-    {
-      action: 'testGetFiber',
-      payload: { fiberRoot: 'fiber' },
-    },
-    '*'
-  );
+  target.__ATOMIC_DEVTOOLS_EXTENSION__.sendMessageToContentScripts = sendMessageToContentScripts;
 }
