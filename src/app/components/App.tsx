@@ -104,20 +104,21 @@ function App(): JSX.Element {
       </snapshotHistoryContext.Provider>
     </>
   );
-  // Render module not found message if snapHistory is null, this means we have not detected Atomic app
-  // const renderModuleNotFoundContainer: JSX.Element = (
-  //   <div className="notFoundContainer">
-  //     <img className="logo" src={LOGO_URL} />
-  //     <p>
-  //       Supported only with Jotai apps with the Atomic NPM module. Follow
-  //       the installation instructions at
-  //       <br />
-  //       <a target="_blank" href="">
-  //         ATOMIC
-  //       </a>
-  //     </p>
-  //   </div>
-  // );
+
+  // Render module not found message if snapHistory is null-> No Atomic module detected:
+  const renderModuleNotFoundContainer: JSX.Element = (
+    <div className="notFoundContainer">
+      {/* <img className="logo" src={LOGO_URL} /> */}
+      <p>
+        Supported only with Jotai apps using the Atomic NPM module. Follow
+        the installation instructions at
+        <br />
+        <a target="_blank" href="">
+          ATOMIC
+        </a>
+      </p>
+    </div>
+  );
 
   return <div className="app">{renderMainContainer}</div>;
 }
