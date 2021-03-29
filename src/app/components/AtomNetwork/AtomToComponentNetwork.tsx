@@ -9,10 +9,10 @@ import { snapshot } from '../../../types';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 const initialTransform = {
-  scaleX: 0.7,
-  scaleY: 0.7,
-  translateX: 100,
-  translateY: 100,
+  scaleX: .9,
+  scaleY: .9,
+  translateX: 20,
+  translateY: 10,
   skewX: 0,
   skewY: 0,
 };
@@ -168,14 +168,14 @@ function AtomToComponentNetwork({
                             )}
                             <text
                               dy=".33em"
-                              fontSize={12}
+                              fontSize={13}
                               fontFamily="Arial"
                               textAnchor="middle"
                               style={{
                                 pointerEvents: 'none',
                                 fontWeight: 'bold',
                               }}
-                              fill={'white'}
+                              fill={'#e6e6e6'}
                             >
                               {node.data.name}
                             </text>

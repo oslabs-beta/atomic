@@ -105,7 +105,7 @@ function ComponentGraph({
     ...defaultStyles,
     minWidth: 60,
     backgroundColor: 'black',
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: '13px',
     lineHeight: '18px',
   };
@@ -314,9 +314,9 @@ function ComponentGraph({
                               }}
                               fill={
                                 node.depth === 0
-                                  ? 'white'
+                                  ? '#e6e6e6'
                                   : node.data.atom.length
-                                  ? 'white'
+                                  ? '#e6e6e6'
                                   : 'black'
                               }
                             >
