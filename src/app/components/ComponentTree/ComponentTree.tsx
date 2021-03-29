@@ -61,7 +61,7 @@ function ComponentTree(): JSX.Element {
         <h3
           style={{
             marginLeft: '7px',
-            color: !expandToggle ? '#1cb5c9' : 'white',
+            color: !expandToggle ? '#1cb5c9' : '#e6e6e6',
           }}
         >
           Expand
