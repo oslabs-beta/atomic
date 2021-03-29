@@ -7,14 +7,24 @@ interface snapshotProps {
 }
 
 function Snapshot({ idx }: snapshotProps): JSX.Element {
-  const { _, setSnapshotIndex } = useContext<any>(snapshotIndexContext);
+  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
+    snapshotIndexContext
+  );
 
   const handleClick = () => {
     setSnapshotIndex(idx);
   };
 
   return (
-    <div className="snapshot" onClick={handleClick}>
+    <div
+      className="snapshot"
+      onClick={handleClick}
+      style={
+        snapshotIndex !== idx
+          ? { color: '#1cb5c9' }
+          : { color: '#e6e6e6', backgroundColor: '#202020' }
+      }
+    >
       <h4>Snapshot {idx}</h4>
       <button className="jumpButton">Jump</button>
     </div>
