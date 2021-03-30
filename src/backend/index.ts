@@ -8,8 +8,8 @@ declare global {
   }
 }
 
-// import { throttle } from './helpers';
 // import { buildNodeTree, getProviderState } from './resq';
+// put something that doesnt work with scoping
 
 export function fiberHelper(target: Window) {
   let providerState;
@@ -60,6 +60,7 @@ export function fiberHelper(target: Window) {
     //monkey-patch react hook to update snapshot when react reconciler updates.
     //send update to devtool.
   };
+
   const sendMessageToContentScripts = (message: any) => {
     //This message goes from inspected application to content-scripts
     target.postMessage(message, '*');

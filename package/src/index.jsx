@@ -103,7 +103,7 @@ function AtomicDebugger({ children }) {
     }
 
     const atomsToDevtoolString = JSON.stringify(atomsToDevtool);
-    console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
+    // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
 
     let extension;
 

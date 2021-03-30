@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-console */
 
 import { fiberHelper } from '../backend/index';
@@ -50,10 +51,12 @@ window.__ATOMIC_DEVTOOLS_EXTENSION__ = {}
 injectCode(
   `${initHook}
   ;(function testINJECT(target) {target.__ATOMIC_DEVTOOLS_EXTENSION__.test = "test"})(window)
-  ;(${fiberHelper.toString()}(window))
+  ;(${fiberHelper.toString()}(window));
+  debugger;
   `
 );
 // injectCode(chrome.runtime.getURL('bundles/backend.bundle.js'));
 // injectCode(`${initHook}`);
+eval(`console.log('in eval')`);
 
 console.log('running content-script.ts');

@@ -51,10 +51,18 @@ function connected(port: any) {
           action: 'RECORD_SNAPSHOT',
           payload: { atomState: curSnapMock },
         });
+
         portFromAPP.postMessage({
           action: 'RECORD_COMPONENT_TREE',
           payload: { componentTree: componentAtomTreeMock },
         });
+
+        break;
+      }
+
+      case 'TIME_TRAVEL': {
+        //to Content-Scipts
+        chrome.runtime.sendMessage();
         break;
       }
     }
@@ -68,6 +76,8 @@ chrome.runtime.onConnect.addListener(connected);
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log('request -> ', request);
   console.log('sender -> ', sender);
+
+  //save data
 
   const tabTitle = sender?.tab?.title;
   const tabId = sender?.tab?.id;
@@ -93,6 +103,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         action: 'TEST_TO_APP',
         payload: { msg: 'testing' },
       });
+
+      break;
+    }
+
+    case 'TEST_FROM_DEBUGGER_COMPONENT': {
+      console.log('recieved from debugger component');
+
+      portFromAPP.postMessage({
+        action: 'RECORD_SNAPSHOT',
+        payload: { atomState: curSnapMock },
+      });
+
+      break;
     }
   }
 });
