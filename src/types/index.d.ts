@@ -3,6 +3,7 @@
 export type snapshot = {
   contents: any;
   nodeDeps: string[];
+  components: string[]
 };
 
 //Component Tree taken from Atomic dev tool
