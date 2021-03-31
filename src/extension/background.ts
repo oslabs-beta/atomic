@@ -1,7 +1,7 @@
 /**
  * this is a comment
  * TODO this is a todo
- * *this is an inportant
+ * *this is an important
  * ?this is a query
  * !This is a warning
  * @param myParam desciption
@@ -26,6 +26,8 @@ starts listening to messages received on the port, and logs them.
 import { curSnapMock, prevSnapMock } from '../app/mock/mockStateDiff';
 import { componentAtomTreeMock } from '../app/mock/mockComponentTree';
 
+let atomState = {};
+
 let portFromAPP: {
   postMessage: (message: { action: string; payload: any }) => void;
   onMessage: { addListener: (arg0: (m: any) => void) => void };
@@ -47,9 +49,11 @@ function connected(port: any) {
     switch (action) {
       case 'DEV_INITIALIZED': {
         // respond by sending message to dev tool app
+        console.log('atomState in port ----> ', atomState);
+
         portFromAPP.postMessage({
-          action: 'RECORD_SNAPSHOT',
-          payload: { atomState: curSnapMock },
+          action: 'RECORD_ATOM_SNAPSHOT',
+          payload: { atomState },
         });
 
         portFromAPP.postMessage({
@@ -60,11 +64,11 @@ function connected(port: any) {
         break;
       }
 
-      case 'TIME_TRAVEL': {
-        //to Content-Scipts
-        chrome.runtime.sendMessage();
-        break;
-      }
+      // case 'TIME_TRAVEL': {
+      //   //to Content-Scipts
+      //   chrome.runtime.sendMessage();
+      //   break;
+      // }
     }
   });
 }
@@ -77,23 +81,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log('request -> ', request);
   console.log('sender -> ', sender);
 
-  //save data
+  //TODO save data
 
   const tabTitle = sender?.tab?.title;
   const tabId = sender?.tab?.id;
-  const { action, index, name, value, type } = request;
+  const { action, payload } = request;
 
-  switch (type) {
-    case 'SIGN_CONNECT': {
-      console.log('connected to devtool');
-      break;
-    }
-  }
-
-  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/executeScript
-
-  // tabs.executeScript()
-  // Injects JavaScript code into a page. (Inject backend.bundle.js to the current tab)
+  // switch (type) {
+  //   case 'SIGN_CONNECT': {
+  //     console.log('connected to devtool');
+  //     break;
+  //   }
+  // }
 
   switch (action) {
     case 'testGetFiber': {
@@ -108,11 +107,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     case 'TEST_FROM_DEBUGGER_COMPONENT': {
-      console.log('recieved from debugger component');
+      atomState = payload.atomState;
 
       portFromAPP.postMessage({
-        action: 'RECORD_SNAPSHOT',
-        payload: { atomState: curSnapMock },
+        action: 'RECORD_ATOM_SNAPSHOT',
+        payload: { atomState },
       });
 
       break;
