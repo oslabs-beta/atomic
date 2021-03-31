@@ -5,15 +5,6 @@ const controlStyles = {
   padding: '10px',
 };
 
-const dropDownStyle = {
-  margin: '0.5em',
-  fontSize: '12px',
-  borderRadius: '4px',
-  backgroundColor: '#242529',
-  color: 'white',
-  padding: '2px',
-};
-
 type Props = {
   layout: string;
   orientation: string;
@@ -43,7 +34,7 @@ function LinkControls({
         onClick={e => e.stopPropagation()}
         onChange={e => setLayout(e.target.value)}
         value={layout}
-        style={dropDownStyle}
+        className="dropdown"
       >
         <option value="cartesian">Cartesian</option>
         <option value="polar">Polar</option>
@@ -56,7 +47,7 @@ function LinkControls({
         onChange={e => setOrientation(e.target.value)}
         value={orientation}
         disabled={layout === 'polar'}
-        style={dropDownStyle}
+        className="dropdown"
       >
         <option value="horizontal">Horizontal</option>
         <option value="vertical">Vertical</option>
@@ -68,7 +59,7 @@ function LinkControls({
         onClick={e => e.stopPropagation()}
         onChange={e => setLinkType(e.target.value)}
         value={linkType}
-        style={dropDownStyle}
+        className="dropdown"
       >
         <option value="diagonal">Diagonal</option>
         <option value="step">Step</option>
