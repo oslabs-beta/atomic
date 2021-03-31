@@ -9,8 +9,8 @@ import { snapshot } from '../../../types';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 const initialTransform = {
-  scaleX: .9,
-  scaleY: .9,
+  scaleX: 0.9,
+  scaleY: 0.9,
   translateX: 20,
   translateY: 10,
   skewX: 0,
@@ -34,21 +34,27 @@ function AtomToDependentNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToDependents(atom: string | undefined) {
     let atomDependentData: any = {};
+    let object: snapshot;
+
     if (!atom) return;
-    else {
-      let object: snapshot = snapshotHistory[snapshotIndex][atom];
-      atomDependentData.name = atom;
-      atomDependentData.nodeDeps = [];
-
-      object.nodeDeps.map(item => {
-        atomDependentData.nodeDeps.push({ name: item });
-      });
-
-      return atomDependentData;
+    if (!snapshotHistory[snapshotIndex][atom]) {
+      object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
+    } else {
+      object = snapshotHistory[snapshotIndex][atom];
     }
+
+    atomDependentData.name = atom;
+    atomDependentData.nodeDeps = [];
+
+    object.nodeDeps.map(item => {
+      atomDependentData.nodeDeps.push({ name: item });
+    });
+
+    return atomDependentData;
   }
 
   const data = AtomToDependents(atomName);

@@ -19,7 +19,7 @@ export const curSnapMock = {
     nodeDeps: ['squaresAtom'],
     components: ['Status'],
   },
-  selectSquaresAtom: {
+  selectSquareAtom: {
     contents: [null, null, null, null, null, null, null, null, null],
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
     components: ['Squares'],
@@ -52,7 +52,7 @@ export const prevSnapMock = {
     nodeDeps: ['squaresAtom'],
     components: ['Status'],
   },
-  selectSquaresAtom: {
+  selectSquareAtom: {
     contents: ['X', null, null, 'X', null, null, 'O', null, null],
     nodeDeps: ['squaresAtom', 'winnerAtom', 'nextValueAtom'],
     components: ['Squares'],
@@ -270,6 +270,12 @@ const six = {
   },
   winnerAtom: { r: 2, nodeDeps: ['squaresAtom'], contents: 'X' },
   squaresAtom: {
+    r: 5,
+    nodeDeps: ['squaresAtom'],
+    contents: [null, 'O', 'O', 'X', 'X', 'X', null, null, null],
+    components: [],
+  },
+  extraAtom: {
     r: 5,
     nodeDeps: ['squaresAtom'],
     contents: [null, 'O', 'O', 'X', 'X', 'X', null, null, null],

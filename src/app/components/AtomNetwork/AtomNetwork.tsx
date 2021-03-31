@@ -13,9 +13,7 @@ function AtomNetwork(): JSX.Element {
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-  useEffect(() => {
-    setAtomName(atomNamesArray[0]);
-  }, [snapshotIndex]);
+
 
   return (
     <div className="atomNetwork" style={{ height: '95vh' }}>
@@ -30,7 +28,7 @@ function AtomNetwork(): JSX.Element {
         <label>Select Atom:</label>
         <select
           onClick={e => e.stopPropagation()}
-          onChange={e => setAtomName(e.target.value)}
+          onChange={e =>setAtomName(e.target?.value || atomNamesArray[0])}
           value={atomName}
           className="dropdown"
         >
@@ -71,7 +69,7 @@ function AtomNetwork(): JSX.Element {
         <ParentSize>
           {({ width, height }) => (
             <AtomToComponentNetwork
-              atomName={atomName}
+              atomName={atomName || atomNamesArray[0]}
               width={width}
               height={height}
             />
@@ -81,7 +79,7 @@ function AtomNetwork(): JSX.Element {
         <ParentSize>
           {({ width, height }) => (
             <AtomToDependentNetwork
-              atomName={atomName}
+              atomName={atomName || atomNamesArray[0]}
               width={width}
               height={height}
             />

@@ -9,8 +9,8 @@ import { snapshot } from '../../../types';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 const initialTransform = {
-  scaleX: .9,
-  scaleY: .9,
+  scaleX: 0.9,
+  scaleY: 0.9,
   translateX: 20,
   translateY: 10,
   skewX: 0,
@@ -34,20 +34,27 @@ function AtomToComponentNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToComponent(atom: string | undefined) {
     let atomComponentData: any = {};
-    if (!atom) return;
-    else {
-      let object: snapshot = snapshotHistory[snapshotIndex][atom];
-      atomComponentData.name = atom;
-      atomComponentData.components = [];
-      object.components.map(item => {
-        atomComponentData.components.push({ name: item });
-      });
+    let object: snapshot;
 
-      return atomComponentData;
+    if (!atom) return;
+    if (!snapshotHistory[snapshotIndex][atom]) {
+      object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
+    } else {
+      object = snapshotHistory[snapshotIndex][atom];
     }
+    
+    atomComponentData.name = atom;
+    atomComponentData.components = [];
+
+    object.components.map(item => {
+      atomComponentData.components.push({ name: item });
+    });
+
+    return atomComponentData;
   }
 
   const data = AtomToComponent(atomName);
