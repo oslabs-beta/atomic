@@ -43,11 +43,12 @@ function AtomToDependentNetwork({
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
+      atomDependentData.name = atomNamesArray[0];
     } else {
       object = snapshotHistory[snapshotIndex][atom];
+      atomDependentData.name = atom;
     }
 
-    atomDependentData.name = atom;
     atomDependentData.nodeDeps = [];
 
     object.nodeDeps.map(item => {

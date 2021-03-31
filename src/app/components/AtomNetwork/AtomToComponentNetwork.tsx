@@ -43,11 +43,12 @@ function AtomToComponentNetwork({
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
+      atomComponentData.name = atomNamesArray[0];
     } else {
       object = snapshotHistory[snapshotIndex][atom];
+      atomComponentData.name = atom;
     }
     
-    atomComponentData.name = atom;
     atomComponentData.components = [];
 
     object.components.map(item => {
