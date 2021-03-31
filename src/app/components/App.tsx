@@ -71,9 +71,8 @@ function App(): JSX.Element {
       console.log('Received message from background script: ', message);
       const { action, payload } = message;
 
-      const atomState = JSON.parse(payload.atomState);
-
       if (action === 'RECORD_ATOM_SNAPSHOT') {
+        const atomState = JSON.parse(payload.atomState);
         setSnapshotHistory(prevState => [...prevState, atomState]);
       }
       if (action === 'RECORD_COMPONENT_TREE') {
@@ -112,8 +111,8 @@ function App(): JSX.Element {
     <div className="notFoundContainer">
       {/* <img className="logo" src={LOGO_URL} /> */}
       <p>
-        Supported only with Jotai apps using the Atomic NPM module. Follow
-        the installation instructions at
+        Supported only with Jotai apps using the Atomic NPM module. Follow the
+        installation instructions at
         <br />
         <a target="_blank" href="">
           ATOMIC
