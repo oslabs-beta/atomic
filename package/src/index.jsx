@@ -3,7 +3,6 @@ import React, {
   useContext,
   useState,
   useDebugValue,
-  useEffect,
 } from 'react';
 
 import { useAtom } from 'jotai';
@@ -17,9 +16,14 @@ function AtomicDebugger({ children }) {
   //setAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
   const [usedAtoms, setUsedAtoms] = useState({});
 
+  //for checking that there are changes to state before sending messages to Devtool
+  const [previousState, setPreviousState] = useState(null);
+
   // get rootFiber from within debugger component
   const fiberRoot = document.getElementById('root')._reactRootContainer
     ._internalRoot.current.stateNode.current;
+
+  //chrome storage??
 
   let jotaiProviderComponentStoreContext;
 
@@ -109,18 +113,18 @@ function AtomicDebugger({ children }) {
 
     extension = window.__ATOMIC_DEVTOOLS_EXTENSION__;
 
-    try {
-      extension.sendMessageToContentScripts({
-        action: 'TEST_FROM_DEBUGGER_COMPONENT',
-        payload: atomsToDevtoolString,
-      });
-    } catch (error) {
-      console.error('error in debugger component ---> ', error);
+    if (previousState !== atomsToDevtoolString) {
+      try {
+        extension.sendMessageToContentScripts({
+          action: 'TEST_FROM_DEBUGGER_COMPONENT',
+          payload: { atomState: atomsToDevtoolString },
+        });
+      } catch (error) {
+        console.error('error in debugger component ---> ', error);
+      }
+      setPreviousState(atomsToDevtoolString);
     }
   }
-
-  // useEffect(() => {
-  // }, []);
 
   return (
     <AtomUpdateContext.Provider value={setUsedAtoms}>
