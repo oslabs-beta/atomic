@@ -54,7 +54,6 @@ function App(): JSX.Element {
   // Handle connection attempt
   // runtime.onConnect
 
-
   useEffect(() => {
     const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
 
@@ -70,10 +69,12 @@ function App(): JSX.Element {
     // listen for messages FROM background script
     port.onMessage.addListener((message: { action: string; payload: any }) => {
       console.log('Received message from background script: ', message);
-      let { action, payload } = message;
+      const { action, payload } = message;
 
-      if (action === 'RECORD_SNAPSHOT') {
-        setSnapshotHistory(prevState => [...prevState, payload.atomState]);
+      const atomState = JSON.parse(payload.atomState);
+
+      if (action === 'RECORD_ATOM_SNAPSHOT') {
+        setSnapshotHistory(prevState => [...prevState, atomState]);
       }
       if (action === 'RECORD_COMPONENT_TREE') {
         setComponentTreeHistory(prevState => [
