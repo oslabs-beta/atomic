@@ -69,10 +69,11 @@ function App(): JSX.Element {
     // listen for messages FROM background script
     port.onMessage.addListener((message: { action: string; payload: any }) => {
       console.log('Received message from background script: ', message);
-      let { action, payload } = message;
+      const { action, payload } = message;
 
-      if (action === 'RECORD_SNAPSHOT') {
-        setSnapshotHistory(prevState => [...prevState, payload.atomState]);
+      if (action === 'RECORD_ATOM_SNAPSHOT') {
+        const atomState = JSON.parse(payload.atomState);
+        setSnapshotHistory(prevState => [...prevState, atomState]);
       }
       if (action === 'RECORD_COMPONENT_TREE') {
         setComponentTreeHistory(prevState => [
@@ -110,8 +111,8 @@ function App(): JSX.Element {
     <div className="notFoundContainer">
       {/* <img className="logo" src={LOGO_URL} /> */}
       <p>
-        Supported only with Jotai apps using the Atomic NPM module. Follow
-        the installation instructions at
+        Supported only with Jotai apps using the Atomic NPM module. Follow the
+        installation instructions at
         <br />
         <a target="_blank" href="">
           ATOMIC

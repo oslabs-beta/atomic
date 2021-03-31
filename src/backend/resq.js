@@ -1,8 +1,53 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import deepEqual from 'fast-deep-equal';
 
 const { isArray } = Array;
 const { keys } = Object;
+
+//From other Library
+const isHTMLElement = function (el) {
+  if ('HTMLElement' in window) {
+    return el instanceof HTMLElement;
+  } else {
+    return (
+      typeof el === 'object' &&
+      el.nodeType === 1 &&
+      typeof el.nodeName === 'string'
+    );
+  }
+};
+
+const parseData = data => {
+  return JSON.stringify(data, function (k, v) {
+    if (typeof v === 'function') {
+      return 'function () {}';
+    }
+    if (isHTMLElement(v)) {
+      return `<${v.tagName}> HTMLElemet`;
+    }
+    if (v instanceof Set) {
+      return `Set [${Array.from(v).toString()}]`;
+    }
+    if (v instanceof Map) {
+      return `Map [${Array.from(v).toString()}]`;
+    }
+    if (v instanceof WeakSet) {
+      return `WeekSet []`;
+    }
+    if (v instanceof WeakMap) {
+      return `WeakMap {}`;
+    }
+    // else {
+    //   return (
+    //     typeof v === 'object' &&
+    //     v.nodeType === 1 &&
+    //     typeof v.nodeName === 'string'
+    //   );
+    // }
+    return v;
+  });
+};
 
 // One liner helper functions
 function isFunction(type) {
@@ -87,10 +132,40 @@ function getElementState(elementState) {
     return baseState;
   }
 
-  return elementState;
+  const { memoizedState } = elementState;
+
+  // console.log('elementState ---> ', elementState);
+  // console.log('memoizedState ---> ', memoizedState);
+  return parseData(memoizedState);
 }
 
 /**
+ * @name getProviderState
+ * @param {Object}
+ * @return {Object} | undefined
+ * @description
+ */
+
+export function getProviderState(rootNode) {
+  console.log(
+    'element._debugID before getElementState --> ',
+    rootNode._debugID
+  );
+
+  console.log(rootNode);
+  let providerState;
+  if (rootNode.child.elementType.name === 'Provider') {
+    providerState = rootNode.child.memoizedState.next.baseState.w;
+
+    console.log('PROVIDER state --> ', providerState);
+    console.log('PROVIDER state --> ', providerState.keys());
+    console.log('PROVIDER state --> ', providerState.keys().next().value);
+    // console.log('PROVIDER state --> ', providerState.keys().next().value);
+  }
+}
+
+/**'''
+ *
  * @name verifyIfArraysMatch
  * @param {Array} macther - this is the Array that will be looped
  * @param {Array} verify - this is the Array to match against
@@ -192,7 +267,7 @@ export function buildNodeTree(element) {
   tree.props = removeChildrenFromProps(element.memoizedProps);
   // tree.props = element.memoizedProps;
 
-  let { child, memoizedProps } = element;
+  let { child } = element;
 
   // tree.children.push(memoizedProps?.children);
 

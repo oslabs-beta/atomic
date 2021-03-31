@@ -1,3 +1,12 @@
+/**
+ * this is a comment
+ * TODO this is a todo
+ * *this is an important
+ * ?this is a query
+ * !This is a warning
+ * @param myParam desciption
+ */
+
 /* eslint-disable no-console */
 
 /*
@@ -16,6 +25,8 @@ starts listening to messages received on the port, and logs them.
 
 import { curSnapMock, prevSnapMock } from '../app/mock/mockStateDiff';
 import { componentAtomTreeMock } from '../app/mock/mockComponentTree';
+
+let atomState = {};
 
 let portFromAPP: {
   postMessage: (message: { action: string; payload: any }) => void;
@@ -38,16 +49,26 @@ function connected(port: any) {
     switch (action) {
       case 'DEV_INITIALIZED': {
         // respond by sending message to dev tool app
+        console.log('atomState in port ----> ', atomState);
+
         portFromAPP.postMessage({
-          action: 'RECORD_SNAPSHOT',
-          payload: { atomState: curSnapMock },
+          action: 'RECORD_ATOM_SNAPSHOT',
+          payload: { atomState },
         });
+
         portFromAPP.postMessage({
           action: 'RECORD_COMPONENT_TREE',
           payload: { componentTree: componentAtomTreeMock },
         });
+
         break;
       }
+
+      // case 'TIME_TRAVEL': {
+      //   //to Content-Scipts
+      //   chrome.runtime.sendMessage();
+      //   break;
+      // }
     }
   });
 }
@@ -55,58 +76,25 @@ function connected(port: any) {
 // receive initial onConnect message from dev tool app (only happens once)
 chrome.runtime.onConnect.addListener(connected);
 
-/*
-Event listener rece
-*/
-
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log('request -> ', request);
   console.log('sender -> ', sender);
 
+  //TODO save data
+
   const tabTitle = sender?.tab?.title;
   const tabId = sender?.tab?.id;
-  const { action, index, name, value, type } = request;
+  const { action, payload } = request;
 
-  switch (type) {
-    case 'SIGN_CONNECT': {
-      console.log('connected to devtool');
-      break;
-    }
-  }
-
-  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/executeScript
-
-  // tabs.executeScript()
-  // Injects JavaScript code into a page. (Inject backend.bundle.js to the current tab)
+  // switch (type) {
+  //   case 'SIGN_CONNECT': {
+  //     console.log('connected to devtool');
+  //     break;
+  //   }
+  // }
 
   switch (action) {
-    case 'injectScript': {
-      chrome.tabs.executeScript(
-        tabId!, // optional integer
-        {
-          code: `
-            // Function will attach script to the DOM
-            const injectScript = (file, tag) => {
-              const htmlBody = document.getElementsByTagName(tag)[0];
-              const script = document.createElement('script');
-              script.setAttribute('type', 'text/javascript');
-              script.setAttribute('src', file);
-              htmlBody.appendChild(script);
-            };
-            injectScript(chrome.runtime.getURL('bundles/backend.bundle.js'), 'body');
-          `,
-        },
-        _ => {
-          const e = chrome.runtime.lastError;
-          if (e !== undefined) {
-            console.log(tabId, _, e);
-          }
-        }
-      );
-      break;
-    }
-
     case 'testGetFiber': {
       console.log(`case 'testGetFiber': portFromAPP -> `, portFromAPP);
 
@@ -114,7 +102,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         action: 'TEST_TO_APP',
         payload: { msg: 'testing' },
       });
+
+      break;
+    }
+
+    case 'TEST_FROM_DEBUGGER_COMPONENT': {
+      atomState = payload.atomState;
+
+      portFromAPP.postMessage({
+        action: 'RECORD_ATOM_SNAPSHOT',
+        payload: { atomState },
+      });
+
+      break;
     }
   }
 });
+
 console.log('running background.ts');
