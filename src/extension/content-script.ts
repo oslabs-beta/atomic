@@ -30,14 +30,11 @@ window.addEventListener('message', msg => {
 // Inject backend bundle
 
 // send initial message to background script
-// chrome.runtime.sendMessage({ action: 'injectScript' });
 
 const injectCode = (code: string) => {
   const script = document.createElement('script');
   script.textContent = code;
   script.setAttribute('type', 'text/javascript');
-  // script.setAttribute('src', file);
-  // script.src = chrome.extension.getURL('bundles/backend.bundle.js');
   script.async = false;
   document.documentElement.appendChild(script);
   script?.parentNode?.removeChild(script);
