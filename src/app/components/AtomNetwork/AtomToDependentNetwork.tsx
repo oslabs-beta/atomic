@@ -51,7 +51,7 @@ function AtomToDependentNetwork({
 
     atomDependentData.nodeDeps = [];
 
-    object.nodeDeps.map(item => {
+    object.d.map(item => {
       atomDependentData.nodeDeps.push({ name: item });
     });
 
