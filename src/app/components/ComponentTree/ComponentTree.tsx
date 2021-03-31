@@ -28,7 +28,7 @@ function ComponentTree(): JSX.Element {
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
 
   return (
-    <div className="stateTree">
+    <div className="componentTree">
       <div>
         {componentTreeHistory[snapshotIndex] && (
           <ReactJson
@@ -47,11 +47,7 @@ function ComponentTree(): JSX.Element {
         )}
       </div>
       <div
-        style={{
-          display: 'flex',
-          marginRight: '25px',
-          alignItems: 'center',
-        }}
+       className="componentTreeDiff"
       >
         <label className="toggleSwitch">
           <input
@@ -65,7 +61,7 @@ function ComponentTree(): JSX.Element {
         <h3
           style={{
             marginLeft: '7px',
-            color: !expandToggle ? '#1cb5c9' : 'white',
+            color: !expandToggle ? '#1cb5c9' : '#e6e6e6',
           }}
         >
           Expand

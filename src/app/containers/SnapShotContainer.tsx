@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   snapshotHistoryContext,
   componentTreeHistoryContext,
 } from '../components/App';
 import Snapshot from '../components/Snapshot/Snapshot';
 //Testing:
-import { prevSnapMock } from '../../app/mock/mockStateDiff';
+import { snapshotTestArray } from '../../app/mock/mockStateDiff';
 import { componentAtomTreeMock } from '../../app/mock/mockComponentTree';
 
 function SnapShotContainer(): JSX.Element {
@@ -18,11 +18,17 @@ function SnapShotContainer(): JSX.Element {
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
   //Testing start:
+  const [count, setCount] = useState(0);
+
   const handleNewData = () => {
-    const copy = { ...prevSnapMock };
-    copy.resetSquaresAtom = { ...copy.resetSquaresAtom };
-    copy.resetSquaresAtom.contents = Math.floor(Math.random() * 10000);
-    setSnapshotHistory((prevState: any) => [...prevState, copy]);
+    setSnapshotHistory((prevState: any) => [
+      ...prevState,
+      snapshotTestArray[count],
+    ]);
+    setCount(count + 1);
+    if (count > 5) {
+      setCount(0);
+    }
 
     const copy2 = { ...componentAtomTreeMock };
     copy2.name = `${Math.floor(Math.random() * 10000)}`;
@@ -34,7 +40,6 @@ function SnapShotContainer(): JSX.Element {
   //Testing end
 
   useEffect(() => scrollToBottom(), [snapshotHistory]);
-
   const scrollToBottom = (): void => {
     snapshotEndRef?.current?.scrollIntoView({ behavior: 'smooth' });
   };

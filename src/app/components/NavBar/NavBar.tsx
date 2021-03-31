@@ -14,8 +14,12 @@ function NavBar({ setTab, tabsList, tab }: NavBarProps): JSX.Element {
         key={name}
         style={
           tab === name
-            ? { color: '#1cb5c9', backgroundColor: '#212121', fontWeight: "bold" }
-            : { color: '#e6e6e6', fontWeight: "bold" }
+            ? {
+                color: '#1cb5c9',
+                backgroundColor: '#212121',
+                fontWeight: 'bold',
+              }
+            : { color: '#e6e6e6', fontWeight: 'bold' }
         }
         onClick={() => {
           setTab(name);
