@@ -23,13 +23,21 @@ function AtomicDebugger({ children }) {
   const fiberRoot = document.getElementById('root')._reactRootContainer
     ._internalRoot.current.stateNode.current;
 
+  console.log('fiberRoot --->', fiberRoot);
+
   //chrome storage??
 
   let jotaiProviderComponentStoreContext;
 
+  //Skip first react render cycle
   if (fiberRoot.child) {
     jotaiProviderComponentStoreContext =
       fiberRoot.child.child.memoizedState.memoizedState.current;
+
+    console.log(
+      'jotaiProviderComponentStoreContext ---> ',
+      jotaiProviderComponentStoreContext
+    );
     //Assume <Provider> Component is top level rendered in <App>
     //Make sure jotai provider is there.
     //figure out providerless mode
@@ -41,24 +49,30 @@ function AtomicDebugger({ children }) {
     // TODO connect to dev tool to notify for state changes
 
     const jotaiState = jotaiProviderComponentStoreContext[0];
-    // console.log('jotaiState', jotaiState);
+    console.log('jotaiState ---> ', jotaiState);
 
     //get key Symbols for mutable source
     const stateSymbolKeys = Object.getOwnPropertySymbols(jotaiState);
-    // console.log("stateSymbolKeys", stateSymbolKeys);
+    console.log('stateSymbolKeys ---> ', stateSymbolKeys);
 
     //get first symbol for Provider state in mutable source
     const stateSymbol = stateSymbolKeys[0];
-    // console.log("stateSymbol", stateSymbol);
+    console.log('stateSymbol ---> ', stateSymbol);
 
     //Get state from mutable source
     const state = jotaiState[stateSymbol];
-    // console.log('state', state);
+    console.log('state ---> ', state);
 
     //mutable source holds 'a' which is atomState and 'm' which is mountedState
     //get atomState from Provider state
     const atomState = state.a;
-    // console.log('atomState - > ', atomState);
+    console.log('atomState ---> ', atomState);
+
+    //get mountedState from Provider state
+    const mountedState = state.m;
+    console.log('mountedState ---> ', mountedState);
+
+    const mountedStateToGetDependants = {};
 
     //Create a serializable object of atom state to send to devtool
     const atomsToDevtool = {};
@@ -93,8 +107,48 @@ function AtomicDebugger({ children }) {
 
     // iterate over Map of atom dependancies and push label to array
     // console.log('atomsToDevtool --- > ', atomsToDevtool);
+    console.log(
+      'mountedStateToGetDependants ---> ',
+      mountedStateToGetDependants
+    );
+
+    for (const [label, atom] of Object.entries(usedAtoms)) {
+      console.log('label ---> ', label);
+      console.log('atom ---> ', atom);
+
+      mountedStateToGetDependants[label] = { ...mountedState.get(atom) };
+    }
+
+    const traverseMountedDeps = (label, atom) => {
+      atom.d.forEach((ref, dep) => {
+        let dependantAtom =
+          mountedStateToGetDependants[dep.debugLabel || dep.toString()];
+        if (!dependantAtom) {
+          dependantAtom = {
+            ...mountedState.get(dep),
+          };
+
+          mountedStateToGetDependants[
+            dep.debugLabel || dep.toString()
+          ] = dependantAtom;
+          label = dep.debugLabel || dep.toString();
+
+          traverseMountedDeps(label, dependantAtom);
+        }
+      });
+    };
 
     for (const [label, atom] of Object.entries(atomsToDevtool)) {
+      traverseMountedDeps(label, atom);
+    }
+
+    for (const [label, atom] of Object.entries(atomsToDevtool)) {
+      let mountedDeps = [];
+
+      mountedStateToGetDependants[label]?.d.forEach(atom => {
+        mountedDeps.push(atom.debugLabel || atom.toString());
+      });
+
       //Array of atom dependancy labels
       const atomDeps = [];
 
@@ -102,12 +156,19 @@ function AtomicDebugger({ children }) {
         atomDeps.push(dep.debugLabel || dep.toString());
       });
 
-      //replace Map reference with serializable array of dependacies
+      //replace Map reference with serializable array of dependecies
       atom.d = atomDeps;
+
+      atomsToDevtool[label] = {
+        reference: atom.r,
+        dependencies: atom.d,
+        dependants: mountedDeps,
+        value: atom.v,
+      };
     }
 
     const atomsToDevtoolString = JSON.stringify(atomsToDevtool);
-    // console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
+    console.log('atomsToDevtoolString --- > ', atomsToDevtoolString);
 
     let extension;
 
