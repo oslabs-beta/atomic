@@ -209,7 +209,7 @@ function ComponentGraph({
 
                       {tree.descendants().map((node, key) => {
                         const widthFunc = (name: string) => {
-                          let nodeLength = name.length;
+                          const nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 30;
                           if (nodeLength < 10) return nodeLength + 50;
                           if (nodeLength < 15) return nodeLength + 100;
@@ -368,7 +368,7 @@ function ComponentGraph({
               <br />
               -Value: {JSON.stringify(tooltipData.state[item].values)}
               <br />
-              -Dependents:{' '}
+              -Dependencies:{' '}
               {JSON.stringify(tooltipData.state[item].dependencies)}
             </div>
           ))}
