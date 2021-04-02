@@ -368,7 +368,7 @@ function ComponentGraph({
               <br />
               -Value: {JSON.stringify(tooltipData.state[item].values)}
               <br />
-              -Dependencies:{' '}
+              -Read Dependencies:{' '}
               {JSON.stringify(tooltipData.state[item].dependencies)}
             </div>
           ))}
