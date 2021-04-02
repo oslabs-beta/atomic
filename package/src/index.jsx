@@ -3,6 +3,7 @@ import React, {
   useContext,
   useState,
   useDebugValue,
+  useEffect,
 } from 'react';
 
 import { useAtom } from 'jotai';
@@ -10,9 +11,38 @@ import { useAtom } from 'jotai';
 const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext('test');
 
+// window.addEventListener('message', msg => {
+//   console.log('msg in package is ---> ', msg);
+//   const { action, payload } = msg.data;
+//   console.log('action in package is ---> ', action);
+//   console.log('payload in package is ---> ', payload);
+
+//   if (action === 'TEST_FROM_CS')
+//     console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS!!! ---> ', payload);
+// });
+
 // eslint-disable-next-line react/prop-types
 
 function AtomicDebugger({ children }) {
+  //collect a store of fiber roots
+  //receive message from CS to TIME-TRAVEL
+  //on TIME-TRAVEL, grab idex from store of fiber roots
+  //invoke __ATOMIC_DEVTOOLS_EXTENSION__.onCommitFiberRoot with indexed fiber.
+  //?obj = {index: 0}
+  //?[obj1 = {index: 3}, obj2 = {index: 3}, obj3 = {index: 3}]
+
+  useEffect(() => {
+    window.addEventListener('message', msg => {
+      console.log('msg in package is ---> ', msg);
+      const { action, payload } = msg.data;
+      console.log('action in package is ---> ', action);
+      console.log('payload in package is ---> ', payload);
+
+      if (action === 'TEST_FROM_CS')
+        console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS!!! ---> ', payload);
+    });
+  }, []);
+
   //Declaring state to build serializable atomState to send to devtool
   //SetAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
   const [usedAtoms, setUsedAtoms] = useState({});
@@ -23,8 +53,6 @@ function AtomicDebugger({ children }) {
   //Get rootFiber from within debugger component.
   const fiberRoot = document.getElementById('root')._reactRootContainer
     ._internalRoot.current.stateNode.current;
-
-  //? Send fiber to chrome.storage here?
 
   let jotaiProviderComponentStoreContext;
 
