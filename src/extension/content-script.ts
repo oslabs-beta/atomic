@@ -49,7 +49,7 @@ injectCode(
   `${initHook}
   ;(function testINJECT(target) {target.__ATOMIC_DEVTOOLS_EXTENSION__.test = "test"})(window)
   ;(${fiberHelper.toString()}(window));
-  debugger;
+  // debugger;
   `
 );
 // injectCode(chrome.runtime.getURL('bundles/backend.bundle.js'));
