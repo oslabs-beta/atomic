@@ -26,7 +26,7 @@ export type LinkTypesProps = {
   atomName?: string;
 };
 
-function AtomToDependentNetwork({
+function AtomToReadDependenciesNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
@@ -36,29 +36,29 @@ function AtomToDependentNetwork({
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-  function AtomToDependents(atom: string | undefined) {
-    const atomDependentData: any = {};
+  function AtomToReadDependencies(atom: string | undefined) {
+    const atomReadDependencies: any = {};
     let object: snapshot;
 
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
-      atomDependentData.name = atomNamesArray[0];
+      atomReadDependencies.name = atomNamesArray[0];
     } else {
       object = snapshotHistory[snapshotIndex][atom];
-      atomDependentData.name = atom;
+      atomReadDependencies.name = atom;
     }
 
-    atomDependentData.nodeDeps = [];
+    atomReadDependencies.nodeDeps = [];
 
     object.readDependencies.map(item => {
-      atomDependentData.nodeDeps.push({ name: item });
+      atomReadDependencies.nodeDeps.push({ name: item });
     });
 
-    return atomDependentData;
+    return atomReadDependencies;
   }
 
-  const data = AtomToDependents(atomName);
+  const data = AtomToReadDependencies(atomName);
 
   const layout = 'polar';
   const linkType = 'line';
@@ -209,4 +209,4 @@ function AtomToDependentNetwork({
   );
 }
 
-export default AtomToDependentNetwork;
+export default AtomToReadDependenciesNetwork;
