@@ -26,7 +26,7 @@ export type LinkTypesProps = {
   atomName?: string;
 };
 
-function AtomToDependentNetwork({
+function AtomToDependentsNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
@@ -51,7 +51,7 @@ function AtomToDependentNetwork({
 
     atomDependentData.nodeDeps = [];
 
-    object.readDependencies.map(item => {
+    object.dependents.map(item => {
       atomDependentData.nodeDeps.push({ name: item });
     });
 
@@ -209,4 +209,4 @@ function AtomToDependentNetwork({
   );
 }
 
-export default AtomToDependentNetwork;
+export default AtomToDependentsNetwork;
