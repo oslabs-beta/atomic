@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
-import AtomToComponentNetwork from './AtomToComponentNetwork';
-import AtomToDependentNetwork from './AtomToDependentNetwork';
+import AtomToReadDependenciesNetwork from './AtomToReadDependenciesNetwork';
+import AtomToDependentsNetwork from './AtomToDependentsNetwork';
 
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
@@ -12,8 +12,6 @@ function AtomNetwork(): JSX.Element {
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
-
-
 
   return (
     <div className="atomNetwork" style={{ height: '95vh' }}>
@@ -28,7 +26,7 @@ function AtomNetwork(): JSX.Element {
         <label>Select Atom:</label>
         <select
           onClick={e => e.stopPropagation()}
-          onChange={e =>setAtomName(e.target?.value || atomNamesArray[0])}
+          onChange={e => setAtomName(e.target?.value || atomNamesArray[0])}
           value={atomName}
           className="dropdown"
         >
@@ -39,14 +37,13 @@ function AtomNetwork(): JSX.Element {
           ))}
         </select>
         <h3
-          style={{
-            marginRight: '7px',
-            marginLeft: '10px',
-            color: !switchToggle ? '#1cb5c9' : '#7c7c7c',
-          }}
+          className="dependents"
+          style={{ color: !switchToggle ? '#1cb5c9' : '#7c7c7c' }}
         >
           Dependents
+          <span className="dependentsText">asdf</span>
         </h3>
+
         <label className="toggleSwitch">
           <input
             type="checkbox"
@@ -56,19 +53,14 @@ function AtomNetwork(): JSX.Element {
           />
           <span className="toggleSlider round"></span>
         </label>
-        <h3
-          style={{
-            marginLeft: '7px',
-            color: switchToggle ? '#1cb5c9' : '#7c7c7c',
-          }}
-        >
-          Components
+        <h3 className={switchToggle ? 'dependents' : 'dependencies'}>
+          Read Dependencies
         </h3>
       </div>
       {switchToggle ? (
         <ParentSize>
           {({ width, height }) => (
-            <AtomToComponentNetwork
+            <AtomToReadDependenciesNetwork
               atomName={atomName || atomNamesArray[0]}
               width={width}
               height={height}
@@ -78,7 +70,7 @@ function AtomNetwork(): JSX.Element {
       ) : (
         <ParentSize>
           {({ width, height }) => (
-            <AtomToDependentNetwork
+            <AtomToDependentsNetwork
               atomName={atomName || atomNamesArray[0]}
               width={width}
               height={height}
