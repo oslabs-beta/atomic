@@ -51,7 +51,7 @@ function AtomicDebugger({ children }) {
 
     //Get state from mutable source.
     const state = jotaiState[stateSymbol];
-    // console.log('state ---> ', state);
+    console.log('state ---> ', state);
 
     //Mutable source has keys 'a', which is atomStateMap and 'm', which is mountedMap.
     //https://github.com/pmndrs/jotai/blob/537d5b15ec3d7c0293db720c4007158fb32dec6f/src/core/vanilla.ts#L52-L58
@@ -62,7 +62,7 @@ function AtomicDebugger({ children }) {
 
     //Get mountedMap from Provider state.
     const mountedMap = state.m;
-    // console.log('mountedMap ---> ', mountedMap);
+    console.log('mountedMap ---> ', mountedMap);
 
     //Declare a store for mounted states per atom.
     const mountedStates = {};
@@ -122,10 +122,14 @@ function AtomicDebugger({ children }) {
       traverseDeps(atom, 'mounted');
     }
 
+    console.log('mountedStates ---> ', mountedStates);
+    console.log('atomsToDevtool ---> ', atomsToDevtool);
+
     //Serialize dependencies (read & mounted) per atom in atomsToDevtool for messaging.
     for (const [label, atom] of Object.entries(atomsToDevtool)) {
       //Array of atom dependant labels
       const mountedDeps = [];
+      console.log('mountedStates[label] ---> ', mountedStates[label]);
 
       mountedStates[label].d.forEach(atom => {
         mountedDeps.push(atom.debugLabel || atom.toString());
