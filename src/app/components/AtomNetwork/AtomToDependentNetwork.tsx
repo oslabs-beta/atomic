@@ -37,7 +37,7 @@ function AtomToDependentNetwork({
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToDependents(atom: string | undefined) {
-    let atomDependentData: any = {};
+    const atomDependentData: any = {};
     let object: snapshot;
 
     if (!atom) return;
@@ -51,7 +51,7 @@ function AtomToDependentNetwork({
 
     atomDependentData.nodeDeps = [];
 
-    object.d.map(item => {
+    object.readDependencies.map(item => {
       atomDependentData.nodeDeps.push({ name: item });
     });
 
@@ -146,7 +146,7 @@ function AtomToDependentNetwork({
                         left = radialX;
 
                         const radiusFunc = (name: string) => {
-                          let nodeLength = name.length;
+                          const nodeLength = name.length;
                           if (nodeLength < 5) return nodeLength + 20;
                           if (nodeLength < 10) return nodeLength + 25;
                           if (nodeLength < 15) return nodeLength + 40;
