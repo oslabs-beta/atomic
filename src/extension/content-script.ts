@@ -23,6 +23,7 @@ window.addEventListener('message', msg => {
   const { action }: { action: string } = msg.data;
   if (action === 'TEST_FROM_DEBUGGER_COMPONENT') {
     console.log('message from inspected Application to background -> ', msg);
+    window.postMessage({ action: 'TEST_FROM_CS', payload: 'payload' }, '*');
     chrome.runtime.sendMessage(msg.data);
   }
 });
