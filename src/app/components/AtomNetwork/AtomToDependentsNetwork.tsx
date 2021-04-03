@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -34,6 +34,7 @@ function AtomToDependentsNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const [arrowRadius, setArrowRadius] = useState(0);
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToDependents(atom: string | undefined) {
@@ -79,6 +80,23 @@ function AtomToDependentsNetwork({
 
   const LinkComponent = getLinkComponent({ layout, linkType });
 
+  const arrowxRef = () => {
+    if (arrowRadius < 25) return arrowRadius - 3;
+    if (arrowRadius < 31) return arrowRadius - 7;
+    if (arrowRadius < 36) return arrowRadius - 8;
+    if (arrowRadius < 41) return arrowRadius - 13;
+    if (arrowRadius < 46) return arrowRadius - 15;
+
+    if (arrowRadius < 51) return arrowRadius - 17;
+    if (arrowRadius < 56) return arrowRadius - 19;
+    if (arrowRadius < 61) return arrowRadius - 21;
+    if (arrowRadius < 66) return arrowRadius - 23;
+    if (arrowRadius < 71) return arrowRadius - 25;
+    if (arrowRadius < 76) return arrowRadius - 27;
+
+    return arrowRadius - 50;
+  };
+
   return totalWidth < 10 ? null : (
     <div>
       <Zoom
@@ -98,6 +116,21 @@ function AtomToDependentsNetwork({
               from="#41b69c"
               to="#2d806d"
             />
+            <defs>
+              <marker
+                id="arrow"
+                viewBox="0 0 10 10"
+             
+                refX={arrowxRef()}
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c7c7c" />
+              </marker>
+            </defs>
+            ;
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -122,21 +155,14 @@ function AtomToDependentsNetwork({
                           key={i}
                           data={link}
                           stroke="#7c7c7c"
-                          strokeWidth="1"
+                          strokeWidth="3"
                           fill="none"
+                          markerEnd="url(#arrow)"
                         />
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        // const widthFunc = (name: string) => {
-                        //   let nodeLength = name.length;
-                        //   if (nodeLength < 5) return nodeLength + 30;
-                        //   if (nodeLength < 10) return nodeLength + 45;
-                        //   if (nodeLength < 20) return nodeLength + 90;
-                        //   return nodeLength + 70;
-                        // };
-                        // const width = widthFunc(node.data.name);
-                        // const height = 20;
+              
 
                         let top: number;
                         let left: number;
@@ -151,9 +177,11 @@ function AtomToDependentsNetwork({
                           if (nodeLength < 10) return nodeLength + 25;
                           if (nodeLength < 15) return nodeLength + 40;
                           if (nodeLength < 20) return nodeLength + 50;
-                          return nodeLength + 70;
+                          return nodeLength * 4;
                         };
                         const radius = radiusFunc(node.data.name);
+
+                        if (node.depth === 0) setArrowRadius(radius);
 
                         return (
                           <Group top={top} left={left} key={key}>

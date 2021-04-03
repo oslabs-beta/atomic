@@ -81,16 +81,25 @@ function AtomToReadDependenciesNetwork({
   const LinkComponent = getLinkComponent({ layout, linkType });
 
   const arrowxRef = () => {
+
+    if (arrowRadius < 25) return arrowRadius - 3;
+    if (arrowRadius < 31) return arrowRadius - 7;
+    if (arrowRadius < 36) return arrowRadius - 8;
+    if (arrowRadius < 41) return arrowRadius - 13;
+    if (arrowRadius < 46) return arrowRadius - 15;
+
     if (arrowRadius < 51) return arrowRadius - 17;
     if (arrowRadius < 56) return arrowRadius - 19;
     if (arrowRadius < 61) return arrowRadius - 21;
     if (arrowRadius < 66) return arrowRadius - 23;
     if (arrowRadius < 71) return arrowRadius - 25;
     if (arrowRadius < 76) return arrowRadius - 27;
+
     return arrowRadius - 50;
   };
 
-  useEffect(() => console.log('arrowRadius: ', arrowRadius), [arrowRadius]);
+  // useEffect(() => console.log('arrowRadius: ', arrowRadius), [arrowRadius]);
+
   return totalWidth < 10 ? null : (
     <div>
       <Zoom
@@ -105,12 +114,16 @@ function AtomToReadDependenciesNetwork({
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
             <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
+              <LinearGradient
+                id="dependent-gradient"
+                from="#41b69c"
+                to="#2d806d"
+              />
             <defs>
               <marker
                 id="arrow"
                 viewBox="0 0 10 10"
-                // 50 - 17
-                // 66 - 25
+        
                 refX={arrowxRef()}
                 refY="5"
                 markerWidth="7"
@@ -121,11 +134,6 @@ function AtomToReadDependenciesNetwork({
               </marker>
             </defs>
             ;
-            <LinearGradient
-              id="dependent-gradient"
-              from="#41b69c"
-              to="#2d806d"
-            />
             <rect
               width={totalWidth}
               height={totalHeight}
