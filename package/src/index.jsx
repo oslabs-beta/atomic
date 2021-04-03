@@ -33,10 +33,16 @@ function AtomicDebugger({ children }) {
 
   useEffect(() => {
     window.addEventListener('message', msg => {
-      console.log('msg in package is ---> ', msg);
+      // console.log('msg in package is ---> ', msg);
       const { action, payload } = msg.data;
-      console.log('action in package is ---> ', action);
-      console.log('payload in package is ---> ', payload);
+      // console.log('action in package is ---> ', action);
+      // console.log('payload in package is ---> ', payload);
+
+      //?update fiber here with index from JUMP messages and invoke reactDOM.render with new root from js storage here.
+      //? fiberRoot = rootStore[indexFromCS]
+      //? flag for time-travel
+      //? update state sent to devtool with previous state
+      //? conditionally invoke reactDom.render(<AtomUpdateContext.Provider value={setUsedAtoms}>{children}</AtomUpdateContext.Provider>, rootFromRootStore)
 
       if (action === 'TEST_FROM_CS')
         console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS!!! ---> ', payload);
@@ -51,15 +57,23 @@ function AtomicDebugger({ children }) {
   const [previousState, setPreviousState] = useState(null);
 
   //Get rootFiber from within debugger component.
-  const fiberRoot = document.getElementById('root')._reactRootContainer
+  //? if time-travel, fiberRoot
+  //? else fiberRoot = document.getElementById('root')
+  let fiberRoot = document.getElementById('root')._reactRootContainer
     ._internalRoot.current.stateNode.current;
 
   let jotaiProviderComponentStoreContext;
 
+  console.log('fiberRoot ----> ', fiberRoot);
+
   //Skip first react render cycle.
   if (fiberRoot.child) {
+    while (fiberRoot.elementType?.name !== 'Provider') {
+      fiberRoot = fiberRoot.child;
+    }
+
     jotaiProviderComponentStoreContext =
-      fiberRoot.child.child.memoizedState.memoizedState.current;
+      fiberRoot.memoizedState.memoizedState.current;
 
     //?Assume <Provider> Component is top level rendered in <App>?
     //TODO Make sure jotai provider is there.
@@ -200,6 +214,7 @@ function AtomicDebugger({ children }) {
     }
   }
 
+  //? will reactDOM.render interfere with this return value? Will it update fiber before returning below? or return from the function.
   return (
     <AtomUpdateContext.Provider value={setUsedAtoms}>
       {children}
