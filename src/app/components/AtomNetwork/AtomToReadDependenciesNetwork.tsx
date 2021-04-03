@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
@@ -34,6 +34,7 @@ function AtomToReadDependenciesNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const [arrowRadius, setArrowRadius] = useState(0);
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToReadDependencies(atom: string | undefined) {
@@ -79,6 +80,17 @@ function AtomToReadDependenciesNetwork({
 
   const LinkComponent = getLinkComponent({ layout, linkType });
 
+  const arrowxRef = () => {
+    if (arrowRadius < 51) return arrowRadius - 17;
+    if (arrowRadius < 56) return arrowRadius - 19;
+    if (arrowRadius < 61) return arrowRadius - 21;
+    if (arrowRadius < 66) return arrowRadius - 23;
+    if (arrowRadius < 71) return arrowRadius - 25;
+    if (arrowRadius < 76) return arrowRadius - 27;
+    return arrowRadius - 50;
+  };
+
+  useEffect(() => console.log('arrowRadius: ', arrowRadius), [arrowRadius]);
   return totalWidth < 10 ? null : (
     <div>
       <Zoom
@@ -93,6 +105,22 @@ function AtomToReadDependenciesNetwork({
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
             <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
+            <defs>
+              <marker
+                id="arrow"
+                viewBox="0 0 10 10"
+                // 50 - 17
+                // 66 - 25
+                refX={arrowxRef()}
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c7c7c" />
+              </marker>
+            </defs>
+            ;
             <LinearGradient
               id="dependent-gradient"
               from="#41b69c"
@@ -122,21 +150,14 @@ function AtomToReadDependenciesNetwork({
                           key={i}
                           data={link}
                           stroke="#7c7c7c"
-                          strokeWidth="1"
+                          strokeWidth="3"
                           fill="none"
+                          markerStart="url(#arrow)"
                         />
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        // const widthFunc = (name: string) => {
-                        //   let nodeLength = name.length;
-                        //   if (nodeLength < 5) return nodeLength + 30;
-                        //   if (nodeLength < 10) return nodeLength + 45;
-                        //   if (nodeLength < 20) return nodeLength + 90;
-                        //   return nodeLength + 70;
-                        // };
-                        // const width = widthFunc(node.data.name);
-                        // const height = 20;
+                        
 
                         let top: number;
                         let left: number;
@@ -151,9 +172,14 @@ function AtomToReadDependenciesNetwork({
                           if (nodeLength < 10) return nodeLength + 25;
                           if (nodeLength < 15) return nodeLength + 40;
                           if (nodeLength < 20) return nodeLength + 50;
-                          return nodeLength + 70;
+                          return nodeLength * 4;
                         };
                         const radius = radiusFunc(node.data.name);
+
+                        console.log('radius: ', radius);
+                        console.log('arrowRadius: ', arrowRadius);
+
+                        if (node.depth === 0) setArrowRadius(radius);
 
                         return (
                           <Group top={top} left={left} key={key}>
