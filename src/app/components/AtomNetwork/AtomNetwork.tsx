@@ -41,7 +41,7 @@ function AtomNetwork(): JSX.Element {
           style={{ color: !switchToggle ? '#1cb5c9' : '#7c7c7c' }}
         >
           Dependents
-          <span className="dependentsText">asdf</span>
+          <span className="toolTipTest">Displays all atoms affected by the parent atom</span>
         </h3>
 
         <label className="toggleSwitch">
@@ -53,8 +53,12 @@ function AtomNetwork(): JSX.Element {
           />
           <span className="toggleSlider round"></span>
         </label>
-        <h3 className={switchToggle ? 'dependents' : 'dependencies'}>
+        <h3
+          className="dependencies"
+          style={{ color: switchToggle ? '#1cb5c9' : '#7c7c7c' }}
+        >
           Read Dependencies
+          <span className="toolTipTest">Displays all atoms that affect the parent atom</span>
         </h3>
       </div>
       {switchToggle ? (

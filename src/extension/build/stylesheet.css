@@ -283,32 +283,33 @@ input:checked + .toggleSlider:before {
   margin-right: 7px;
   margin-left: 10px;
   position: relative;
-  display: inline-block;
-  /* border-bottom: 1px dotted black; */
+
 }
 
 .dependencies {
   margin-right: 7px;
   margin-left: 17px;
-  color: #7c7c7c;
+  position: relative;
 }
 
-.dependentsText {
+.toolTipTest {
   visibility: hidden;
   width: 120px;
+  font-size: 10px;
   background-color: black;
-  color: #7c7c7c;
+  color: #e6e6e6;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 5px 0;
   position: absolute;
   z-index: 1;
   top: 150%;
   left: 50%;
   margin-left: -60px;
+  opacity: 0.8;
 }
 
-.dependentsText::after {
+.toolTipTest::after {
   content: '';
   position: absolute;
   bottom: 100%;
@@ -319,6 +320,8 @@ input:checked + .toggleSlider:before {
   border-color: transparent transparent black transparent;
 }
 
-.dependents:hover .dependentsText {
+.dependents:hover .toolTipTest,
+.dependencies:hover .toolTipTest
+ {
   visibility: visible;
 }
