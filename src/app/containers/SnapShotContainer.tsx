@@ -68,7 +68,7 @@ function SnapShotContainer(): JSX.Element {
         </div>
       </div>
       <div className="snapshotList">
-        {snapshotHistory.map((snapshot: any, idx: number) => (
+        {snapshotHistory.slice(1).map((snapshot: any, idx: number) => (
           <Snapshot key={idx} idx={idx} snapshot={snapshot} />
         ))}
       </div>
