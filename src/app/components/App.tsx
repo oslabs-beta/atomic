@@ -110,18 +110,24 @@ function App(): JSX.Element {
   const renderModuleNotFoundContainer: JSX.Element = (
     <div className="notFoundContainer">
       {/* <img className="logo" src={LOGO_URL} /> */}
-      <p>
-        Supported only with Jotai apps using the Atomic NPM module. Follow the
+      <h3>
+        Supported only with Jotai applications using the Atomic NPM module. Follow the
         installation instructions at
         <br />
-        <a target="_blank" href="">
+        <a target="_blank" href="" className="webLink">
           ATOMIC
         </a>
-      </p>
+      </h3>
     </div>
   );
 
-  return <div className="app">{renderMainContainer}</div>;
+  return (
+    <div className="app">
+      {snapshotHistory.length > 0
+        ? renderMainContainer
+        : renderModuleNotFoundContainer}
+    </div>
+  );
 }
 
 export default App;

@@ -17,32 +17,36 @@ function SnapShotContainer(): JSX.Element {
   );
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
-  //Testing start:
-  const [count, setCount] = useState(0);
+  // //Testing start:
+  // const [count, setCount] = useState(0);
 
-  const handleNewData = () => {
-    setSnapshotHistory((prevState: any) => [
-      ...prevState,
-      snapshotTestArray[count],
-    ]);
-    setCount(count + 1);
-    if (count > 5) {
-      setCount(0);
-    }
+  // const handleNewData = () => {
+  //   setSnapshotHistory((prevState: any) => [
+  //     ...prevState,
+  //     snapshotTestArray[count],
+  //   ]);
+  //   setCount(count + 1);
+  //   if (count > 5) {
+  //     setCount(0);
+  //   }
 
-    const copy2 = { ...componentAtomTreeMock };
-    copy2.name = `${Math.floor(Math.random() * 10000)}`;
-    setComponentTreeHistory((prevState: any) => [...prevState, copy2]);
-  };
-  useEffect(() => console.log('componentTreeHistory: ', componentTreeHistory), [
-    componentTreeHistory,
-  ]);
-  //Testing end
+  //   const copy2 = { ...componentAtomTreeMock };
+  //   copy2.name = `${Math.floor(Math.random() * 10000)}`;
+  //   setComponentTreeHistory((prevState: any) => [...prevState, copy2]);
+  // };
+  // useEffect(() => console.log('componentTreeHistory: ', componentTreeHistory), [
+  //   componentTreeHistory,
+  // ]);
+  // //Testing end
 
   useEffect(() => scrollToBottom(), [snapshotHistory]);
   const scrollToBottom = (): void => {
     snapshotEndRef?.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  function clearHandleClick() {
+    setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length-2))
+  }
 
   return (
     <div className="snapShotsContainer">
@@ -58,8 +62,8 @@ function SnapShotContainer(): JSX.Element {
           ATOMIC{' '}
         </p>
         <div>
-          <button onClick={handleNewData} style={{ marginBottom: '15px' }}>
-            ADD SnapShot
+          <button onClick={clearHandleClick} className="clearButton" style={{ marginBottom: '15px' }}>
+            Clear Snapshot
           </button>
         </div>
       </div>
