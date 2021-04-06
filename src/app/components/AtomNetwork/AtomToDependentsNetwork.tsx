@@ -120,7 +120,6 @@ function AtomToDependentsNetwork({
               <marker
                 id="arrow"
                 viewBox="0 0 10 10"
-             
                 refX={40}
                 refY="5"
                 markerWidth="7"
@@ -162,8 +161,6 @@ function AtomToDependentsNetwork({
                       ))}
 
                       {tree.descendants().map((node, key) => {
-              
-
                         let top: number;
                         let left: number;
 
@@ -192,7 +189,7 @@ function AtomToDependentsNetwork({
                           if (nodeLength < 25) return 11;
                           if (nodeLength < 30) return 10;
                           if (nodeLength < 35) return 7;
-                          return  6;
+                          return 6;
                         };
                         const fontSize = fontSizeFunc(node.data.name);
 
