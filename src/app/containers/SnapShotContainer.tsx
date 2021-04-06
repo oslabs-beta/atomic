@@ -17,27 +17,8 @@ function SnapShotContainer(): JSX.Element {
   );
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
-  // //Testing start:
-  // const [count, setCount] = useState(0);
+  const [clearSnapshotHistory, setClearSnapshotHistory] = useState(false);
 
-  // const handleNewData = () => {
-  //   setSnapshotHistory((prevState: any) => [
-  //     ...prevState,
-  //     snapshotTestArray[count],
-  //   ]);
-  //   setCount(count + 1);
-  //   if (count > 5) {
-  //     setCount(0);
-  //   }
-
-  //   const copy2 = { ...componentAtomTreeMock };
-  //   copy2.name = `${Math.floor(Math.random() * 10000)}`;
-  //   setComponentTreeHistory((prevState: any) => [...prevState, copy2]);
-  // };
-  // useEffect(() => console.log('componentTreeHistory: ', componentTreeHistory), [
-  //   componentTreeHistory,
-  // ]);
-  // //Testing end
 
   useEffect(() => scrollToBottom(), [snapshotHistory]);
   const scrollToBottom = (): void => {
@@ -45,8 +26,13 @@ function SnapShotContainer(): JSX.Element {
   };
 
   function clearHandleClick() {
-    setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length-2))
+    setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length - 2));
+    setClearSnapshotHistory(true);
   }
+
+  useEffect(() => console.log('snapshotHistory: ', snapshotHistory), [
+    snapshotHistory,
+  ]);
 
   return (
     <div className="snapShotsContainer">
@@ -62,15 +48,33 @@ function SnapShotContainer(): JSX.Element {
           ATOMIC{' '}
         </p>
         <div>
-          <button onClick={clearHandleClick} className="clearButton" style={{ marginBottom: '15px' }}>
+          <button
+            onClick={clearHandleClick}
+            className="clearButton"
+            style={{ marginBottom: '15px' }}
+          >
             Clear Snapshot
           </button>
         </div>
       </div>
       <div className="snapshotList">
-        {snapshotHistory.slice(1).map((snapshot: any, idx: number) => (
-          <Snapshot key={idx} idx={idx} snapshot={snapshot} />
-        ))}
+        {clearSnapshotHistory
+          ? snapshotHistory.map((snapshot: any, idx: number) =>
+              idx > 0 ? (
+                <Snapshot
+                  key={`${Math.random() * 1000000000}`}
+                  idx={idx}
+                  snapshot={snapshot}
+                />
+              ) : null
+            )
+          : snapshotHistory.map((snapshot: any, idx: number) => (
+              <Snapshot
+                key={`${Math.random() * 1000000000}`}
+                idx={idx}
+                snapshot={snapshot}
+              />
+            ))}
       </div>
       <div ref={snapshotEndRef} />
     </div>
