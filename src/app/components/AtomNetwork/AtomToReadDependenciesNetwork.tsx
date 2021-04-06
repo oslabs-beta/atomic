@@ -34,7 +34,6 @@ function AtomToReadDependenciesNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
-  // const [arrowRadius, setArrowRadius] = useState(0);
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToReadDependencies(atom: string | undefined) {
@@ -66,7 +65,7 @@ function AtomToReadDependenciesNetwork({
 
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
-  console.log({ atomName });
+
 
   let origin: { x: number; y: number };
   let sizeWidth: number;
@@ -79,26 +78,6 @@ function AtomToReadDependenciesNetwork({
   sizeHeight = Math.min(innerWidth, innerHeight) / 2;
 
   const LinkComponent = getLinkComponent({ layout, linkType });
-
-  // const arrowxRef = () => {
-
-  //   if (arrowRadius < 25) return arrowRadius - 3;
-  //   if (arrowRadius < 31) return arrowRadius - 7;
-  //   if (arrowRadius < 36) return arrowRadius - 8;
-  //   if (arrowRadius < 41) return arrowRadius - 13;
-  //   if (arrowRadius < 46) return arrowRadius - 15;
-
-  //   if (arrowRadius < 51) return arrowRadius - 17;
-  //   if (arrowRadius < 56) return arrowRadius - 19;
-  //   if (arrowRadius < 61) return arrowRadius - 21;
-  //   if (arrowRadius < 66) return arrowRadius - 23;
-  //   if (arrowRadius < 71) return arrowRadius - 25;
-  //   if (arrowRadius < 76) return arrowRadius - 27;
-
-  //   return arrowRadius - 50;
-  // };
-
-  // useEffect(() => console.log('arrowRadius: ', arrowRadius), [arrowRadius]);
 
   return totalWidth < 10 ? null : (
     <div>
@@ -114,16 +93,15 @@ function AtomToReadDependenciesNetwork({
         {zoom => (
           <svg width={totalWidth} height={totalHeight}>
             <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
-              <LinearGradient
-                id="dependent-gradient"
-                from="#41b69c"
-                to="#2d806d"
-              />
+            <LinearGradient
+              id="dependent-gradient"
+              from="#41b69c"
+              to="#2d806d"
+            />
             <defs>
               <marker
                 id="arrow"
                 viewBox="0 0 10 10"
-        
                 refX={40}
                 refY="5"
                 markerWidth="7"
@@ -165,29 +143,12 @@ function AtomToReadDependenciesNetwork({
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        
-
                         let top: number;
                         let left: number;
 
                         const [radialX, radialY] = pointRadial(node.x, node.y);
                         top = radialY;
                         left = radialX;
-
-                        // const radiusFunc = (name: string) => {
-                        //   const nodeLength = name.length;
-                        //   if (nodeLength < 5) return nodeLength + 20;
-                        //   if (nodeLength < 10) return nodeLength + 25;
-                        //   if (nodeLength < 15) return nodeLength + 40;
-                        //   if (nodeLength < 20) return nodeLength + 50;
-                        //   return nodeLength * 4;
-                        // };
-                        // const radius = radiusFunc(node.data.name);
-
-                        // console.log('radius: ', radius);
-                        // console.log('arrowRadius: ', arrowRadius);
-
-                        // if (node.depth === 0) setArrowRadius(radius);
 
                         const fontSizeFunc = (name: string) => {
                           const nodeLength = name.length;
@@ -198,7 +159,7 @@ function AtomToReadDependenciesNetwork({
                           if (nodeLength < 25) return 11;
                           if (nodeLength < 30) return 10;
                           if (nodeLength < 35) return 7;
-                          return  6;
+                          return 6;
                         };
                         const fontSize = fontSizeFunc(node.data.name);
 

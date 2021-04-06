@@ -21,9 +21,7 @@ function StateDiff(): JSX.Element {
   return (
     <div className="stateDiff">
       <div>{ReactHtmlParser(html)}</div>
-      <div
-        className="stateDiffDiv"
-      >
+      <div className="stateDiffDiv">
         <label className="toggleSwitch">
           <input
             type="checkbox"
@@ -34,7 +32,10 @@ function StateDiff(): JSX.Element {
           <span className="toggleSlider round"></span>
         </label>
         <h3
-          style={{ marginLeft: '7px', color: rawToggle ? '#1cb5c9' : '#e6e6e6' }}
+          style={{
+            marginLeft: '7px',
+            color: rawToggle ? '#1cb5c9' : '#e6e6e6',
+          }}
         >
           Raw
         </h3>

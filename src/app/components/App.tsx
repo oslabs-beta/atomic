@@ -111,8 +111,8 @@ function App(): JSX.Element {
     <div className="notFoundContainer">
       {/* <img className="logo" src={LOGO_URL} /> */}
       <h3>
-        Supported only with Jotai applications using the Atomic NPM module. Follow the
-        installation instructions at
+        Supported only with Jotai applications using the Atomic NPM module.
+        Follow the installation instructions at
         <br />
         <a target="_blank" href="" className="webLink">
           ATOMIC

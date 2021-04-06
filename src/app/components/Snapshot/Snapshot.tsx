@@ -4,10 +4,10 @@ import { snapshotIndexContext } from '../App';
 interface snapshotProps {
   snapshot?: any;
   idx: number;
-  count: number
+  count: number;
 }
 
-function Snapshot({ idx , count}: snapshotProps): JSX.Element {
+function Snapshot({ idx, count }: snapshotProps): JSX.Element {
   const { snapshotIndex, setSnapshotIndex } = useContext<any>(
     snapshotIndexContext
   );

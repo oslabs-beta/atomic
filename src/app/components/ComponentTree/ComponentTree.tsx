@@ -46,9 +46,7 @@ function ComponentTree(): JSX.Element {
           />
         )}
       </div>
-      <div
-       className="componentTreeDiff"
-      >
+      <div className="componentTreeDiff">
         <label className="toggleSwitch">
           <input
             type="checkbox"

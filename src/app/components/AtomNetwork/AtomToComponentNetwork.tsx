@@ -48,7 +48,7 @@ function AtomToComponentNetwork({
       object = snapshotHistory[snapshotIndex][atom];
       atomComponentData.name = atom;
     }
-    
+
     atomComponentData.components = [];
 
     object.components.map(item => {
