@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { snapshotHistoryContext } from '../components/App';
+import { snapshotHistoryContext , snapshotIndexContext} from '../components/App';
 import Snapshot from '../components/Snapshot/Snapshot';
 
 function SnapShotContainer(): JSX.Element {
   const { snapshotHistory, setSnapshotHistory } = useContext<any>(
     snapshotHistoryContext
   );
-
+  const { snapshotIndex, setSnapshotIndex } = useContext<any>(snapshotIndexContext);
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
   const [clearSnapshotHistory, setClearSnapshotHistory] = useState(false);
@@ -20,6 +20,7 @@ function SnapShotContainer(): JSX.Element {
   function clearHandleClick() {
     setCount(count + snapshotHistory.length - 2);
     setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length - 2));
+    setSnapshotIndex(1)
     setClearSnapshotHistory(true);
   }
 
