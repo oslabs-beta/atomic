@@ -1,24 +1,16 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import {
-  snapshotHistoryContext,
-  componentTreeHistoryContext,
-} from '../components/App';
+import { snapshotHistoryContext } from '../components/App';
 import Snapshot from '../components/Snapshot/Snapshot';
-//Testing:
-import { snapshotTestArray } from '../../app/mock/mockStateDiff';
-import { componentAtomTreeMock } from '../../app/mock/mockComponentTree';
 
 function SnapShotContainer(): JSX.Element {
   const { snapshotHistory, setSnapshotHistory } = useContext<any>(
     snapshotHistoryContext
   );
-  const { componentTreeHistory, setComponentTreeHistory } = useContext<any>(
-    componentTreeHistoryContext
-  );
+
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
   const [clearSnapshotHistory, setClearSnapshotHistory] = useState(false);
-
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => scrollToBottom(), [snapshotHistory]);
   const scrollToBottom = (): void => {
@@ -26,13 +18,10 @@ function SnapShotContainer(): JSX.Element {
   };
 
   function clearHandleClick() {
+    setCount(count + snapshotHistory.length - 2);
     setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length - 2));
     setClearSnapshotHistory(true);
   }
-
-  useEffect(() => console.log('snapshotHistory: ', snapshotHistory), [
-    snapshotHistory,
-  ]);
 
   return (
     <div className="snapShotsContainer">
@@ -65,6 +54,7 @@ function SnapShotContainer(): JSX.Element {
                   key={`${Math.random() * 1000000000}`}
                   idx={idx}
                   snapshot={snapshot}
+                  count={count}
                 />
               ) : null
             )
@@ -73,6 +63,7 @@ function SnapShotContainer(): JSX.Element {
                 key={`${Math.random() * 1000000000}`}
                 idx={idx}
                 snapshot={snapshot}
+                count={count}
               />
             ))}
       </div>
