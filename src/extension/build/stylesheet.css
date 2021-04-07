@@ -308,6 +308,7 @@ input:checked + .toggleSlider:before {
   margin-right: 7px;
   margin-left: 10px;
   position: relative;
+
 }
 .dependencies {
   margin-right: 7px;

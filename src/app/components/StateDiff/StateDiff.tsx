@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { diff, formatters } from 'jsondiffpatch';
 import ReactHtmlParser from 'react-html-parser';
+
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 
 function StateDiff(): JSX.Element {

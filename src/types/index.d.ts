@@ -15,3 +15,12 @@ export type componentTree = {
   state: {};
   props: {};
 };
+
+//Atom Network features: atom-to-component, atom-to-dependent, atom-to- readDependencies
+//Component Graph
+export type LinkTypesProps = {
+  width: number;
+  height: number;
+  margin?: { top: number; right: number; bottom: number; left: number };
+  atomName?: string;
+};

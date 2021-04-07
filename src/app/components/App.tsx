@@ -1,34 +1,32 @@
-/* eslint-disable no-console */
 import React, { createContext, useState, useEffect } from 'react';
+
 import MainContainer from '../containers/MainContainer';
 import { snapshot, componentTree } from '../../types';
 
-interface SnapshotHistoryContext {
-  snapshotHistory: snapshot[];
-  setSnapshotHistory: React.Dispatch<React.SetStateAction<snapshot[]>>;
+export interface SnapshotHistoryContext {
+  snapshotHistory: snapshot[] | [];
+  setSnapshotHistory?: React.Dispatch<React.SetStateAction<snapshot[]>>;
 }
-
-interface ComponentTreeHistoryContext {
-  componentTreeHistory: componentTree[];
-  setComponentTreeHistory: React.Dispatch<
+export interface ComponentTreeHistoryContext {
+  componentTreeHistory: componentTree[] | [];
+  setComponentTreeHistory?: React.Dispatch<
     React.SetStateAction<componentTree[]>
   >;
 }
-
-interface SnapshotIndexContext {
+export interface SnapshotIndexContext {
   snapshotIndex: number;
-  setSnapshotIndex: React.Dispatch<React.SetStateAction<number>>;
+  setSnapshotIndex?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // contexts created for our state values to later reference in child components
-export const snapshotHistoryContext = createContext<SnapshotHistoryContext | null>(
-  null
-);
-export const snapshotIndexContext = createContext<
-  SnapshotIndexContext | number
->(0);
+export const snapshotHistoryContext = createContext<SnapshotHistoryContext>({
+  snapshotHistory: [],
+});
+export const snapshotIndexContext = createContext<SnapshotIndexContext>({
+  snapshotIndex: 0,
+});
 export const componentTreeHistoryContext = createContext<ComponentTreeHistoryContext | null>(
-  null
+  { componentTreeHistory: [] }
 );
 
 function App(): JSX.Element {

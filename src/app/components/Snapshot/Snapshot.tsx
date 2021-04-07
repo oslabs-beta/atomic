@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+
 import { snapshotIndexContext } from '../App';
 
 interface snapshotProps {
@@ -12,9 +13,7 @@ function Snapshot({ idx, count }: snapshotProps): JSX.Element {
     snapshotIndexContext
   );
 
-  const handleClick = () => {
-    setSnapshotIndex(idx);
-  };
+  const handleClick = () => setSnapshotIndex(idx);
 
   return (
     <div

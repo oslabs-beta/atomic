@@ -1,12 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
-import { pointRadial } from 'd3-shape';
-import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { Zoom } from '@visx/zoom';
-import { snapshot } from '../../../types';
+import { pointRadial } from 'd3-shape';
+
+import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
+import { snapshot, LinkTypesProps } from '../../../types';
 
 const initialTransform = {
   scaleX: 0.9,
@@ -19,13 +20,6 @@ const initialTransform = {
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
-export type LinkTypesProps = {
-  width: number;
-  height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-  atomName?: string;
-};
-
 function AtomToReadDependenciesNetwork({
   width: totalWidth,
   height: totalHeight,
@@ -34,12 +28,12 @@ function AtomToReadDependenciesNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToReadDependencies(atom: string | undefined) {
     const atomReadDependencies: any = {};
     let object: snapshot;
-
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
@@ -48,13 +42,10 @@ function AtomToReadDependenciesNetwork({
       object = snapshotHistory[snapshotIndex][atom];
       atomReadDependencies.name = atom;
     }
-
     atomReadDependencies.nodeDeps = [];
-
     object.readDependencies.map(item => {
       atomReadDependencies.nodeDeps.push({ name: item });
     });
-
     return atomReadDependencies;
   }
 
@@ -65,7 +56,6 @@ function AtomToReadDependenciesNetwork({
 
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
-
 
   let origin: { x: number; y: number };
   let sizeWidth: number;

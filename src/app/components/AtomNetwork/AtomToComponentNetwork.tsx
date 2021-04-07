@@ -1,12 +1,17 @@
+/*
+WORK IN PROGRESS: ATOM TO COMPONENT NETWORK
+*/
+
 import React, { useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
-import { pointRadial } from 'd3-shape';
-import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { Zoom } from '@visx/zoom';
-import { snapshot } from '../../../types';
+import { pointRadial } from 'd3-shape';
+
+import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
+import { snapshot, LinkTypesProps } from '../../../types';
 
 const initialTransform = {
   scaleX: 0.9,
@@ -19,13 +24,6 @@ const initialTransform = {
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
-export type LinkTypesProps = {
-  width: number;
-  height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-  atomName?: string;
-};
-
 function AtomToComponentNetwork({
   width: totalWidth,
   height: totalHeight,
@@ -34,12 +32,12 @@ function AtomToComponentNetwork({
 }: LinkTypesProps) {
   const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
   const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToComponent(atom: string | undefined) {
     let atomComponentData: any = {};
     let object: snapshot;
-
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
@@ -48,13 +46,10 @@ function AtomToComponentNetwork({
       object = snapshotHistory[snapshotIndex][atom];
       atomComponentData.name = atom;
     }
-
     atomComponentData.components = [];
-
     object.components.map(item => {
       atomComponentData.components.push({ name: item });
     });
-
     return atomComponentData;
   }
 
