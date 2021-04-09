@@ -1,22 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
-import AtomToComponentNetwork from './AtomToComponentNetwork';
-import AtomToDependentNetwork from './AtomToDependentNetwork';
 
+import AtomToReadDependenciesNetwork from './AtomToReadDependenciesNetwork';
+import AtomToDependentsNetwork from './AtomToDependentsNetwork';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
+import { SnapshotHistoryContext, SnapshotIndexContext } from '../../../types';
 
 function AtomNetwork(): JSX.Element {
-  const [switchToggle, setSwitchToggle] = useState(false);
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
+  const [switchToggle, setSwitchToggle] = useState<boolean>(false);
   const [atomName, setAtomName] = useState<string>('');
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-
-
   return (
     <div className="atomNetwork" style={{ height: '95vh' }}>
+      {/* Switch toggle between dependents and read dependencies */}
       <div
         style={{
           display: 'flex',
@@ -27,8 +31,11 @@ function AtomNetwork(): JSX.Element {
       >
         <label>Select Atom:</label>
         <select
+          // Event.stopPropagation:
+          // https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_event_stoppropagation
           onClick={e => e.stopPropagation()}
-          onChange={e =>setAtomName(e.target?.value || atomNamesArray[0])}
+          // Reset back to first atom if atom name does not exist in snapshot
+          onChange={e => setAtomName(e.target?.value || atomNamesArray[0])}
           value={atomName}
           className="dropdown"
         >
@@ -39,36 +46,47 @@ function AtomNetwork(): JSX.Element {
           ))}
         </select>
         <h3
+          className="dependents"
           style={{
-            marginRight: '7px',
-            marginLeft: '10px',
             color: !switchToggle ? '#1cb5c9' : '#7c7c7c',
+            borderBottom: !switchToggle
+              ? '1px dotted #1cb5c9'
+              : '1px dotted #7c7c7c',
           }}
         >
           Dependents
+          <span className="toolTipTest">
+            Displays all atoms affected by the parent atom
+          </span>
         </h3>
+
         <label className="toggleSwitch">
           <input
             type="checkbox"
-            onClick={() => {
-              setSwitchToggle(!switchToggle);
-            }}
+            onClick={() => setSwitchToggle(!switchToggle)}
           />
           <span className="toggleSlider round"></span>
         </label>
         <h3
+          className="dependencies"
           style={{
-            marginLeft: '7px',
             color: switchToggle ? '#1cb5c9' : '#7c7c7c',
+            borderBottom: switchToggle
+              ? '1px dotted #1cb5c9'
+              : '1px dotted #7c7c7c',
           }}
         >
-          Components
+          Read Dependencies
+          <span className="toolTipTest">
+            Displays all atoms that affect the parent atom
+          </span>
         </h3>
       </div>
+      {/* Display atom to dependents OR atom to read dependencies */}
       {switchToggle ? (
         <ParentSize>
           {({ width, height }) => (
-            <AtomToComponentNetwork
+            <AtomToReadDependenciesNetwork
               atomName={atomName || atomNamesArray[0]}
               width={width}
               height={height}
@@ -78,7 +96,7 @@ function AtomNetwork(): JSX.Element {
       ) : (
         <ParentSize>
           {({ width, height }) => (
-            <AtomToDependentNetwork
+            <AtomToDependentsNetwork
               atomName={atomName || atomNamesArray[0]}
               width={width}
               height={height}

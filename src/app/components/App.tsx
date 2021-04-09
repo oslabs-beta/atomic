@@ -1,42 +1,31 @@
-/* eslint-disable no-console */
 import React, { createContext, useState, useEffect } from 'react';
+
 import MainContainer from '../containers/MainContainer';
-import { snapshot, componentTree } from '../../types';
-
-interface SnapshotHistoryContext {
-  snapshotHistory: snapshot[];
-  setSnapshotHistory: React.Dispatch<React.SetStateAction<snapshot[]>>;
-}
-
-interface ComponentTreeHistoryContext {
-  componentTreeHistory: componentTree[];
-  setComponentTreeHistory: React.Dispatch<
-    React.SetStateAction<componentTree[]>
-  >;
-}
-
-interface SnapshotIndexContext {
-  snapshotIndex: number;
-  setSnapshotIndex: React.Dispatch<React.SetStateAction<number>>;
-}
+import {
+  Snapshot,
+  ComponentTree,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+  ComponentTreeHistoryContext,
+} from '../../types';
 
 // contexts created for our state values to later reference in child components
-export const snapshotHistoryContext = createContext<SnapshotHistoryContext | null>(
-  null
-);
-export const snapshotIndexContext = createContext<
-  SnapshotIndexContext | number
->(0);
+export const snapshotHistoryContext = createContext<SnapshotHistoryContext>({
+  snapshotHistory: [],
+});
+export const snapshotIndexContext = createContext<SnapshotIndexContext>({
+  snapshotIndex: 0,
+});
 export const componentTreeHistoryContext = createContext<ComponentTreeHistoryContext | null>(
-  null
+  { componentTreeHistory: [] }
 );
 
 function App(): JSX.Element {
   // useState hook to update the snapshotHistory array -> array of snapshots
-  const [snapshotHistory, setSnapshotHistory] = useState<snapshot[]>([]);
+  const [snapshotHistory, setSnapshotHistory] = useState<Snapshot[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState<number>(0);
   const [componentTreeHistory, setComponentTreeHistory] = useState<
-    componentTree[]
+    ComponentTree[]
   >([]);
   //***********
   //CHROME EXTENSION CONNECTION:
@@ -110,18 +99,24 @@ function App(): JSX.Element {
   const renderModuleNotFoundContainer: JSX.Element = (
     <div className="notFoundContainer">
       {/* <img className="logo" src={LOGO_URL} /> */}
-      <p>
-        Supported only with Jotai apps using the Atomic NPM module. Follow the
-        installation instructions at
+      <h3>
+        Supported only with Jotai applications using the Atomic NPM module.
+        Follow the installation instructions at
         <br />
-        <a target="_blank" href="">
+        <a target="_blank" href="" className="webLink">
           ATOMIC
         </a>
-      </p>
+      </h3>
     </div>
   );
 
-  return <div className="app">{renderMainContainer}</div>;
+  return (
+    <div className="app">
+      {snapshotHistory.length > 0
+        ? renderMainContainer
+        : renderModuleNotFoundContainer}
+    </div>
+  );
 }
 
 export default App;
