@@ -7,7 +7,12 @@ import { pointRadial } from 'd3-shape';
 
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
-import { snapshot, LinkTypesProps } from '../../../types';
+import {
+  SnapshotValue,
+  LinkTypesProps,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../../types';
 
 const initialTransform = {
   scaleX: 0.9,
@@ -20,21 +25,24 @@ const initialTransform = {
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
-
 function AtomToDependentsNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
   atomName,
-}: LinkTypesProps) {
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+}: LinkTypesProps): JSX.Element | null {
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToDependents(atom: string | undefined) {
     const atomDependentData: any = {};
-    let object: snapshot;
+    let object: SnapshotValue;
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
@@ -44,7 +52,7 @@ function AtomToDependentsNetwork({
       atomDependentData.name = atom;
     }
     atomDependentData.nodeDeps = [];
-    object.dependents.map(item => {
+    object.dependents.map((item: string) => {
       atomDependentData.nodeDeps.push({ name: item });
     });
     return atomDependentData;

@@ -14,7 +14,11 @@ import {
   snapshotIndexContext,
   snapshotHistoryContext,
 } from '../App';
-import { LinkTypesProps } from '../../../types';
+import {
+  LinkTypesProps,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../../types';
 
 const initialTransform = {
   scaleX: 1,
@@ -41,8 +45,12 @@ function ComponentGraph({
   margin = defaultMargin,
 }: LinkTypesProps) {
   const { componentTreeHistory } = useContext<any>(componentTreeHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
   const [layout, setLayout] = useState<string>('cartesian');
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
@@ -52,7 +60,6 @@ function ComponentGraph({
 
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
-
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 

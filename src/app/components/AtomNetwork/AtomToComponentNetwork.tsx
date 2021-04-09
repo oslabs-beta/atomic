@@ -10,13 +10,13 @@ import { Zoom } from '@visx/zoom';
 import { pointRadial } from 'd3-shape';
 
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
+import { snapshotHistoryContext, snapshotIndexContext } from '../App';
 import {
-  snapshotHistoryContext,
-  snapshotIndexContext,
+  SnapshotValue,
+  LinkTypesProps,
   SnapshotHistoryContext,
   SnapshotIndexContext,
-} from '../App';
-import { SnapshotValue, LinkTypesProps } from '../../../types';
+} from '../../../types';
 
 const initialTransform = {
   scaleX: 0.9,

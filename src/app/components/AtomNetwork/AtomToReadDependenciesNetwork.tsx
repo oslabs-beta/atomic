@@ -7,7 +7,12 @@ import { pointRadial } from 'd3-shape';
 
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
-import { snapshot, LinkTypesProps } from '../../../types';
+import {
+  SnapshotValue,
+  LinkTypesProps,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../../types';
 
 const initialTransform = {
   scaleX: 0.9,
@@ -25,15 +30,19 @@ function AtomToReadDependenciesNetwork({
   height: totalHeight,
   margin = defaultMargin,
   atomName,
-}: LinkTypesProps) {
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+}: LinkTypesProps): JSX.Element | null {
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToReadDependencies(atom: string | undefined) {
     const atomReadDependencies: any = {};
-    let object: snapshot;
+    let object: SnapshotValue;
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
@@ -43,7 +52,7 @@ function AtomToReadDependenciesNetwork({
       atomReadDependencies.name = atom;
     }
     atomReadDependencies.nodeDeps = [];
-    object.readDependencies.map(item => {
+    object.readDependencies.map((item: string) => {
       atomReadDependencies.nodeDeps.push({ name: item });
     });
     return atomReadDependencies;

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import ReactJson from 'react-json-view';
 
 import { componentTreeHistoryContext, snapshotIndexContext } from '../App';
+import { SnapshotIndexContext } from '../../../types/index';
 
 const theme = {
   scheme: 'custom',
@@ -25,7 +26,9 @@ const theme = {
 
 function ComponentTree(): JSX.Element {
   const { componentTreeHistory } = useContext<any>(componentTreeHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
   const [expandToggle, setExpandToggle] = useState<boolean>(true);
 
   return (

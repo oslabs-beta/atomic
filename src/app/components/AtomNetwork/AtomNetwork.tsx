@@ -3,12 +3,8 @@ import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
 import AtomToReadDependenciesNetwork from './AtomToReadDependenciesNetwork';
 import AtomToDependentsNetwork from './AtomToDependentsNetwork';
-import {
-  snapshotHistoryContext,
-  snapshotIndexContext,
-  SnapshotHistoryContext,
-  SnapshotIndexContext,
-} from '../App';
+import { snapshotHistoryContext, snapshotIndexContext } from '../App';
+import { SnapshotHistoryContext, SnapshotIndexContext } from '../../../types';
 
 function AtomNetwork(): JSX.Element {
   const { snapshotHistory } = useContext<SnapshotHistoryContext>(
