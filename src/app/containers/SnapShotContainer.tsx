@@ -1,48 +1,39 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+
 import {
   snapshotHistoryContext,
-  componentTreeHistoryContext,
+  snapshotIndexContext,
 } from '../components/App';
 import Snapshot from '../components/Snapshot/Snapshot';
-//Testing:
-import { snapshotTestArray } from '../../app/mock/mockStateDiff';
-import { componentAtomTreeMock } from '../../app/mock/mockComponentTree';
+import {
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../types/index';
 
-function SnapShotContainer(): JSX.Element {
+function SnapshotContainer(): JSX.Element {
   const { snapshotHistory, setSnapshotHistory } = useContext<any>(
     snapshotHistoryContext
   );
-  const { componentTreeHistory, setComponentTreeHistory } = useContext<any>(
-    componentTreeHistoryContext
+  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
+    snapshotIndexContext
   );
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
-  //Testing start:
-  const [count, setCount] = useState(0);
-
-  const handleNewData = () => {
-    setSnapshotHistory((prevState: any) => [
-      ...prevState,
-      snapshotTestArray[count],
-    ]);
-    setCount(count + 1);
-    if (count > 5) {
-      setCount(0);
-    }
-
-    const copy2 = { ...componentAtomTreeMock };
-    copy2.name = `${Math.floor(Math.random() * 10000)}`;
-    setComponentTreeHistory((prevState: any) => [...prevState, copy2]);
-  };
-  useEffect(() => console.log('componentTreeHistory: ', componentTreeHistory), [
-    componentTreeHistory,
-  ]);
-  //Testing end
+  const [clearSnapshotHistory, setClearSnapshotHistory] = useState(false);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => scrollToBottom(), [snapshotHistory]);
   const scrollToBottom = (): void => {
     snapshotEndRef?.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  function clearHandleClick() {
+    if (snapshotHistory.length === 1) return;
+    setCount(count + snapshotHistory.length - 2);
+    setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length - 2));
+    setSnapshotIndex(1);
+    setClearSnapshotHistory(true);
+  }
 
   return (
     <div className="snapShotsContainer">
@@ -58,19 +49,39 @@ function SnapShotContainer(): JSX.Element {
           ATOMIC{' '}
         </p>
         <div>
-          <button onClick={handleNewData} style={{ marginBottom: '15px' }}>
-            ADD SnapShot
+          <button
+            onClick={clearHandleClick}
+            className="clearButton"
+            style={{ marginBottom: '15px' }}
+          >
+            Clear Snapshot
           </button>
         </div>
       </div>
       <div className="snapshotList">
-        {snapshotHistory.map((snapshot: any, idx: number) => (
-          <Snapshot key={idx} idx={idx} snapshot={snapshot} />
-        ))}
+        {clearSnapshotHistory
+          ? snapshotHistory.map((snapshot: any, idx: number) =>
+              idx > 0 ? (
+                <Snapshot
+                  key={`${Math.random() * 1000000000}`}
+                  idx={idx}
+                  snapshot={snapshot}
+                  count={count}
+                />
+              ) : null
+            )
+          : snapshotHistory.map((snapshot: any, idx: number) => (
+              <Snapshot
+                key={`${Math.random() * 1000000000}`}
+                idx={idx}
+                snapshot={snapshot}
+                count={count}
+              />
+            ))}
       </div>
       <div ref={snapshotEndRef} />
     </div>
   );
 }
 
-export default SnapShotContainer;
+export default SnapshotContainer;

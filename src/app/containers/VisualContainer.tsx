@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ParentSize } from '@visx/responsive';
+
 import NavBar from '../components/NavBar/NavBar';
 import AtomNetwork from '../components/AtomNetwork/AtomNetwork';
 import StateDiff from '../components/StateDiff/StateDiff';

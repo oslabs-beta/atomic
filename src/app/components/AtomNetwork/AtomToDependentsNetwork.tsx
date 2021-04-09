@@ -1,7 +1,3 @@
-/*
-WORK IN PROGRESS: ATOM TO COMPONENT NETWORK
-*/
-
 import React, { useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
@@ -29,7 +25,7 @@ const initialTransform = {
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
-function AtomToComponentNetwork({
+function AtomToDependentsNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
@@ -44,25 +40,25 @@ function AtomToComponentNetwork({
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-  function AtomToComponent(atom: string | undefined) {
-    const atomComponentData: any = {};
+  function AtomToDependents(atom: string | undefined) {
+    const atomDependentData: any = {};
     let object: SnapshotValue;
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
-      atomComponentData.name = atomNamesArray[0];
+      atomDependentData.name = atomNamesArray[0];
     } else {
       object = snapshotHistory[snapshotIndex][atom];
-      atomComponentData.name = atom;
+      atomDependentData.name = atom;
     }
-    atomComponentData.components = [];
-    object.components.map((item: string) => {
-      atomComponentData.components.push({ name: item });
+    atomDependentData.nodeDeps = [];
+    object.dependents.map((item: string) => {
+      atomDependentData.nodeDeps.push({ name: item });
     });
-    return atomComponentData;
+    return atomDependentData;
   }
 
-  const data = AtomToComponent(atomName);
+  const data = AtomToDependents(atomName);
 
   const layout = 'polar';
   const linkType = 'line';
@@ -97,10 +93,24 @@ function AtomToComponentNetwork({
           <svg width={totalWidth} height={totalHeight}>
             <LinearGradient id="atom-gradient" from="#de638a" to="#d13164" />
             <LinearGradient
-              id="component-gradient"
-              from="#7f5dc0"
-              to="#503b7a"
+              id="dependent-gradient"
+              from="#41b69c"
+              to="#2d806d"
             />
+            <defs>
+              <marker
+                id="arrow"
+                viewBox="0 0 10 10"
+                refX={40}
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c7c7c" />
+              </marker>
+            </defs>
+            ;
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -111,7 +121,7 @@ function AtomToComponentNetwork({
               <Group top={margin.top} left={margin.left}>
                 <Tree
                   root={hierarchy(data, d =>
-                    d.isExpanded ? null : d.components
+                    d.isExpanded ? null : d.nodeDeps
                   )}
                   size={[sizeWidth, sizeHeight]}
                   separation={(a, b) =>
@@ -125,23 +135,13 @@ function AtomToComponentNetwork({
                           key={i}
                           data={link}
                           stroke="#7c7c7c"
-                          strokeWidth="1"
+                          strokeWidth="3"
                           fill="none"
+                          markerEnd="url(#arrow)"
                         />
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        const widthFunc = (name: string) => {
-                          let nodeLength = name.length;
-                          if (nodeLength < 5) return nodeLength + 30;
-                          if (nodeLength < 10) return nodeLength + 50;
-                          if (nodeLength < 15) return nodeLength + 100;
-                          if (nodeLength < 20) return nodeLength + 127;
-                          return nodeLength + 145;
-                        };
-                        const width = widthFunc(node.data.name);
-                        const height = 30;
-
                         let top: number;
                         let left: number;
 
@@ -149,38 +149,33 @@ function AtomToComponentNetwork({
                         top = radialY;
                         left = radialX;
 
-                        const radiusFunc = (name: string) => {
-                          let nodeLength = name.length;
-                          if (nodeLength < 5) return nodeLength + 20;
-                          if (nodeLength < 10) return nodeLength + 25;
-                          if (nodeLength < 15) return nodeLength + 35;
-                          if (nodeLength < 20) return nodeLength + 50;
-                          return nodeLength + 70;
+                        const fontSizeFunc = (name: string) => {
+                          const nodeLength = name.length;
+                          if (nodeLength < 5) return 19;
+                          if (nodeLength < 10) return 18;
+                          if (nodeLength < 15) return 16;
+                          if (nodeLength < 20) return 12;
+                          if (nodeLength < 25) return 11;
+                          if (nodeLength < 30) return 10;
+                          if (nodeLength < 35) return 7;
+                          return 6;
                         };
-                        const radius = radiusFunc(node.data.name);
+                        const fontSize = fontSizeFunc(node.data.name);
 
                         return (
                           <Group top={top} left={left} key={key}>
                             {node.depth === 0 && (
-                              <circle fill="url('#atom-gradient')" r={radius} />
+                              <circle fill="url('#atom-gradient')" r={65} />
                             )}
                             {node.depth !== 0 && (
-                              <rect
-                                height={height}
-                                width={width}
-                                y={-height / 2}
-                                x={-width / 2}
-                                fill="url('#component-gradient')"
-                                rx={10}
-                                stroke={'black'}
-                                strokeWidth={1}
-                                strokeDasharray={0}
-                                strokeOpacity={1}
+                              <circle
+                                r={65}
+                                fill={"url('#dependent-gradient')"}
                               />
                             )}
                             <text
                               dy=".33em"
-                              fontSize={13}
+                              fontSize={fontSize}
                               fontFamily="Arial"
                               textAnchor="middle"
                               style={{
@@ -221,4 +216,4 @@ function AtomToComponentNetwork({
   );
 }
 
-export default AtomToComponentNetwork;
+export default AtomToDependentsNetwork;

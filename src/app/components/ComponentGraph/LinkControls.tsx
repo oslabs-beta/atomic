@@ -1,9 +1,4 @@
 import React from 'react';
-// Font size of the Controls label and Dropdowns
-const controlStyles = {
-  fontSize: '12px',
-  padding: '10px',
-};
 
 type Props = {
   layout: string;
@@ -14,6 +9,12 @@ type Props = {
   setOrientation: React.Dispatch<React.SetStateAction<string>>;
   setLinkType: React.Dispatch<React.SetStateAction<string>>;
   setStepPercent: React.Dispatch<React.SetStateAction<number>>;
+};
+
+// Font size of the Controls label and Dropdowns
+const controlStyles = {
+  fontSize: '12px',
+  padding: '10px',
 };
 
 function LinkControls({

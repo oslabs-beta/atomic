@@ -4,7 +4,9 @@ import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
 import { useTooltip, useTooltipInPortal, defaultStyles } from '@visx/tooltip';
 import { localPoint } from '@visx/event';
+import { Zoom } from '@visx/zoom';
 import { pointRadial } from 'd3-shape';
+
 import LinkControls from './LinkControls';
 import getLinkComponent from './getLinkComponent';
 import {
@@ -12,7 +14,11 @@ import {
   snapshotIndexContext,
   snapshotHistoryContext,
 } from '../App';
-import { Zoom } from '@visx/zoom';
+import {
+  LinkTypesProps,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../../types';
 
 const initialTransform = {
   scaleX: 1,
@@ -33,29 +39,27 @@ interface TreeNode {
 //Component graph margins
 const defaultMargin = { top: 15, left: 40, right: 40, bottom: 40 };
 
-export type LinkTypesProps = {
-  width: number;
-  height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-};
-
 function ComponentGraph({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
 }: LinkTypesProps) {
   const { componentTreeHistory } = useContext<any>(componentTreeHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
   const [layout, setLayout] = useState<string>('cartesian');
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
   const [stepPercent, setStepPercent] = useState<number>(0.5);
   const [hoverName, setHoverName] = useState<string[]>(['empty']);
+  const [atomName, setAtomName] = useState<string>('');
+
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
-
-  const [atomName, setAtomName] = useState<string>('');
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
@@ -368,7 +372,7 @@ function ComponentGraph({
               <br />
               -Value: {JSON.stringify(tooltipData.state[item].values)}
               <br />
-              -Dependencies:{' '}
+              -Read Dependencies:{' '}
               {JSON.stringify(tooltipData.state[item].dependencies)}
             </div>
           ))}
