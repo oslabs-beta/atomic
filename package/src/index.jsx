@@ -1,8 +1,11 @@
+// eslint-disable-next-line react/prop-types
+
 import React, {
   createContext,
   useContext,
   useState,
   useDebugValue,
+  useEffect,
 } from 'react';
 
 import { useAtom } from 'jotai';
@@ -10,7 +13,6 @@ import { useAtom } from 'jotai';
 const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext('test');
 
-// eslint-disable-next-line react/prop-types
 
 function AtomicDebugger({ children }) {
   //Declaring state to build serializable atomState to send to devtool
@@ -21,20 +23,20 @@ function AtomicDebugger({ children }) {
   const [previousState, setPreviousState] = useState(null);
 
   //Get rootFiber from within debugger component.
-  const fiberRoot = document.getElementById('root')._reactRootContainer
+  let fiberRoot = document.getElementById('root')._reactRootContainer
     ._internalRoot.current.stateNode.current;
 
-  //? Send fiber to chrome.storage here?
-
   let jotaiProviderComponentStoreContext;
-
   //Skip first react render cycle.
   if (fiberRoot.child) {
-    jotaiProviderComponentStoreContext =
-      fiberRoot.child.child.memoizedState.memoizedState.current;
+    while (fiberRoot.elementType?.name !== 'Provider') {
+      fiberRoot = fiberRoot.child;
+    }
 
-    //?Assume <Provider> Component is top level rendered in <App>?
-    //TODO Make sure jotai provider is there.
+    jotaiProviderComponentStoreContext =
+      fiberRoot.memoizedState.memoizedState.current;
+
+    //TODO Make sure Jotai provider is there.
     //TODO figure out provider-less mode.
 
     //Store Jotai state from provider context.
@@ -119,6 +121,9 @@ function AtomicDebugger({ children }) {
     //Initialize recursive algorithm to find atoms for each atom initially stored in atomsToDevtools.
     for (const [_, atom] of Object.entries(atomsToDevtool)) {
       traverseDeps(atom, 'atomState');
+    }
+
+    for (const [_, atom] of Object.entries(atomsToDevtool)) {
       traverseDeps(atom, 'mounted');
     }
 
@@ -159,7 +164,7 @@ function AtomicDebugger({ children }) {
     if (previousState !== atomsToDevtoolString) {
       try {
         extension.sendMessageToContentScripts({
-          action: 'TEST_FROM_DEBUGGER_COMPONENT',
+          action: 'ATOMS_FROM_DEBUGGER_COMPONENT',
           payload: { atomState: atomsToDevtoolString },
         });
       } catch (error) {

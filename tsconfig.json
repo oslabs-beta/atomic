@@ -9,12 +9,13 @@
     // "isolatedModules": true, // perform additional checks to ensure that separate compilation would be safe
     "esModuleInterop": true, // enables compatibility with Babel
     "noImplicitReturns": true,
+    "isolatedModules": true,
     "noImplicitAny": true,
     "module": "es6",
     "moduleResolution": "node", // determine how module dependencies get resolved
     "target": "es6", // specify ECMAScript version to transpile our code down to
     "allowJs": true, // allow JavaScript files to be compiled
-    "jsx": "react" // support JSX in .tsx files
+    "jsx": "react-jsx" // support JSX in .tsx files
   },
   "include": [
     "./src/**/*" // the files and folders for TypeScript to check (we specified all files in the "src" folder)

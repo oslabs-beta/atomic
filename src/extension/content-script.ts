@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 
 import { fiberHelper } from '../backend/index';
+import { windowActions } from '../types';
 
 //Extensions that read or write to web pages utilize a content script.
 //The content script contains JavaScript that executes in the contexts
@@ -10,27 +11,28 @@ import { fiberHelper } from '../backend/index';
 //Content scripts can communicate with their parent extension
 //by exchanging messages and storing values using the storage API.
 
+//Listen for messages from the inspected application
 window.addEventListener('message', msg => {
-  if (
-    msg.data.source != 'react-devtools-bridge' &&
-    msg.data.source != 'react-devtools-content-script' &&
-    msg.data.source != 'react-devtools-inject-backend' &&
-    msg.data.source != 'react-devtools-detector'
-  ) {
-    console.log('Window MessageEvent -> ', msg);
-  }
-
-  const { action }: { action: string } = msg.data;
-  if (action === 'TEST_FROM_DEBUGGER_COMPONENT') {
-    console.log('message from inspected Application to background -> ', msg);
-    chrome.runtime.sendMessage(msg.data);
+  const { action }: { action: windowActions } = msg.data;
+  switch (action) {
+    //This listens for most recent atom state from inspected application and sends to background.ts
+    case 'ATOMS_FROM_DEBUGGER_COMPONENT': {
+      chrome.runtime.sendMessage(msg.data);
+      break;
+    }
+    //This listens for most recent fiber tree from inspected application and sends to background.ts
+    case 'FIBER_FROM_APP': {
+      chrome.runtime.sendMessage(msg.data);
+      break;
+    }
   }
 });
 
-// Inject backend bundle
-
-// send initial message to background script
-
+/**
+ * InjectCode creates a script tag and appended to the document before <head>
+ * This <script> tag contains javaScript responsible for initializing the __ATOMIC_DEVTOOLS_EXTENSION__ hook.
+ * @param code javascript to be run in the inspected application environment.
+ */
 const injectCode = (code: string) => {
   const script = document.createElement('script');
   script.textContent = code;
@@ -40,20 +42,17 @@ const injectCode = (code: string) => {
   script?.parentNode?.removeChild(script);
 };
 
-//Create __ATOMIC_DEVTOOLS_EXTENSION__ hook to inject
+//Create and attach to window object the __ATOMIC_DEVTOOLS_EXTENSION__ hook
 const initHook = `
 window.__ATOMIC_DEVTOOLS_EXTENSION__ = {}
 `;
-//
+//This will inject code before <head> tag
+//FiberHelper is __REACT_DEVTOOLS_GLOBAL_HOOK__.onCommitFiberRoot() wrapper
+//* This is where we will add any additional helper functions to the __ATOMIC_DEVTOOLS_EXTENSION__ hook
+
 injectCode(
   `${initHook}
-  ;(function testINJECT(target) {target.__ATOMIC_DEVTOOLS_EXTENSION__.test = "test"})(window)
   ;(${fiberHelper.toString()}(window));
   // debugger;
   `
 );
-// injectCode(chrome.runtime.getURL('bundles/backend.bundle.js'));
-// injectCode(`${initHook}`);
-eval(`console.log('in eval')`);
-
-console.log('running content-script.ts');

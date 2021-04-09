@@ -65,10 +65,8 @@ function App(): JSX.Element {
         setSnapshotHistory(prevState => [...prevState, atomState]);
       }
       if (action === 'RECORD_COMPONENT_TREE') {
-        setComponentTreeHistory(prevState => [
-          ...prevState,
-          payload.componentTree,
-        ]);
+        const componentTree = JSON.parse(payload.componentTree);
+        setComponentTreeHistory(prevState => [...prevState, componentTree]);
       }
     });
   }, []);
