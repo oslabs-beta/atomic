@@ -16,3 +16,16 @@ export type componentTree = {
   // props: {};
 };
 
+//These types are portConnection betwee
+type portActions = 'DEV_INITIALIZED' | 'RECORD_ATOM_SNAPSHOT' | 'RECORD_COMPONENT_TREE' | 'CONNECTED_TO_DEVTOOL';
+export type windowActions = 'ATOMS_FROM_DEBUGGER_COMPONENT' | 'FIBER_FROM_APP'
+
+export type portMessage = {
+  action: portActions;
+  payload: any;
+};
+
+export type windowMessage = {
+  action: windowActions;
+  payload: any;
+};
