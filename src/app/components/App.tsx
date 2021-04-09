@@ -1,16 +1,17 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 import MainContainer from '../containers/MainContainer';
-import { snapshot, componentTree } from '../../types';
+import { Snapshot, ComponentTree } from '../../types';
 
 export interface SnapshotHistoryContext {
-  snapshotHistory: snapshot[] | [];
-  setSnapshotHistory?: React.Dispatch<React.SetStateAction<snapshot[]>>;
+  snapshotHistory: Snapshot[] | [];
+  setSnapshotHistory?: React.Dispatch<React.SetStateAction<Snapshot[]>>;
 }
+
 export interface ComponentTreeHistoryContext {
-  componentTreeHistory: componentTree[] | [];
+  componentTreeHistory: ComponentTree[] | [];
   setComponentTreeHistory?: React.Dispatch<
-    React.SetStateAction<componentTree[]>
+    React.SetStateAction<ComponentTree[]>
   >;
 }
 export interface SnapshotIndexContext {
@@ -31,10 +32,10 @@ export const componentTreeHistoryContext = createContext<ComponentTreeHistoryCon
 
 function App(): JSX.Element {
   // useState hook to update the snapshotHistory array -> array of snapshots
-  const [snapshotHistory, setSnapshotHistory] = useState<snapshot[]>([]);
+  const [snapshotHistory, setSnapshotHistory] = useState<Snapshot[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState<number>(0);
   const [componentTreeHistory, setComponentTreeHistory] = useState<
-    componentTree[]
+    ComponentTree[]
   >([]);
   //***********
   //CHROME EXTENSION CONNECTION:
