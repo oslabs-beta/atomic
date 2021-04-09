@@ -56,10 +56,11 @@ export type windowActions = 'ATOMS_FROM_DEBUGGER_COMPONENT' | 'FIBER_FROM_APP'
 
 export type portMessage = {
   action: portActions;
-  payload: any;
+  payload?: any;
+  tabId?: any;
 };
 
 export type windowMessage = {
   action: windowActions;
-  payload: any;
+  payload?: any;
 };
