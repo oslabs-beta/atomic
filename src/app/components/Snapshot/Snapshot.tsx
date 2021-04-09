@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 
 import { snapshotIndexContext } from '../App';
+import { Snapshot,SnapshotIndexContext } from '../../../types/index';
 
-interface snapshotProps {
-  snapshot?: any;
+interface SnapshotProps {
+  snapshot?: Snapshot;
   idx: number;
   count: number;
 }
 
-function Snapshot({ idx, count }: snapshotProps): JSX.Element {
+function Snapshot({ idx, count }: SnapshotProps): JSX.Element {
   const { snapshotIndex, setSnapshotIndex } = useContext<any>(
     snapshotIndexContext
   );
