@@ -44,14 +44,14 @@ select {
 /* ************************************************** */
 
 /* MAIN CONTAINER VISUALS -> 
-1. SnapShotContainer
+1. SnapshotContainer
 2. VisualContainer */
 .mainContainer {
   height: 100%;
   display: flex;
 }
 
-.notFoundContainer{
+.notFoundContainer {
   color: #e6e6e6;
   height: auto;
   font-size: 15px;
@@ -62,7 +62,7 @@ select {
   text-align: center;
   border: 2px solid #1cb5c9;
 }
-.webLink{
+.webLink {
   color: #1cb5c9;
   font-size: 25px;
 }
@@ -308,7 +308,6 @@ input:checked + .toggleSlider:before {
   margin-right: 7px;
   margin-left: 10px;
   position: relative;
-
 }
 .dependencies {
   margin-right: 7px;
@@ -342,7 +341,6 @@ input:checked + .toggleSlider:before {
   border-color: transparent transparent black transparent;
 }
 .dependents:hover .toolTipTest,
-.dependencies:hover .toolTipTest
- {
+.dependencies:hover .toolTipTest {
   visibility: visible;
 }
