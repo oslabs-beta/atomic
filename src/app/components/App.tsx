@@ -1,23 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 import MainContainer from '../containers/MainContainer';
-import { Snapshot, ComponentTree } from '../../types';
-
-export interface SnapshotHistoryContext {
-  snapshotHistory: Snapshot[] | [];
-  setSnapshotHistory?: React.Dispatch<React.SetStateAction<Snapshot[]>>;
-}
-
-export interface ComponentTreeHistoryContext {
-  componentTreeHistory: ComponentTree[] | [];
-  setComponentTreeHistory?: React.Dispatch<
-    React.SetStateAction<ComponentTree[]>
-  >;
-}
-export interface SnapshotIndexContext {
-  snapshotIndex: number;
-  setSnapshotIndex?: React.Dispatch<React.SetStateAction<number>>;
-}
+import {
+  Snapshot,
+  ComponentTree,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+  ComponentTreeHistoryContext,
+} from '../../types';
 
 // contexts created for our state values to later reference in child components
 export const snapshotHistoryContext = createContext<SnapshotHistoryContext>({
