@@ -10,8 +10,13 @@ import { Zoom } from '@visx/zoom';
 import { pointRadial } from 'd3-shape';
 
 import getLinkComponent from '../ComponentGraph/getLinkComponent';
-import { snapshotHistoryContext, snapshotIndexContext } from '../App';
-import { snapshot, LinkTypesProps } from '../../../types';
+import {
+  snapshotHistoryContext,
+  snapshotIndexContext,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../App';
+import { SnapshotValue, LinkTypesProps } from '../../../types';
 
 const initialTransform = {
   scaleX: 0.9,
@@ -29,15 +34,19 @@ function AtomToComponentNetwork({
   height: totalHeight,
   margin = defaultMargin,
   atomName,
-}: LinkTypesProps) {
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+}: LinkTypesProps): JSX.Element | null {
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
 
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   function AtomToComponent(atom: string | undefined) {
-    let atomComponentData: any = {};
-    let object: snapshot;
+    const atomComponentData: any = {};
+    let object: SnapshotValue;
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
@@ -47,7 +56,7 @@ function AtomToComponentNetwork({
       atomComponentData.name = atom;
     }
     atomComponentData.components = [];
-    object.components.map(item => {
+    object.components.map((item: string) => {
       atomComponentData.components.push({ name: item });
     });
     return atomComponentData;
