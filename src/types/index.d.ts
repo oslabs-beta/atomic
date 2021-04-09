@@ -8,11 +8,11 @@ export type snapshot = {
 
 //Component Tree taken from Atomic dev tool
 export type componentTree = {
-  children: object[];
   name: string;
-  tag: number;
-  atom: string[];
-  state: {};
-  props: {};
+  usedAtoms: string[];
+  children: object[];
+  // tag: number;
+  // state: {};
+  // props: {};
 };
 
