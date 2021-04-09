@@ -5,12 +5,18 @@ import {
   snapshotIndexContext,
 } from '../components/App';
 import Snapshot from '../components/Snapshot/Snapshot';
+import {
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../types/index';
 
-function SnapShotContainer(): JSX.Element {
+function SnapshotContainer(): JSX.Element {
   const { snapshotHistory, setSnapshotHistory } = useContext<any>(
     snapshotHistoryContext
   );
-  const { _, setSnapshotIndex } = useContext<any>(snapshotIndexContext);
+  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
+    snapshotIndexContext
+  );
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
   const [clearSnapshotHistory, setClearSnapshotHistory] = useState(false);
@@ -22,7 +28,7 @@ function SnapShotContainer(): JSX.Element {
   };
 
   function clearHandleClick() {
-    if (snapshotHistory.length ===1) return;
+    if (snapshotHistory.length === 1) return;
     setCount(count + snapshotHistory.length - 2);
     setSnapshotHistory(snapshotHistory.splice(snapshotHistory.length - 2));
     setSnapshotIndex(1);
@@ -78,4 +84,4 @@ function SnapShotContainer(): JSX.Element {
   );
 }
 
-export default SnapShotContainer;
+export default SnapshotContainer;
