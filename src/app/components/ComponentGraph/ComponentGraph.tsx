@@ -381,13 +381,13 @@ function ComponentGraph({
             <div>
               <strong style={{ color: '#d13164' }}>{item}:</strong>
               <br />
-              -Value:{" "} 
+              *Value:{" "} 
               {JSON.stringify(snapshotHistory[snapshotIndex][item].value)}
               <br />
-              -Read Dependencies:{' '}
+              *Read Dependencies:{' '}
               {JSON.stringify(snapshotHistory[snapshotIndex][item].readDependencies)}
               <br />
-              -Dependents:{' '}
+              *Dependents:{' '}
               {JSON.stringify(snapshotHistory[snapshotIndex][item].dependents)}
             </div>
           ))}
