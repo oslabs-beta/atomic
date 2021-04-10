@@ -258,7 +258,6 @@ function ComponentGraph({
 
                         const handleMouseOut = () => {
                           hideTooltip();
-            
                         };
 
                         function atomColor() {
@@ -377,20 +376,26 @@ function ComponentGraph({
             </div>
           )}
           {/* Hover state: */}
-          {tooltipData.usedAtoms && tooltipData.usedAtoms.length > 0 && tooltipData.usedAtoms.map((item: string) => (
-            <div>
-              <strong style={{ color: '#d13164' }}>{item}:</strong>
-              <br />
-              *Value:{" "} 
-              {JSON.stringify(snapshotHistory[snapshotIndex][item].value)}
-              <br />
-              *Read Dependencies:{' '}
-              {JSON.stringify(snapshotHistory[snapshotIndex][item].readDependencies)}
-              <br />
-              *Dependents:{' '}
-              {JSON.stringify(snapshotHistory[snapshotIndex][item].dependents)}
-            </div>
-          ))}
+          {tooltipData.usedAtoms &&
+            tooltipData.usedAtoms.length > 0 &&
+            tooltipData.usedAtoms.map((item: string) => (
+              <div>
+                <strong style={{ color: '#d13164' }}>{item}:</strong>
+                <br />
+                *Value:{' '}
+                {JSON.stringify(snapshotHistory[snapshotIndex][item].value)}
+                <br />
+                *Read Dependencies:{' '}
+                {JSON.stringify(
+                  snapshotHistory[snapshotIndex][item].readDependencies
+                )}
+                <br />
+                *Dependents:{' '}
+                {JSON.stringify(
+                  snapshotHistory[snapshotIndex][item].dependents
+                )}
+              </div>
+            ))}
         </TooltipInPortal>
       )}
     </div>
