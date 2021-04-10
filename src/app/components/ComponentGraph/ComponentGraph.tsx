@@ -381,11 +381,14 @@ function ComponentGraph({
             <div>
               <strong style={{ color: '#d13164' }}>{item}:</strong>
               <br />
-              -Value: 
-              {JSON.stringify(tooltipData.state[item].values)}
+              -Value:{" "} 
+              {JSON.stringify(snapshotHistory[snapshotIndex][item].value)}
               <br />
               -Read Dependencies:{' '}
-              {/* {JSON.stringify(tooltipData.state[item].dependencies)} */}
+              {JSON.stringify(snapshotHistory[snapshotIndex][item].readDependencies)}
+              <br />
+              -Dependents:{' '}
+              {JSON.stringify(snapshotHistory[snapshotIndex][item].dependents)}
             </div>
           ))}
         </TooltipInPortal>
