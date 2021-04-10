@@ -377,16 +377,17 @@ function ComponentGraph({
             </div>
           )}
           {/* Hover state: */}
-          {/* {tooltipData.usedAtoms.map((item: string) => (
+          {tooltipData.usedAtoms && tooltipData.usedAtoms.length > 0 && tooltipData.usedAtoms.map((item: string) => (
             <div>
               <strong style={{ color: '#d13164' }}>{item}:</strong>
               <br />
-              -Value: {JSON.stringify(tooltipData.state[item].values)}
+              -Value: 
+              {JSON.stringify(tooltipData.state[item].values)}
               <br />
               -Read Dependencies:{' '}
-              {JSON.stringify(tooltipData.state[item].dependencies)}
+              {/* {JSON.stringify(tooltipData.state[item].dependencies)} */}
             </div>
-          ))} */}
+          ))}
         </TooltipInPortal>
       )}
     </div>
