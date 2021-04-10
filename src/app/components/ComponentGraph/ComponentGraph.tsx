@@ -55,7 +55,6 @@ function ComponentGraph({
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
   const [stepPercent, setStepPercent] = useState<number>(0.5);
-  const [hoverName, setHoverName] = useState<string[]>(['empty']);
   const [atomName, setAtomName] = useState<string>('');
 
   const innerWidth = totalWidth - margin.left - margin.right;
@@ -221,7 +220,7 @@ function ComponentGraph({
                             if (nodeLength < 20) return nodeLength + 127;
                             return nodeLength + 145;
                           }
-                          return 30;
+                          return 35;
                         };
                         const width = widthFunc(node.data.name);
                         const height = 30;
@@ -255,12 +254,11 @@ function ComponentGraph({
                             tooltipTop: coords.y,
                             tooltipData: tooltipObj,
                           });
-                          // setHoverName(node.data.name);
                         };
 
                         const handleMouseOut = () => {
                           hideTooltip();
-                          setHoverName(['empty']);
+            
                         };
 
                         function atomColor() {
@@ -335,7 +333,9 @@ function ComponentGraph({
                                   : 'black'
                               }
                             >
-                              {node.data.name}
+                              {node.depth === 0 && !node.data.name
+                                ? 'Root'
+                                : node.data.name}
                             </text>
                           </Group>
                         );
