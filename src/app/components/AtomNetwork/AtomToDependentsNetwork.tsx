@@ -15,10 +15,10 @@ import {
 } from '../../../types';
 
 const initialTransform = {
-  scaleX: 0.9,
-  scaleY: 0.9,
+  scaleX: 0.8,
+  scaleY: 0.8,
   translateX: 20,
-  translateY: 10,
+  translateY: 50,
   skewX: 0,
   skewY: 0,
 };
