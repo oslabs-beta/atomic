@@ -53,9 +53,9 @@ function AtomToDependentsNetwork({
       object = snapshotHistory[snapshotIndex][atom];
       atomDependentData.name = atom;
     }
-    atomDependentData.nodeDeps = [];
+    atomDependentData.dependents = [];
     object.dependents.map((item: string) => {
-      atomDependentData.nodeDeps.push({ name: item });
+      atomDependentData.dependents.push({ name: item });
     });
     return atomDependentData;
   }
@@ -123,7 +123,7 @@ function AtomToDependentsNetwork({
               <Group top={margin.top} left={margin.left}>
                 <Tree
                   root={hierarchy(data, d =>
-                    d.isExpanded ? null : d.nodeDeps
+                    d.isExpanded ? null : d.dependents
                   )}
                   size={[sizeWidth, sizeHeight]}
                   separation={(a, b) =>
