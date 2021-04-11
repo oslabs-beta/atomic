@@ -38,8 +38,10 @@ function AtomToReadDependenciesNetwork({
     snapshotIndexContext
   );
 
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
+  //Function creates read dependencies-to-atom object for atom network based on atom selected from drop down:
   function AtomToReadDependencies(atom: string | undefined) {
     const atomReadDependencies: any = {};
     let object: SnapshotValue;

@@ -37,9 +37,11 @@ function AtomToDependentsNetwork({
   const { snapshotIndex } = useContext<SnapshotIndexContext>(
     snapshotIndexContext
   );
-
+  
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
+  //Function creates dependents-to-atom object for atom network based on atom selected from drop down:
   function AtomToDependents(atom: string | undefined) {
     const atomDependentData: any = {};
     let object: SnapshotValue;

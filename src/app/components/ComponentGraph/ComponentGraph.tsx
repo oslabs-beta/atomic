@@ -60,12 +60,14 @@ function ComponentGraph({
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
 
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   useEffect(() => {
     setAtomName('');
   }, [snapshotIndex]);
 
+  //Sets component tree data based on current snapshot selected
   const data: TreeNode = componentTreeHistory[snapshotIndex];
 
   let origin: { x: number; y: number };
@@ -260,6 +262,7 @@ function ComponentGraph({
                           hideTooltip();
                         };
 
+                        //Sets color of node based on if element, component, or if selected atom is in the component
                         function atomColor() {
                           if (atomName && node.data.usedAtoms) {
                             if (node.data.usedAtoms.includes(atomName)) {
@@ -349,8 +352,8 @@ function ComponentGraph({
       </Zoom>
       {tooltipOpen && tooltipData && (
         <TooltipInPortal
-          // set this to random so it correctly updates with parent bounds
-          key={Math.random()}
+          // Set this to random so it correctly updates with parent bounds
+          key={Math.random() * 1000000}
           top={tooltipTop}
           left={tooltipLeft}
           style={tooltipStyleBox}
@@ -375,7 +378,7 @@ function ComponentGraph({
               {tooltipData.usedAtoms.join(', ')}
             </div>
           )}
-          {/* Hover state: */}
+          {/* Hover atom value, dependents, and read dependenies: */}
           {tooltipData.usedAtoms &&
             tooltipData.usedAtoms.length > 0 &&
             tooltipData.usedAtoms.map((item: string) => (

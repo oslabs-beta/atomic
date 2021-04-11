@@ -16,6 +16,7 @@ function AtomNetwork(): JSX.Element {
   const [switchToggle, setSwitchToggle] = useState<boolean>(false);
   const [atomName, setAtomName] = useState<string>('');
 
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   return (

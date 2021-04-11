@@ -42,8 +42,10 @@ function AtomToComponentNetwork({
     snapshotIndexContext
   );
 
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
+  //Function creates components-to-atom object for atom network based on atom selected from drop down:
   function AtomToComponent(atom: string | undefined) {
     const atomComponentData: any = {};
     let object: SnapshotValue;
