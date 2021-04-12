@@ -40,7 +40,7 @@ Getting Started
 </h1>
 
 1. #### Install Atomic Chrome extension.
-    Add Atomic devtool chrome extension to your chrome browser.
+    Add Atomic devtool chrome extension to your chrome browser. Click here to add.
 
 2. #### Install Atomic Module.
 
@@ -54,7 +54,7 @@ Getting Started
     import { useAtomicDevtool, AtomicDebugger } from "atomic-devtools";
     ```
 
-4. #### Integrate `AtomicDebugger` as a React component within the Jotai root AFTER Provider.
+4. #### Integrate `AtomicDebugger` as a React component within the Jotai root after Provider.
 
     ```js
     import AtomicDebugger from 'atomic-devtools';
@@ -100,15 +100,15 @@ Features
 </h1>
 
 - ### Time Travel
-    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
-- ### State Change
+    The ability to jump between state changes within the devtool. The snapshot list provides the state throughout the Jotai-built application runtime and each time state changes, a new snapshot is added. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+- ### State Change Display
     Easily compare atom state changes between snapshots in real-time.
 - ### Component Graph Visualization
-    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+    Atomic provides a data visualization of an applications component tree. Have the ability to see a hierarchical view of all the React components in an application. The component graph also provides information on which components are subscribed to a particular atom as well as provides real-time data on an atom's value, dependents, and read dependencies for a specific snapshot.
 - ### Atom Network Visualization of Dependents and Read Dependencies
-    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+    Visualize a specfic atom's dependents (displays all atoms affected by the parent atom) and read dependencies (displays all atoms that affect the parent atom) relationships. 
 - ### Component Tree
-    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+    Displays a Jotai-built application component tree structure with subscribed atom(s) for a given snapshot.
 
 <!-- CORE TEAM -->
 <h1>
@@ -125,5 +125,6 @@ Core Team
 License
 </h1>
 
-- Atomic was developed under tech accelerator OSLabs.
 - This project is licensed under the MIT License.
+
+### Atomic was developed under tech accelerator OSLabs.
