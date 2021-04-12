@@ -127,4 +127,4 @@ License
 
 - This project is licensed under the MIT License.
 
-### Atomic was developed under tech accelerator OSLabs.
+#### Atomic was developed under tech accelerator OSLabs.
