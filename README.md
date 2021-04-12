@@ -72,4 +72,4 @@ Getting Started:
     ```
 
 5. #### Open your application on the Chrome Browser and start debugging with Atomic devtool!
-    ##### (Only supported with React applications using Jotai as state management)
+    **Important**- Only supported with React applications using Jotai as state management)
