@@ -22,6 +22,7 @@
 <p>
 Atomic is an open source chrome developer tool debugger for applications built with Jotai state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to easily debug and build an application that is more performant.
 </br>
+
 Key features of Atomic devtool include:
 
 - Time travel between snapshots within devtool
@@ -38,22 +39,22 @@ Key features of Atomic devtool include:
 Getting Started
 </h1>
 
-1. #### Install Atomic Chrome extension
+1. #### Install Atomic Chrome extension.
     Add Atomic devtool chrome extension to your chrome browser.
 
-2. #### Install Atomic Module
+2. #### Install Atomic Module.
 
     ```js
     npm install atomic-devtools
     ```
 
-3. #### Import useAtomicDevtool & AtomicDebugger from the Atomic module
+3. #### Import `useAtomicDevtool` & `AtomicDebugger` from the Atomic module.
 
     ```js
     import { useAtomicDevtool, AtomicDebugger } from "atomic-devtools";
     ```
 
-4. #### Integrate AtomicDebugger as a React component within the Jotai root AFTER Provider:
+4. #### Integrate `AtomicDebugger` as a React component within the Jotai root AFTER Provider.
 
     ```js
     import AtomicDebugger from 'atomic-devtools';
@@ -73,7 +74,24 @@ Getting Started
     );
     ```
 
-5. #### Open your application on the Chrome Browser and start debugging with Atomic devtool!
+5. #### Utilize `useAtomicDevtool` hook instead of useAtom hook to read an atom's value and provide a label within the functional component. 
+
+    ```ts
+    function useAtomicDevtool(atom, name: string)
+    ```
+
+    `useAtomicDevtool` is an Atomic hook that manages Atomic devtool integration for a particular atom. The hook accepts two invocation parameters, `atom` and `name`. `atom` is the atom that will be attached to the devtools instance. `name` is a parameter that labels the atom for the devtools instance.
+
+    ### Example
+
+    ```js
+    import { useAtomicDevtool } from 'atomic-devtools'
+
+    // Declare useAtomicDevtool hook inside functional component.
+    const [value, updateValue] = useAtomicDevtool(anAtom, name)
+
+
+6. #### Open your application on the Chrome Browser and start debugging with Atomic devtool!
     **Important**- Only supported with React applications using Jotai as state management.
 
 <!-- FEATURES -->
