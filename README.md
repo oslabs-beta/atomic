@@ -14,7 +14,7 @@
 
 <h1>Developer tool for Jotai applications</h1>
 
-# [![gitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/oslabs-beta/atomic/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/atomic-devtools)](https://www.npmjs.com/package/atomic-devtools) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat)](https://github.com/oslabs-beta/atomic/issues)
+[![gitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/oslabs-beta/atomic/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/atomic-devtools)](https://www.npmjs.com/package/atomic-devtools) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat)](https://github.com/oslabs-beta/atomic/issues)
 
 
 <!-- ABOUT -->
@@ -80,6 +80,17 @@ Getting Started
 <h1>
 Features
 </h1>
+
+- ### Time Travel
+    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+- ### State Change
+    Easily compare atom state changes between snapshots in real-time.
+- ### Component Graph Visualization
+    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+- ### Atom Network Visualization of Dependents and Read Dependencies
+    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+- ### Component Tree
+    The ability to jump between state changes within the devtool. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
 
 <!-- CORE TEAM -->
 <h1>
