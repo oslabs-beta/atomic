@@ -54,21 +54,23 @@ function App(): JSX.Element {
       action: 'DEV_INITIALIZED',
       tabId: chrome.devtools.inspectedWindow.tabId,
     });
-
+    //? Need to figure out how to save listener with tabID
     // listen for messages FROM background script
-    port.onMessage.addListener((message: { action: string; payload: any }) => {
-      console.log('Received message from background script: ', message);
-      const { action, payload } = message;
+    port.onMessage.addListener(
+      (message: { tabId: string; action: string; payload: any }) => {
+        console.log('Received message from background script: ', message);
+        const { action, payload } = message;
 
-      if (action === 'RECORD_ATOM_SNAPSHOT') {
-        const atomState = JSON.parse(payload.atomState);
-        setSnapshotHistory(prevState => [...prevState, atomState]);
+        if (action === 'RECORD_ATOM_SNAPSHOT') {
+          const atomState = JSON.parse(payload.atomState);
+          setSnapshotHistory(prevState => [...prevState, atomState]);
+        }
+        if (action === 'RECORD_COMPONENT_TREE') {
+          const componentTree = JSON.parse(payload.componentTree);
+          setComponentTreeHistory(prevState => [...prevState, componentTree]);
+        }
       }
-      if (action === 'RECORD_COMPONENT_TREE') {
-        const componentTree = JSON.parse(payload.componentTree);
-        setComponentTreeHistory(prevState => [...prevState, componentTree]);
-      }
-    });
+    );
   }, []);
 
   useEffect(() => {
