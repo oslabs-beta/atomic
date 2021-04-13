@@ -10,7 +10,6 @@ declare global {
 }
 
 export function fiberHelper(target: Window) {
-
   const isHTMLElement = function (el: any) {
     if ('HTMLElement' in window) {
       return el instanceof HTMLElement;
@@ -23,20 +22,26 @@ export function fiberHelper(target: Window) {
     }
   };
 
-  const parseData = (data: any) => {
-    let atomsUsed = [];
-    while (data !== null) {
+  /**
+   * This function retrieves debugLabels for each atom used per React Component.
+   * @param data
+   * @returns
+   */
+  const getUsedAtoms = (state: any) => {
+    let atomsUsed: string[] = [];
+
+    while (state !== null) {
       if (
-        data.memoizedState instanceof Array &&
-        data.memoizedState[1] instanceof Array &&
-        data.memoizedState[1].length > 0 &&
-        data.memoizedState[1][0].debugLabel &&
-        !atomsUsed.includes(data.memoizedState[1][0].debugLabel)
+        state.memoizedState instanceof Array &&
+        state.memoizedState[1] instanceof Array &&
+        state.memoizedState[1].length > 0 &&
+        state.memoizedState[1][0].debugLabel &&
+        !atomsUsed.includes(state.memoizedState[1][0].debugLabel)
       ) {
-        atomsUsed.push(data.memoizedState[1][0].debugLabel);
+        atomsUsed.push(state.memoizedState[1][0].debugLabel);
       }
 
-      data = data.next;
+      state = state.next;
       // debugger;
     }
     return atomsUsed;
@@ -95,7 +100,7 @@ export function fiberHelper(target: Window) {
    */
   function getElementState(elementState: any) {
     if (!elementState?.next) return undefined;
-    return parseData(elementState);
+    return getUsedAtoms(elementState);
   }
 
   /**
@@ -160,66 +165,55 @@ export function fiberHelper(target: Window) {
     return tree;
   }
 
-
-   /**
+  /**
    * @name liftedOnCommitFiberRoot
-   * @description Wraps __REACT_DEVTOOLS_GLOBAL_HOOK__.onCommitFiberRoot function, extracting and sending current fiber to Atomic Devtools
+   * @description Wraps __REACT_DEVTOOLS_GLOBAL_HOOK__.onCommitFiberRoot function, extracting and sending current fiber to Atomic Devtools. When invoked in the Chrome Devtools Console, returns last committed fiber root to the console.
+   * @returns fiberRoot
    */
-  const liftedOnCommitFiberRoot = (): (() => void) => {
-    return () => {
-      const devTools = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+  const liftedOnCommitFiberRoot = () => {
+    const devTools = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
 
-      let fiberRoot = devTools.getFiberRoots(1).values().next().value;
-      const reactInstance = devTools ? devTools.renderers.get(1) : null;
+    let fiberRoot = devTools.getFiberRoots(1).values().next().value;
+    const reactInstance = devTools ? devTools.renderers.get(1) : null;
 
-      // const throttledUpdatefiber = throttle(
-      //   () => updateFiberTree(tree, mode),
-      //   70
-      // );
+    if (reactInstance && reactInstance.version) {
+      devTools.onCommitFiberRoot = (function (original) {
+        return function (...args: any[]) {
+          //? If throttling is needed, we'll throttle sending data via postMessage.
+          fiberRoot = args[1];
 
-      if (reactInstance && reactInstance.version) {
-        devTools.onCommitFiberRoot = (function (original) {
-          return function (...args: any[]) {
+          let parseFiber = buildNodeTree(fiberRoot.current);
+          let fiberToDevTool = JSON.stringify(parseFiber);
 
-            fiberRoot = args[1];
+          window.postMessage(
+            {
+              source: 'on-commit-wrapper',
+              action: 'RECORD_FIBER',
+              payload: { componentTree: fiberToDevTool },
+            },
+            '*'
+          );
 
-            // if (doWork) {
-            //   throttledUpdateSnapshot();
-            // }
+          return original(...args);
+        };
+      })(devTools.onCommitFiberRoot);
+    }
 
-
-
-            let parseFiber = buildNodeTree(fiberRoot.current);
-            let fiberToDevTool = JSON.stringify(parseFiber);
-
-            window.postMessage(
-              {
-                action: 'FIBER_FROM_APP',
-                payload: { componentTree: fiberToDevTool },
-              },
-              '*'
-            );
-
-            return original(...args);
-          };
-        })(devTools.onCommitFiberRoot);
-      }
-      // throttledUpdatefiber();
-      // return fiberRoot;
-    };
+    return fiberRoot;
   };
 
   //Testing sending messages to content scripts via our __ATOMIC_DEVTOOLS_EXTENSION__ global hook
+  //This is the current method of window communication from the <AtomicDebugger> component.
   const sendMessageToContentScripts = (message: any) => {
     //This message goes from inspected application to content-scripts
     //target is window in inspected application scope.
-    //Say we want access to data scoped in this environment. We can use this as a middleware in the window messaging.
+    //? if we want access to data scoped in this environment. Can we use this as a middleware in the window messaging.
 
     target.postMessage(message, '*');
   };
 
-  setTimeout(liftedOnCommitFiberRoot(), 500);
+  setTimeout(liftedOnCommitFiberRoot, 500);
 
-  target.__ATOMIC_DEVTOOLS_EXTENSION__.getFiber = liftedOnCommitFiberRoot();
+  target.__ATOMIC_DEVTOOLS_EXTENSION__.getFiber = liftedOnCommitFiberRoot;
   target.__ATOMIC_DEVTOOLS_EXTENSION__.sendMessageToContentScripts = sendMessageToContentScripts;
 }
