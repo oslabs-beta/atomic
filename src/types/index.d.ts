@@ -51,8 +51,12 @@ export type LinkTypesProps = {
 };
 
 //These types are portConnection betwee
-type portActions = 'DEV_INITIALIZED' | 'RECORD_ATOM_SNAPSHOT' | 'RECORD_COMPONENT_TREE' | 'CONNECTED_TO_DEVTOOL';
-export type windowActions = 'ATOMS_FROM_DEBUGGER_COMPONENT' | 'FIBER_FROM_APP'
+type portActions =
+  | 'DEV_INITIALIZED'
+  | 'RECORD_ATOM_SNAPSHOT'
+  | 'RECORD_COMPONENT_TREE'
+  | 'CONNECTED_TO_DEVTOOL';
+export type windowActions = 'RECORD_ATOM_SNAPSHOT' | 'RECORD_FIBER';
 
 export type portMessage = {
   action: portActions;
@@ -61,6 +65,7 @@ export type portMessage = {
 };
 
 export type windowMessage = {
+  source?: string;
   action: windowActions;
   payload?: any;
 };
