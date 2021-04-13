@@ -1,3 +1,5 @@
+// eslint-disable-next-line react/prop-types
+
 import React, {
   createContext,
   useContext,
@@ -10,18 +12,6 @@ import { useAtom } from 'jotai';
 
 const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext('test');
-
-// window.addEventListener('message', msg => {
-//   console.log('msg in package is ---> ', msg);
-//   const { action, payload } = msg.data;
-//   console.log('action in package is ---> ', action);
-//   console.log('payload in package is ---> ', payload);
-
-//   if (action === 'TEST_FROM_CS')
-//     console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS!!! ---> ', payload);
-// });
-
-// eslint-disable-next-line react/prop-types
 
 function AtomicDebugger({ children }) {
   //collect a store of fiber roots
@@ -57,15 +47,10 @@ function AtomicDebugger({ children }) {
   const [previousState, setPreviousState] = useState(null);
 
   //Get rootFiber from within debugger component.
-  //? if time-travel, fiberRoot
-  //? else fiberRoot = document.getElementById('root')
   let fiberRoot = document.getElementById('root')._reactRootContainer
     ._internalRoot.current.stateNode.current;
 
   let jotaiProviderComponentStoreContext;
-
-  console.log('fiberRoot ----> ', fiberRoot);
-
   //Skip first react render cycle.
   if (fiberRoot.child) {
     while (fiberRoot.elementType?.name !== 'Provider') {
@@ -75,8 +60,7 @@ function AtomicDebugger({ children }) {
     jotaiProviderComponentStoreContext =
       fiberRoot.memoizedState.memoizedState.current;
 
-    //?Assume <Provider> Component is top level rendered in <App>?
-    //TODO Make sure jotai provider is there.
+    //TODO Make sure Jotai provider is there.
     //TODO figure out provider-less mode.
 
     //Store Jotai state from provider context.
@@ -204,7 +188,7 @@ function AtomicDebugger({ children }) {
     if (previousState !== atomsToDevtoolString) {
       try {
         extension.sendMessageToContentScripts({
-          action: 'TEST_FROM_DEBUGGER_COMPONENT',
+          action: 'ATOMS_FROM_DEBUGGER_COMPONENT',
           payload: { atomState: atomsToDevtoolString },
         });
       } catch (error) {

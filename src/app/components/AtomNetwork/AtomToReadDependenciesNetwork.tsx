@@ -2,70 +2,71 @@ import React, { useContext } from 'react';
 import { Group } from '@visx/group';
 import { hierarchy, Tree } from '@visx/hierarchy';
 import { LinearGradient } from '@visx/gradient';
-import { pointRadial } from 'd3-shape';
-import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { Zoom } from '@visx/zoom';
-import { snapshot } from '../../../types';
+import { pointRadial } from 'd3-shape';
+
+import getLinkComponent from '../ComponentGraph/getLinkComponent';
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
+import {
+  SnapshotValue,
+  LinkTypesProps,
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../../types';
 
 const initialTransform = {
-  scaleX: 0.9,
-  scaleY: 0.9,
+  scaleX: 0.8,
+  scaleY: 0.8,
   translateX: 20,
-  translateY: 10,
+  translateY: 50,
   skewX: 0,
   skewY: 0,
 };
 
 const defaultMargin = { top: 30, left: 30, right: 30, bottom: 70 };
 
-export type LinkTypesProps = {
-  width: number;
-  height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-  atomName?: string;
-};
-
-function AtomToDependentNetwork({
+function AtomToReadDependenciesNetwork({
   width: totalWidth,
   height: totalHeight,
   margin = defaultMargin,
   atomName,
-}: LinkTypesProps) {
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+}: LinkTypesProps): JSX.Element | null {
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
+
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
-  function AtomToDependents(atom: string | undefined) {
-    const atomDependentData: any = {};
-    let object: snapshot;
-
+  //Function creates read dependencies-to-atom object for atom network based on atom selected from drop down:
+  function AtomToReadDependencies(atom: string | undefined) {
+    const atomReadDependencies: any = {};
+    let object: SnapshotValue;
     if (!atom) return;
     if (!snapshotHistory[snapshotIndex][atom]) {
       object = snapshotHistory[snapshotIndex][atomNamesArray[0]];
-      atomDependentData.name = atomNamesArray[0];
+      atomReadDependencies.name = atomNamesArray[0];
     } else {
       object = snapshotHistory[snapshotIndex][atom];
-      atomDependentData.name = atom;
+      atomReadDependencies.name = atom;
     }
-
-    atomDependentData.nodeDeps = [];
-
-    object.readDependencies.map(item => {
-      atomDependentData.nodeDeps.push({ name: item });
+    atomReadDependencies.nodeDeps = [];
+    object.readDependencies.map((item: string) => {
+      atomReadDependencies.nodeDeps.push({ name: item });
     });
-
-    return atomDependentData;
+    return atomReadDependencies;
   }
 
-  const data = AtomToDependents(atomName);
+  const data = AtomToReadDependencies(atomName);
 
   const layout = 'polar';
   const linkType = 'line';
 
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
-  console.log({ atomName });
 
   let origin: { x: number; y: number };
   let sizeWidth: number;
@@ -98,6 +99,20 @@ function AtomToDependentNetwork({
               from="#41b69c"
               to="#2d806d"
             />
+            <defs>
+              <marker
+                id="arrow"
+                viewBox="0 0 10 10"
+                refX={40}
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c7c7c" />
+              </marker>
+            </defs>
+            ;
             <rect
               width={totalWidth}
               height={totalHeight}
@@ -122,22 +137,13 @@ function AtomToDependentNetwork({
                           key={i}
                           data={link}
                           stroke="#7c7c7c"
-                          strokeWidth="1"
+                          strokeWidth="3"
                           fill="none"
+                          markerStart="url(#arrow)"
                         />
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        // const widthFunc = (name: string) => {
-                        //   let nodeLength = name.length;
-                        //   if (nodeLength < 5) return nodeLength + 30;
-                        //   if (nodeLength < 10) return nodeLength + 45;
-                        //   if (nodeLength < 20) return nodeLength + 90;
-                        //   return nodeLength + 70;
-                        // };
-                        // const width = widthFunc(node.data.name);
-                        // const height = 20;
-
                         let top: number;
                         let left: number;
 
@@ -145,30 +151,33 @@ function AtomToDependentNetwork({
                         top = radialY;
                         left = radialX;
 
-                        const radiusFunc = (name: string) => {
+                        const fontSizeFunc = (name: string) => {
                           const nodeLength = name.length;
-                          if (nodeLength < 5) return nodeLength + 20;
-                          if (nodeLength < 10) return nodeLength + 25;
-                          if (nodeLength < 15) return nodeLength + 40;
-                          if (nodeLength < 20) return nodeLength + 50;
-                          return nodeLength + 70;
+                          if (nodeLength < 5) return 19;
+                          if (nodeLength < 10) return 18;
+                          if (nodeLength < 15) return 16;
+                          if (nodeLength < 20) return 12;
+                          if (nodeLength < 25) return 11;
+                          if (nodeLength < 30) return 10;
+                          if (nodeLength < 35) return 7;
+                          return 6;
                         };
-                        const radius = radiusFunc(node.data.name);
+                        const fontSize = fontSizeFunc(node.data.name);
 
                         return (
                           <Group top={top} left={left} key={key}>
                             {node.depth === 0 && (
-                              <circle fill="url('#atom-gradient')" r={radius} />
+                              <circle fill="url('#atom-gradient')" r={65} />
                             )}
                             {node.depth !== 0 && (
                               <circle
-                                r={radius}
+                                r={65}
                                 fill={"url('#dependent-gradient')"}
                               />
                             )}
                             <text
                               dy=".33em"
-                              fontSize={13}
+                              fontSize={fontSize}
                               fontFamily="Arial"
                               textAnchor="middle"
                               style={{
@@ -209,4 +218,4 @@ function AtomToDependentNetwork({
   );
 }
 
-export default AtomToDependentNetwork;
+export default AtomToReadDependenciesNetwork;

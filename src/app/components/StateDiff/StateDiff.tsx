@@ -1,16 +1,26 @@
 import React, { useState, useContext } from 'react';
 import { diff, formatters } from 'jsondiffpatch';
 import ReactHtmlParser from 'react-html-parser';
+
 import { snapshotHistoryContext, snapshotIndexContext } from '../App';
+import {
+  SnapshotHistoryContext,
+  SnapshotIndexContext,
+} from '../../../types/index';
 
 function StateDiff(): JSX.Element {
-  const { snapshotHistory } = useContext<any>(snapshotHistoryContext);
-  const { snapshotIndex } = useContext<any>(snapshotIndexContext);
+  const { snapshotHistory } = useContext<SnapshotHistoryContext>(
+    snapshotHistoryContext
+  );
+  const { snapshotIndex } = useContext<SnapshotIndexContext>(
+    snapshotIndexContext
+  );
   const [rawToggle, setRawToggle] = useState<boolean>(false);
 
   //Set previous and current snapshots
   let previousSnapshot = snapshotHistory[snapshotIndex - 1];
   let currentSnapshot = snapshotHistory[snapshotIndex];
+  
   //Diff between previous and current snapshots
   const delta: any = diff(previousSnapshot, currentSnapshot);
 
@@ -21,9 +31,7 @@ function StateDiff(): JSX.Element {
   return (
     <div className="stateDiff">
       <div>{ReactHtmlParser(html)}</div>
-      <div
-        className="stateDiffDiv"
-      >
+      <div className="stateDiffDiv">
         <label className="toggleSwitch">
           <input
             type="checkbox"
@@ -34,7 +42,10 @@ function StateDiff(): JSX.Element {
           <span className="toggleSlider round"></span>
         </label>
         <h3
-          style={{ marginLeft: '7px', color: rawToggle ? '#1cb5c9' : '#e6e6e6' }}
+          style={{
+            marginLeft: '7px',
+            color: rawToggle ? '#1cb5c9' : '#e6e6e6',
+          }}
         >
           Raw
         </h3>

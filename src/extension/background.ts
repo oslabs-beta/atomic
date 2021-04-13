@@ -1,12 +1,3 @@
-/**
- * this is a comment
- * TODO this is a todo
- * *this is an important
- * ?this is a query
- * !This is a warning
- * @param myParam desciption
- */
-
 /* eslint-disable no-console */
 
 /*
@@ -23,49 +14,58 @@ sends the APP a message using the port.
 starts listening to messages received on the port, and logs them.
 */
 
-import { curSnapMock, prevSnapMock } from '../app/mock/mockStateDiff';
-import { componentAtomTreeMock } from '../app/mock/mockComponentTree';
+import { portMessage } from '../types'
 
+//Store for inspected application atom state
 let atomState = {};
 
-let portFromAPP: {
-  postMessage: (message: { action: string; payload: any }) => void;
-  onMessage: { addListener: (arg0: (m: any) => void) => void };
+//Store for inspected application fiber tree
+let componentTree = {}
+
+/****************************************************************
+ * 
+ * Communication to and from Dev-Tool-App
+ * 
+ ****************************************************************/
+
+type portFromAPPType = { 
+  postMessage: (message: portMessage) => void;
+  onMessage: { addListener: (arg0: (message: portMessage) => void) => void };
   sendMessage: (
-    message: { action: string; payload: any },
+    message: portMessage,
     response: (response: any) => void
   ) => void;
-};
+}
+
+let portFromAPP: portFromAPPType
 
 function connected(port: any) {
   portFromAPP = port;
-  // post messages to dev tool app
-  portFromAPP.postMessage({ action: 'CONNECTED', payload: 'hi there APP!' });
+  //Post messages upon connecting to dev tool app
+  //TODO Any relevant information the dev tool need on establishing port connection to dev tool app is sent here
+  portFromAPP.postMessage({ action: 'CONNECTED_TO_DEVTOOL', payload: 'connected to background' });
 
-  // listen to all messages from dev tool app
-  portFromAPP.onMessage.addListener(message => {
+  //Listen to all messages from dev tool app
+  portFromAPP.onMessage.addListener((message: portMessage) => {
     const { action } = message;
 
     switch (action) {
+      //Receive message upon loading dev tool app and sends initial snapshot and fiber tree
       case 'DEV_INITIALIZED': {
-        // respond by sending message to dev tool app
-        console.log('atomState in port ----> ', atomState);
-
+        //Respond by sending stored atom state to dev tool app
         portFromAPP.postMessage({
           action: 'RECORD_ATOM_SNAPSHOT',
           payload: { atomState },
         });
-
+        //Respond by sending stored component tree to dev tool app
         portFromAPP.postMessage({
           action: 'RECORD_COMPONENT_TREE',
-          payload: { componentTree: componentAtomTreeMock },
+          payload: { componentTree },
         });
-
         break;
       }
 
       // case 'TIME_TRAVEL': {
-      //   //to Content-Scipts
       //   chrome.runtime.sendMessage();
       //   break;
       // }
@@ -73,50 +73,49 @@ function connected(port: any) {
   });
 }
 
-// receive initial onConnect message from dev tool app (only happens once)
+//Receive initial onConnect message from dev tool app (only happens once)
 chrome.runtime.onConnect.addListener(connected);
+
+//TODO Handle port disconnect
+
+//TODO Handle port errors 
+
+/****************************************************************
+ * 
+ * Communication to and from content-script 
+ * 
+ ****************************************************************/
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log('request -> ', request);
   console.log('sender -> ', sender);
 
-  //TODO save data
+  //TODO Pull tabID and store data with associated tabID
 
   const tabTitle = sender?.tab?.title;
   const tabId = sender?.tab?.id;
   const { action, payload } = request;
 
-  // switch (type) {
-  //   case 'SIGN_CONNECT': {
-  //     console.log('connected to devtool');
-  //     break;
-  //   }
-  // }
-
   switch (action) {
-    case 'testGetFiber': {
-      console.log(`case 'testGetFiber': portFromAPP -> `, portFromAPP);
-
-      portFromAPP.postMessage({
-        action: 'TEST_TO_APP',
-        payload: { msg: 'testing' },
-      });
-
-      break;
-    }
-
-    case 'TEST_FROM_DEBUGGER_COMPONENT': {
+    //This sends most recent atoms state from inspected application to dev tool app
+    case 'ATOMS_FROM_DEBUGGER_COMPONENT': {
       atomState = payload.atomState;
-
       portFromAPP.postMessage({
         action: 'RECORD_ATOM_SNAPSHOT',
         payload: { atomState },
       });
+      break;
+    }
 
+    //This sends most recent fiber tree from onCommitFiberRoot to dev tool app
+    case 'FIBER_FROM_APP': {
+      componentTree = payload.componentTree;
+      portFromAPP.postMessage({
+        action: 'RECORD_COMPONENT_TREE',
+        payload: { componentTree },
+      });
       break;
     }
   }
 });
-
-console.log('running background.ts');
