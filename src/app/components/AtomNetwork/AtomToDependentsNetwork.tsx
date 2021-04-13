@@ -15,10 +15,10 @@ import {
 } from '../../../types';
 
 const initialTransform = {
-  scaleX: 0.9,
-  scaleY: 0.9,
+  scaleX: 0.8,
+  scaleY: 0.8,
   translateX: 20,
-  translateY: 10,
+  translateY: 50,
   skewX: 0,
   skewY: 0,
 };
@@ -37,9 +37,11 @@ function AtomToDependentsNetwork({
   const { snapshotIndex } = useContext<SnapshotIndexContext>(
     snapshotIndexContext
   );
-
+  
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
+  //Function creates dependents-to-atom object for atom network based on atom selected from drop down:
   function AtomToDependents(atom: string | undefined) {
     const atomDependentData: any = {};
     let object: SnapshotValue;
@@ -51,9 +53,9 @@ function AtomToDependentsNetwork({
       object = snapshotHistory[snapshotIndex][atom];
       atomDependentData.name = atom;
     }
-    atomDependentData.nodeDeps = [];
+    atomDependentData.dependents = [];
     object.dependents.map((item: string) => {
-      atomDependentData.nodeDeps.push({ name: item });
+      atomDependentData.dependents.push({ name: item });
     });
     return atomDependentData;
   }
@@ -121,7 +123,7 @@ function AtomToDependentsNetwork({
               <Group top={margin.top} left={margin.left}>
                 <Tree
                   root={hierarchy(data, d =>
-                    d.isExpanded ? null : d.nodeDeps
+                    d.isExpanded ? null : d.dependents
                   )}
                   size={[sizeWidth, sizeHeight]}
                   separation={(a, b) =>

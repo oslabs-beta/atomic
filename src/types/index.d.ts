@@ -5,7 +5,7 @@ export type Snapshot = {
 
 //Individual snapshot object
 export type SnapshotValue = {
-  contents: any;
+  value: any;
   readDependencies: string[];
   dependents: string[];
   components: string[];

@@ -15,10 +15,10 @@ import {
 } from '../../../types';
 
 const initialTransform = {
-  scaleX: 0.9,
-  scaleY: 0.9,
+  scaleX: 0.8,
+  scaleY: 0.8,
   translateX: 20,
-  translateY: 10,
+  translateY: 50,
   skewX: 0,
   skewY: 0,
 };
@@ -38,8 +38,10 @@ function AtomToReadDependenciesNetwork({
     snapshotIndexContext
   );
 
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
+  //Function creates read dependencies-to-atom object for atom network based on atom selected from drop down:
   function AtomToReadDependencies(atom: string | undefined) {
     const atomReadDependencies: any = {};
     let object: SnapshotValue;

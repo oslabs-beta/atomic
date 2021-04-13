@@ -20,6 +20,7 @@ function StateDiff(): JSX.Element {
   //Set previous and current snapshots
   let previousSnapshot = snapshotHistory[snapshotIndex - 1];
   let currentSnapshot = snapshotHistory[snapshotIndex];
+  
   //Diff between previous and current snapshots
   const delta: any = diff(previousSnapshot, currentSnapshot);
 

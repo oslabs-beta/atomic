@@ -14,9 +14,7 @@ function SnapshotContainer(): JSX.Element {
   const { snapshotHistory, setSnapshotHistory } = useContext<any>(
     snapshotHistoryContext
   );
-  const { snapshotIndex, setSnapshotIndex } = useContext<any>(
-    snapshotIndexContext
-  );
+  const { _, setSnapshotIndex } = useContext<any>(snapshotIndexContext);
   const snapshotEndRef = useRef<HTMLDivElement>(null);
 
   const [clearSnapshotHistory, setClearSnapshotHistory] = useState(false);

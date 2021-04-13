@@ -30,10 +30,10 @@ const initialTransform = {
 };
 
 interface TreeNode {
-  name: string;
+  name: string | null;
   isExpanded?: boolean;
   children: TreeNode[];
-  atom: string[];
+  usedAtoms?: string[];
 }
 
 //Component graph margins
@@ -55,18 +55,19 @@ function ComponentGraph({
   const [orientation, setOrientation] = useState<string>('vertical');
   const [linkType, setLinkType] = useState<string>('diagonal');
   const [stepPercent, setStepPercent] = useState<number>(0.5);
-  const [hoverName, setHoverName] = useState<string[]>(['empty']);
   const [atomName, setAtomName] = useState<string>('');
 
   const innerWidth = totalWidth - margin.left - margin.right;
   const innerHeight = totalHeight - margin.top - margin.bottom;
 
+  //Array of atom names in current snapshot
   const atomNamesArray = Object.keys(snapshotHistory[snapshotIndex]);
 
   useEffect(() => {
     setAtomName('');
   }, [snapshotIndex]);
 
+  //Sets component tree data based on current snapshot selected
   const data: TreeNode = componentTreeHistory[snapshotIndex];
 
   let origin: { x: number; y: number };
@@ -212,13 +213,16 @@ function ComponentGraph({
                       ))}
 
                       {tree.descendants().map((node, key) => {
-                        const widthFunc = (name: string) => {
-                          const nodeLength = name.length;
-                          if (nodeLength < 5) return nodeLength + 30;
-                          if (nodeLength < 10) return nodeLength + 50;
-                          if (nodeLength < 15) return nodeLength + 100;
-                          if (nodeLength < 20) return nodeLength + 127;
-                          return nodeLength + 145;
+                        const widthFunc = (name: string | null) => {
+                          if (name) {
+                            const nodeLength = name.length;
+                            if (nodeLength < 5) return nodeLength + 30;
+                            if (nodeLength < 10) return nodeLength + 50;
+                            if (nodeLength < 15) return nodeLength + 100;
+                            if (nodeLength < 20) return nodeLength + 127;
+                            return nodeLength + 145;
+                          }
+                          return 35;
                         };
                         const width = widthFunc(node.data.name);
                         const height = 30;
@@ -252,21 +256,28 @@ function ComponentGraph({
                             tooltipTop: coords.y,
                             tooltipData: tooltipObj,
                           });
-                          setHoverName(node.data.atom);
                         };
 
                         const handleMouseOut = () => {
                           hideTooltip();
-                          setHoverName(['empty']);
                         };
 
+                        //Sets color of node based on if element, component, or if selected atom is in the component
                         function atomColor() {
-                          for (let i = 0; i < hoverName.length; i++) {
-                            if (node.data.atom.includes(atomName))
+                          if (atomName && node.data.usedAtoms) {
+                            if (node.data.usedAtoms.includes(atomName)) {
                               return "url('#atom-gradient')";
+                            }
                           }
-                          if (node.data.atom.length)
-                            return "url('#component-gradient')";
+                          if (node.data.name) {
+                            if (
+                              node.data.name[0] ===
+                              node.data.name[0]?.toUpperCase()
+                            ) {
+                              return "url('#component-gradient')";
+                            }
+                            return "url('#element-gradient')";
+                          }
                           return "url('#element-gradient')";
                         }
 
@@ -319,12 +330,14 @@ function ComponentGraph({
                               fill={
                                 node.depth === 0
                                   ? '#e6e6e6'
-                                  : node.data.atom.length
+                                  : 5
                                   ? '#e6e6e6'
                                   : 'black'
                               }
                             >
-                              {node.data.name}
+                              {node.depth === 0 && !node.data.name
+                                ? 'Root'
+                                : node.data.name}
                             </text>
                           </Group>
                         );
@@ -339,18 +352,18 @@ function ComponentGraph({
       </Zoom>
       {tooltipOpen && tooltipData && (
         <TooltipInPortal
-          // set this to random so it correctly updates with parent bounds
-          key={Math.random()}
+          // Set this to random so it correctly updates with parent bounds
+          key={Math.random() * 1000000}
           top={tooltipTop}
           left={tooltipLeft}
           style={tooltipStyleBox}
         >
           {/* Hover name: */}
           <div>
-            {tooltipData.name[0] &&
+            {tooltipData.name &&
             tooltipData.name[0] === tooltipData.name[0].toUpperCase() ? (
               <strong style={{ color: '#7f5dc0' }}>Component: </strong>
-            ) : tooltipData.name[0] ? (
+            ) : tooltipData.name ? (
               <strong style={{ color: '#1cb5c9' }}>Element: </strong>
             ) : (
               'No Component or Element'
@@ -359,23 +372,33 @@ function ComponentGraph({
             {tooltipData.name}
           </div>
           {/* Hover atom: */}
-          {tooltipData.atom.length > 0 && (
+          {tooltipData.usedAtoms && tooltipData.usedAtoms.length > 0 && (
             <div>
               <strong style={{ color: '#41b69c' }}>Atom(s): </strong>
-              {tooltipData.atom.join(', ')}
+              {tooltipData.usedAtoms.join(', ')}
             </div>
           )}
-          {/* Hover state: */}
-          {tooltipData.atom.map((item: string) => (
-            <div>
-              <strong style={{ color: '#d13164' }}>{item}:</strong>
-              <br />
-              -Value: {JSON.stringify(tooltipData.state[item].values)}
-              <br />
-              -Read Dependencies:{' '}
-              {JSON.stringify(tooltipData.state[item].dependencies)}
-            </div>
-          ))}
+          {/* Hover atom value, dependents, and read dependenies: */}
+          {tooltipData.usedAtoms &&
+            tooltipData.usedAtoms.length > 0 &&
+            tooltipData.usedAtoms.map((item: string) => (
+              <div>
+                <strong style={{ color: '#d13164' }}>{item}:</strong>
+                <br />
+                *Value:{' '}
+                {JSON.stringify(snapshotHistory[snapshotIndex][item].value)}
+                <br />
+                *Read Dependencies:{' '}
+                {JSON.stringify(
+                  snapshotHistory[snapshotIndex][item].readDependencies
+                )}
+                <br />
+                *Dependents:{' '}
+                {JSON.stringify(
+                  snapshotHistory[snapshotIndex][item].dependents
+                )}
+              </div>
+            ))}
         </TooltipInPortal>
       )}
     </div>
