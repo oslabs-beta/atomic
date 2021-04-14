@@ -44,21 +44,20 @@ function App(): JSX.Element {
   // runtime.onConnect
 
   useEffect(() => {
-    const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
+    const port = chrome.runtime.connect({
+      name: `${chrome.devtools.inspectedWindow.tabId}`,
+    });
 
     // Port through which messages can be sent and received. The port's onDisconnect event is fired if the extension does not exist.
-    console.log('runtime.Port -> ', port);
-
     // INITIALIZE connection to bg script
     port.postMessage({
       action: 'DEV_INITIALIZED',
       tabId: chrome.devtools.inspectedWindow.tabId,
     });
-    //? Need to figure out how to save listener with tabID
+
     // listen for messages FROM background script
     port.onMessage.addListener(
       (message: { tabId: string; action: string; payload: any }) => {
-        console.log('Received message from background script: ', message);
         const { action, payload } = message;
 
         if (action === 'RECORD_ATOM_SNAPSHOT') {
