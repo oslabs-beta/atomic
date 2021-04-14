@@ -44,11 +44,11 @@ function App(): JSX.Element {
   // runtime.onConnect
 
   useEffect(() => {
-    const port = chrome.runtime.connect({ name: 'port-from-app-to-bg' });
+    const port = chrome.runtime.connect({
+      name: `${chrome.devtools.inspectedWindow.tabId}`,
+    });
 
     // Port through which messages can be sent and received. The port's onDisconnect event is fired if the extension does not exist.
-    console.log('runtime.Port -> ', port);
-
     // INITIALIZE connection to bg script
     port.postMessage({
       action: 'DEV_INITIALIZED',
@@ -56,19 +56,20 @@ function App(): JSX.Element {
     });
 
     // listen for messages FROM background script
-    port.onMessage.addListener((message: { action: string; payload: any }) => {
-      console.log('Received message from background script: ', message);
-      const { action, payload } = message;
+    port.onMessage.addListener(
+      (message: { tabId: string; action: string; payload: any }) => {
+        const { action, payload } = message;
 
-      if (action === 'RECORD_ATOM_SNAPSHOT') {
-        const atomState = JSON.parse(payload.atomState);
-        setSnapshotHistory(prevState => [...prevState, atomState]);
+        if (action === 'RECORD_ATOM_SNAPSHOT') {
+          const atomState = JSON.parse(payload.atomState);
+          setSnapshotHistory(prevState => [...prevState, atomState]);
+        }
+        if (action === 'RECORD_COMPONENT_TREE') {
+          const componentTree = JSON.parse(payload.componentTree);
+          setComponentTreeHistory(prevState => [...prevState, componentTree]);
+        }
       }
-      if (action === 'RECORD_COMPONENT_TREE') {
-        const componentTree = JSON.parse(payload.componentTree);
-        setComponentTreeHistory(prevState => [...prevState, componentTree]);
-      }
-    });
+    );
   }, []);
 
   useEffect(() => {

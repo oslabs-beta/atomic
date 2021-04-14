@@ -13,8 +13,29 @@ import { useAtom } from 'jotai';
 const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext('test');
 
-
 function AtomicDebugger({ children }) {
+  //collect a store of fiber roots
+  //receive message from CS to TIME-TRAVEL
+  //?on TIME-TRAVEL, grab idex from store of fiber roots
+  //?invoke __ATOMIC_DEVTOOLS_EXTENSION__.onCommitFiberRoot with indexed fiber.
+  //?obj = {index: 0}
+  //?[obj1 = {index: 3}, obj2 = {index: 3}, obj3 = {index: 3}]
+
+  useEffect(() => {
+    window.addEventListener('message', msg => {
+      const { action, payload } = msg.data;
+
+      //?update fiber here with index from JUMP messages and invoke reactDOM.render with new root from js storage here.
+      //? fiberRoot = rootStore[indexFromCS]
+      //? flag for time-travel
+      //? update state sent to devtool with previous state
+      //? conditionally invoke reactDom.render(<AtomUpdateContext.Provider value={setUsedAtoms}>{children}</AtomUpdateContext.Provider>, rootFromRootStore)
+
+      if (action === 'TEST_FROM_CS')
+        console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS ---> ', payload);
+    });
+  }, []);
+
   //Declaring state to build serializable atomState to send to devtool
   //SetAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
   const [usedAtoms, setUsedAtoms] = useState({});
@@ -164,7 +185,8 @@ function AtomicDebugger({ children }) {
     if (previousState !== atomsToDevtoolString) {
       try {
         extension.sendMessageToContentScripts({
-          action: 'ATOMS_FROM_DEBUGGER_COMPONENT',
+          source: 'atomic-debugger',
+          action: 'RECORD_ATOM_SNAPSHOT',
           payload: { atomState: atomsToDevtoolString },
         });
       } catch (error) {
@@ -174,6 +196,7 @@ function AtomicDebugger({ children }) {
     }
   }
 
+  //? will reactDOM.render interfere with this return value? Will it update fiber before returning below? or return from the function.
   return (
     <AtomUpdateContext.Provider value={setUsedAtoms}>
       {children}

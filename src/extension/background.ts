@@ -14,53 +14,58 @@ sends the APP a message using the port.
 starts listening to messages received on the port, and logs them.
 */
 
-import { portMessage } from '../types'
+import { portMessage } from '../types';
 
 //Store for inspected application atom state
-let atomState = {};
+const atomState = {};
 
 //Store for inspected application fiber tree
-let componentTree = {}
+const componentTree = {};
 
+//Store for mulitple inspected application ports
+const applicationPorts = {};
 /****************************************************************
- * 
+ *
  * Communication to and from Dev-Tool-App
- * 
+ *
  ****************************************************************/
 
-type portFromAPPType = { 
+type portFromAPPType = {
+  name: string;
   postMessage: (message: portMessage) => void;
   onMessage: { addListener: (arg0: (message: portMessage) => void) => void };
   sendMessage: (
     message: portMessage,
     response: (response: any) => void
   ) => void;
-}
+};
 
-let portFromAPP: portFromAPPType
+function connected(port: port) {
+  applicationPorts[port.name] = port;
 
-function connected(port: any) {
-  portFromAPP = port;
   //Post messages upon connecting to dev tool app
   //TODO Any relevant information the dev tool need on establishing port connection to dev tool app is sent here
-  portFromAPP.postMessage({ action: 'CONNECTED_TO_DEVTOOL', payload: 'connected to background' });
+  applicationPorts[port.name].postMessage({
+    action: 'CONNECTED_TO_DEVTOOL',
+    payload: 'connected to background',
+  });
 
   //Listen to all messages from dev tool app
-  portFromAPP.onMessage.addListener((message: portMessage) => {
-    const { action } = message;
+  applicationPorts[port.name].onMessage.addListener((message: portMessage) => {
+    const { action, tabId } = message;
 
     switch (action) {
       //Receive message upon loading dev tool app and sends initial snapshot and fiber tree
       case 'DEV_INITIALIZED': {
         //Respond by sending stored atom state to dev tool app
-        portFromAPP.postMessage({
+        applicationPorts[tabId].postMessage({
           action: 'RECORD_ATOM_SNAPSHOT',
-          payload: { atomState },
+          payload: { atomState: atomState[tabId] },
         });
         //Respond by sending stored component tree to dev tool app
-        portFromAPP.postMessage({
+        applicationPorts[tabId].postMessage({
           action: 'RECORD_COMPONENT_TREE',
-          payload: { componentTree },
+          payload: { componentTree: componentTree[tabId] },
         });
         break;
       }
@@ -77,14 +82,14 @@ function connected(port: any) {
 chrome.runtime.onConnect.addListener(connected);
 
 //TODO Handle port disconnect
-
-//TODO Handle port errors 
+//TODO Handle port errors
 
 /****************************************************************
- * 
- * Communication to and from content-script 
- * 
+ *
+ * Communication to and from content-script
+ *
  ****************************************************************/
+const listeners = {};
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -93,27 +98,29 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   //TODO Pull tabID and store data with associated tabID
 
-  const tabTitle = sender?.tab?.title;
   const tabId = sender?.tab?.id;
+
   const { action, payload } = request;
 
   switch (action) {
     //This sends most recent atoms state from inspected application to dev tool app
-    case 'ATOMS_FROM_DEBUGGER_COMPONENT': {
-      atomState = payload.atomState;
-      portFromAPP.postMessage({
+    case 'RECORD_ATOM_SNAPSHOT': {
+      atomState[tabId] = payload.atomState;
+      applicationPorts[tabId].postMessage({
+        tabId,
         action: 'RECORD_ATOM_SNAPSHOT',
-        payload: { atomState },
+        payload: { atomState: atomState[tabId] },
       });
       break;
     }
 
     //This sends most recent fiber tree from onCommitFiberRoot to dev tool app
-    case 'FIBER_FROM_APP': {
-      componentTree = payload.componentTree;
-      portFromAPP.postMessage({
+    case 'RECORD_FIBER': {
+      componentTree[tabId] = payload.componentTree;
+      applicationPorts[tabId].postMessage({
+        tabId,
         action: 'RECORD_COMPONENT_TREE',
-        payload: { componentTree },
+        payload: { componentTree: componentTree[tabId] },
       });
       break;
     }
