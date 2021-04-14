@@ -8,7 +8,6 @@
     </br>
     <a href="https://www.atomictool.dev"><strong>Atomictool.dev</strong></a>
     </br>
-    <a href="https://www.getatomos.io">View Demo</a>   
   </p>
 </p>
 
@@ -54,7 +53,8 @@ Getting Started
     import { useAtomicDevtool, AtomicDebugger } from "atomic-devtools";
     ```
 
-4. #### Integrate `AtomicDebugger` as a React component within the Jotai root after Provider.
+4. #### Integrate `AtomicDebugger` as a React component within the application wrapping all application components to debug. (Atomic Debugger currently extracts Jotai States from it's Provider Component. Implememntation is required)
+
 
     ```js
     import AtomicDebugger from 'atomic-devtools';
@@ -62,11 +62,11 @@ Getting Started
 
     function App() {
     return (
-    <Provider>
-        <AtomicDebugger>
+      <AtomicDebugger>
+        <Provider>
             Application Components
-        </AtomicDebugger>
-    </Provider>)
+        </Provider>
+      </AtomicDebugger>)
     }
 
     ReactDOM.render(<App/>,
@@ -99,8 +99,6 @@ Getting Started
 Features
 </h1>
 
-- ### Time Travel
-    The ability to jump between state changes within the devtool. The snapshot list provides the state throughout the Jotai-built application runtime and each time state changes, a new snapshot is added. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
 - ### State Change Display
     Easily compare atom state changes between snapshots in real-time.
 - ### Component Graph Visualization
@@ -110,6 +108,13 @@ Features
 - ### Component Tree
     Displays a Jotai-built application component tree structure with subscribed atom(s) for a given snapshot.
 
+<h1>
+WIP - Features
+</h1>
+
+- ### Time Travel
+    The ability to jump between state changes within the devtool. The snapshot list provides the state throughout the Jotai-built application runtime and each time state changes, a new snapshot is added. By pressing the jump button next to each snapshot, you are able to visualize state for a specific snapshot. 
+
 <!-- CORE TEAM -->
 <h1>
 Core Team
@@ -118,8 +123,7 @@ Core Team
 - Logan Thies - [@Github](https://github.com/Thiesl137) - [@Linkedin](https://www.linkedin.com/in/loganthies137)
 - Giovanni Lituma - [@Github](https://github.com/giovannixdev) - [@Linkedin](https://www.linkedin.com/in/giovanni-lituma)
 - Stanley Huang - [@Github](https://github.com/stanleyhuang16) - [@Linkedin](https://www.linkedin.com/in/stanleyhuang16)
-- Chandni Patel - [@Github](https://github.com/chandnikat) - [@Linkedin](https:www.linkedin.com/in/chandnip6)
-)
+- Chandni Patel - [@Github](https://github.com/chandnikat) - [@Linkedin](https://www.linkedin.com/in/chandnip6)
 <!-- LICENSE -->
 <h1>
 License
