@@ -94,6 +94,8 @@ Getting Started
 6. #### Open your application on the Chrome Browser and start debugging with Atomic devtool!
     **Important**- Only supported with React applications using Jotai as state management.
 
+    **Important**- Keep in mind that it only works in dev mode (`NODE_ENV === 'development'`).
+    
 <!-- FEATURES -->
 <h1>
 Features
