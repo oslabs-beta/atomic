@@ -1,14 +1,7 @@
-<!-- PROJECT LOGO -->
+<!-- BANNER LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/chandnikat/atomic">
-    <img src="assets/Atomic.jpeg" alt="Logo" width="800px">
-  </a>
-  <p align="center">
-    </br>
-    <a href="https://www.atomictool.dev"><strong>Atomictool.dev</strong></a>
-    </br>
-  </p>
+    <a href="https://www.atomictool.dev"><img src="./assets/atomic-banner.png" alt="atomic banner"></a>
 </p>
 
 <h1>Developer tool for Jotai applications</h1>
