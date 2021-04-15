@@ -6,15 +6,37 @@ import React, {
   useState,
   useDebugValue,
   useEffect,
+  Component,
 } from 'react';
 
 import { useAtom } from 'jotai';
 
 const AtomStateContext = createContext({});
-const AtomUpdateContext = createContext('test');
-
+const AtomUpdateContext = createContext(null);
 
 function AtomicDebugger({ children }) {
+  //collect a store of fiber roots
+  //receive message from CS to TIME-TRAVEL
+  //?on TIME-TRAVEL, grab idex from store of fiber roots
+  //?invoke __ATOMIC_DEVTOOLS_EXTENSION__.onCommitFiberRoot with indexed fiber.
+  //?obj = {index: 0}
+  //?[obj1 = {index: 3}, obj2 = {index: 3}, obj3 = {index: 3}]
+
+  useEffect(() => {
+    window.addEventListener('message', msg => {
+      const { action, payload } = msg.data;
+
+      //?update fiber here with index from JUMP messages and invoke reactDOM.render with new root from js storage here.
+      //? fiberRoot = rootStore[indexFromCS]
+      //? flag for time-travel
+      //? update state sent to devtool with previous state
+      //? conditionally invoke reactDom.render(<AtomUpdateContext.Provider value={setUsedAtoms}>{children}</AtomUpdateContext.Provider>, rootFromRootStore)
+
+      if (action === 'TEST_FROM_CS')
+        console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS ---> ', payload);
+    });
+  }, []);
+
   //Declaring state to build serializable atomState to send to devtool
   //SetAtomState is consumed by our useAtom() wrapper useAtomicDevtools()
   const [usedAtoms, setUsedAtoms] = useState({});
@@ -28,9 +50,17 @@ function AtomicDebugger({ children }) {
 
   let jotaiProviderComponentStoreContext;
   //Skip first react render cycle.
-  if (fiberRoot.child) {
-    while (fiberRoot.elementType?.name !== 'Provider') {
-      fiberRoot = fiberRoot.child;
+  if (fiberRoot && fiberRoot.child) {
+    try {
+      while (fiberRoot.elementType?.name !== 'Provider') {
+        fiberRoot = fiberRoot.child;
+      }
+    } catch (error) {
+      console.warn(
+        "Atomic Devtools is dependant on implementation of Jotai's <Provider> Component. Providerless mode compatibility is UNSTABLE. Please implement Jotai's <Provider>",
+        error
+      );
+      return <>{children}</>;
     }
 
     jotaiProviderComponentStoreContext =
@@ -164,7 +194,8 @@ function AtomicDebugger({ children }) {
     if (previousState !== atomsToDevtoolString) {
       try {
         extension.sendMessageToContentScripts({
-          action: 'ATOMS_FROM_DEBUGGER_COMPONENT',
+          source: 'atomic-debugger',
+          action: 'RECORD_ATOM_SNAPSHOT',
           payload: { atomState: atomsToDevtoolString },
         });
       } catch (error) {
@@ -174,6 +205,7 @@ function AtomicDebugger({ children }) {
     }
   }
 
+  //? will reactDOM.render interfere with this return value? Will it update fiber before returning below? or return from the function.
   return (
     <AtomUpdateContext.Provider value={setUsedAtoms}>
       {children}
@@ -184,17 +216,19 @@ function AtomicDebugger({ children }) {
 function useAtomicDevtool(atom, label) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState().
   const setUsedAtoms = useContext(AtomUpdateContext);
-
+  console.log('setUsedAtoms ----> ', setUsedAtoms);
   //Update AtomicDebugger usedAtoms with a shallow copy of the atom used in application component.
-  setUsedAtoms(atomState => {
-    const copy = { ...atomState };
-    copy[label] = atom;
-    return { ...copy };
+  if (setUsedAtoms) {
+    setUsedAtoms(atomState => {
+      const copy = { ...atomState };
+      copy[label] = atom;
+      return { ...copy };
 
-    //?Why doesn't this retain value??
-    //atomState[label] = atom;
-    //return atomState
-  });
+      //?Why doesn't this retain value??
+      //atomState[label] = atom;
+      //return atomState
+    });
+  }
 
   //Set debug label key for natural language reference (Jotai uses 'atom + incremented value' for labels internally)
   atom.debugLabel = label;

@@ -14,14 +14,15 @@ import { windowActions } from '../types';
 //Listen for messages from the inspected application
 window.addEventListener('message', msg => {
   const { action }: { action: windowActions } = msg.data;
+
   switch (action) {
     //This listens for most recent atom state from inspected application and sends to background.ts
-    case 'ATOMS_FROM_DEBUGGER_COMPONENT': {
+    case 'RECORD_ATOM_SNAPSHOT': {
       chrome.runtime.sendMessage(msg.data);
       break;
     }
     //This listens for most recent fiber tree from inspected application and sends to background.ts
-    case 'FIBER_FROM_APP': {
+    case 'RECORD_FIBER': {
       chrome.runtime.sendMessage(msg.data);
       break;
     }
