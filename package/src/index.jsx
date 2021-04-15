@@ -6,12 +6,13 @@ import React, {
   useState,
   useDebugValue,
   useEffect,
+  Component,
 } from 'react';
 
 import { useAtom } from 'jotai';
 
 const AtomStateContext = createContext({});
-const AtomUpdateContext = createContext('test');
+const AtomUpdateContext = createContext(null);
 
 function AtomicDebugger({ children }) {
   //collect a store of fiber roots
@@ -49,9 +50,17 @@ function AtomicDebugger({ children }) {
 
   let jotaiProviderComponentStoreContext;
   //Skip first react render cycle.
-  if (fiberRoot.child) {
-    while (fiberRoot.elementType?.name !== 'Provider') {
-      fiberRoot = fiberRoot.child;
+  if (fiberRoot && fiberRoot.child) {
+    try {
+      while (fiberRoot.elementType?.name !== 'Provider') {
+        fiberRoot = fiberRoot.child;
+      }
+    } catch (error) {
+      console.warn(
+        "Atomic Devtools is dependant on implementation of Jotai's Provider Component. Providerless mode is WIP.",
+        error
+      );
+      return <>{children}</>;
     }
 
     jotaiProviderComponentStoreContext =
@@ -207,17 +216,19 @@ function AtomicDebugger({ children }) {
 function useAtomicDevtool(atom, label) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState().
   const setUsedAtoms = useContext(AtomUpdateContext);
-
+  console.log('setUsedAtoms ----> ', setUsedAtoms);
   //Update AtomicDebugger usedAtoms with a shallow copy of the atom used in application component.
-  setUsedAtoms(atomState => {
-    const copy = { ...atomState };
-    copy[label] = atom;
-    return { ...copy };
+  if (setUsedAtoms) {
+    setUsedAtoms(atomState => {
+      const copy = { ...atomState };
+      copy[label] = atom;
+      return { ...copy };
 
-    //?Why doesn't this retain value??
-    //atomState[label] = atom;
-    //return atomState
-  });
+      //?Why doesn't this retain value??
+      //atomState[label] = atom;
+      //return atomState
+    });
+  }
 
   //Set debug label key for natural language reference (Jotai uses 'atom + incremented value' for labels internally)
   atom.debugLabel = label;
