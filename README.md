@@ -8,8 +8,8 @@
 
 [![gitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/oslabs-beta/atomic/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/atomic-devtools)](https://www.npmjs.com/package/atomic-devtools) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat)](https://github.com/oslabs-beta/atomic/issues)
 
-- ### [Website →](https://atomictool.dev/)
-- ### [Demo →](https://atomic-devs.github.io/jotai-tic-tac-toe-demo/)
+- [Website →](https://atomictool.dev/)
+- [Demo →](https://atomic-devs.github.io/jotai-tic-tac-toe-demo/)
 
 <!-- ABOUT -->
 <h1>About</h1>
