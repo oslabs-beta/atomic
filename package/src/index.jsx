@@ -57,7 +57,7 @@ function AtomicDebugger({ children }) {
       }
     } catch (error) {
       console.warn(
-        "Atomic Devtools is dependant on implementation of Jotai's Provider Component. Providerless mode is WIP.",
+        "Atomic Devtools is dependant on implementation of Jotai's <Provider> Component. Providerless mode compatibility is UNSTABLE. Please implement Jotai's <Provider>",
         error
       );
       return <>{children}</>;
