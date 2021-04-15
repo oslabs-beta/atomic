@@ -94,6 +94,8 @@ Getting Started
 6. #### Open your application on the Chrome Browser and start debugging with Atomic devtool!
     **Important**- Only supported with React applications using Jotai as state management.
 
+    **Important**- Keep in mind that it only works in dev mode (`NODE_ENV === 'development'`).
+    
 <!-- FEATURES -->
 <h1>
 Features
@@ -101,12 +103,23 @@ Features
 
 - ### State Change Display
     Easily compare atom state changes between snapshots in real-time.
+
+    <img src="assets/stateDiff.gif" alt="stateDiff GIF" width="600px">
+
 - ### Component Graph Visualization
     Atomic provides a data visualization of an applications component tree. Have the ability to see a hierarchical view of all the React components in an application. The component graph also provides information on which components are subscribed to a particular atom as well as provides real-time data on an atom's value, dependents, and read dependencies for a specific snapshot.
+
+    <img src="assets/componentGraph.gif" alt="componentGraph GIF" width="600px">
+
 - ### Atom Network Visualization of Dependents and Read Dependencies
     Visualize a specfic atom's dependents (displays all atoms affected by the parent atom) and read dependencies (displays all atoms that affect the parent atom) relationships. 
+
+    <img src="assets/atomNetwork.gif" alt="atomNetwork GIF" width="600px">
+
 - ### Component Tree
     Displays a Jotai-built application component tree structure with subscribed atom(s) for a given snapshot.
+
+    <img src="assets/componentTree.gif" alt="componentTree GIF" width="600px">
 
 <h1>
 WIP - Features
