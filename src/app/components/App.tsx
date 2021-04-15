@@ -102,7 +102,7 @@ function App(): JSX.Element {
         Supported only with Jotai applications using the Atomic NPM module.
         Follow the installation instructions at
         <br />
-        <a target="_blank" href="" className="webLink">
+        <a target="_blank" href="https://atomictool.dev/" className="webLink">
           ATOMIC
         </a>
       </h3>
