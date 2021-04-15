@@ -24,6 +24,7 @@ const componentTree = {};
 
 //Store for mulitple inspected application ports
 const applicationPorts = {};
+
 /****************************************************************
  *
  * Communication to and from Dev-Tool-App
@@ -89,7 +90,6 @@ chrome.runtime.onConnect.addListener(connected);
  * Communication to and from content-script
  *
  ****************************************************************/
-const listeners = {};
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
