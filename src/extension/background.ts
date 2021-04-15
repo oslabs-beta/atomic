@@ -22,11 +22,12 @@ const atomState = {};
 //Store for inspected application fiber tree
 const componentTree = {};
 
-//Store for mulitple inspected application ports
+//Store for multiple inspected application ports
 const applicationPorts = {};
+
 /****************************************************************
  *
- * Communication to and from Dev-Tool-App
+ * Communication between DevTool App.js
  *
  ****************************************************************/
 
@@ -40,7 +41,7 @@ type portFromAPPType = {
   ) => void;
 };
 
-function connected(port: port) {
+function connected(port: any) {
   applicationPorts[port.name] = port;
 
   //Post messages upon connecting to dev tool app
@@ -86,10 +87,9 @@ chrome.runtime.onConnect.addListener(connected);
 
 /****************************************************************
  *
- * Communication to and from content-script
+ * Communication between content-script.js
  *
  ****************************************************************/
-const listeners = {};
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

@@ -13,13 +13,6 @@ import { windowActions } from '../types';
 
 //Listen for messages from the inspected application
 window.addEventListener('message', msg => {
-  if (
-    msg.data.source === 'atomic-debugger' ||
-    msg.data.source === 'on-commit-wrapper'
-  ) {
-    console.log('msg in CS ---> ', msg);
-  }
-
   const { action }: { action: windowActions } = msg.data;
 
   switch (action) {
