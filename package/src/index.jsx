@@ -13,6 +13,10 @@ import { useAtom } from 'jotai';
 const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext(null);
 
+/**
+ * AtomicDebugger is a React context provider component which provides a state setter to useAtomicDevtools.
+ * useAtomicDevtools sends atoms to AtomicDebugger component which uses those atoms to retrieve atomState and dependancies from Jotai's Provider State.
+ */
 function AtomicDebugger({ children }) {
   useEffect(() => {
     window.addEventListener('message', msg => {
@@ -199,6 +203,12 @@ function AtomicDebugger({ children }) {
   );
 }
 
+/**
+ * useAtomicdevtool is a Jotai useAtom wrapper that sends the inspected atom to <AtomicDebugger> component and assigns a label for identification in the Devtool.
+ * @param {anyAtom[]} atom The atom to inspect in Atomic Devtools
+ * @param {string} label Otional: label will default to atom.toString() if no label is passed as an argument.
+ * @returns the invocation of useAtom(atom).
+ */
 function useAtomicDevtool(atom, label = atom.toString()) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState().
   const setUsedAtoms = useContext(AtomUpdateContext);
