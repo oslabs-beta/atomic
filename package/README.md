@@ -56,6 +56,8 @@ Getting Started
 
    - _`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument._
 
+   - _Currently, only intended to be used with a single `Provider` component._
+
    ```js
    import AtomicDebugger from 'atomic-devtools';
    import { Provider } from 'jotai';

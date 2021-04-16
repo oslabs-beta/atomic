@@ -58,7 +58,9 @@ Getting Started
 
    - _Placement of `AtomicDebugger` component relative to `App` component or `Provider` component is not important, so long as all stateful components are children of `AtomicDebugger`_
 
-   - \*`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument.
+   - _`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument._
+
+   - _Currently, only intended to be used with a single `Provider` component._
 
    ```js
    import AtomicDebugger from 'atomic-devtools';
