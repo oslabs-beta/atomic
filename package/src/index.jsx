@@ -6,7 +6,6 @@ import React, {
   useState,
   useDebugValue,
   useEffect,
-  Component,
 } from 'react';
 
 import { useAtom } from 'jotai';
@@ -15,22 +14,9 @@ const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext(null);
 
 function AtomicDebugger({ children }) {
-  //collect a store of fiber roots
-  //receive message from CS to TIME-TRAVEL
-  //?on TIME-TRAVEL, grab idex from store of fiber roots
-  //?invoke __ATOMIC_DEVTOOLS_EXTENSION__.onCommitFiberRoot with indexed fiber.
-  //?obj = {index: 0}
-  //?[obj1 = {index: 3}, obj2 = {index: 3}, obj3 = {index: 3}]
-
   useEffect(() => {
     window.addEventListener('message', msg => {
       const { action, payload } = msg.data;
-
-      //?update fiber here with index from JUMP messages and invoke reactDOM.render with new root from js storage here.
-      //? fiberRoot = rootStore[indexFromCS]
-      //? flag for time-travel
-      //? update state sent to devtool with previous state
-      //? conditionally invoke reactDom.render(<AtomUpdateContext.Provider value={setUsedAtoms}>{children}</AtomUpdateContext.Provider>, rootFromRootStore)
 
       if (action === 'TEST_FROM_CS')
         console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS ---> ', payload);
@@ -213,10 +199,9 @@ function AtomicDebugger({ children }) {
   );
 }
 
-function useAtomicDevtool(atom, label) {
+function useAtomicDevtool(atom, label = atom.toString()) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState().
   const setUsedAtoms = useContext(AtomUpdateContext);
-  console.log('setUsedAtoms ----> ', setUsedAtoms);
   //Update AtomicDebugger usedAtoms with a shallow copy of the atom used in application component.
   if (setUsedAtoms) {
     setUsedAtoms(atomState => {
