@@ -38,7 +38,7 @@ Getting Started
 
    **_[Pending Chrome Web Store Approval]_**
 
-   Developers can fork our repository and load unpacked into their Chrome extensions to implement Atomic Devtools.
+   Developers can fork our repository and load the extension/build folder unpacked into their Chrome extensions to implement Atomic Devtools.
 
 2. #### Install atomic-devtools Module.
 
