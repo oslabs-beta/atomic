@@ -173,7 +173,7 @@ export function fiberHelper(target: Window) {
   const liftedOnCommitFiberRoot = () => {
     const devTools = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
 
-    let fiberRoot = devTools.getFiberRoots(1).values().next().value;
+    let fiberRoot = devTools?.getFiberRoots(1).values().next().value;
     const reactInstance = devTools ? devTools.renderers.get(1) : null;
 
     if (reactInstance && reactInstance.version) {
