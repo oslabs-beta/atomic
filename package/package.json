@@ -1,6 +1,6 @@
 {
   "name": "atomic-devtools",
-  "version": "1.1.13",
+  "version": "1.1.25",
   "description": "Library to connect your Jotai application to Atomic Devtools Extension",
   "main": "dist/module/index.js",
   "files": [
@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel --root-mode upward src/index.jsx  --out-dir dist/module",
+    "compile": "babel --root-mode upward src/index.jsx --out-dir dist/module",
     "clean": "rm -rf dist",
     "build": "npm run clean && npm run compile",
     "patch:publish": "npm version patch && npm publish"

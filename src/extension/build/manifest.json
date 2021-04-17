@@ -6,20 +6,11 @@
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval' ; object-src 'self'",
   "web_accessible_resources": ["bundles/backend.bundle.js"],
-  "permissions": [
-    "storage",
-    "contextMenus",
-    "tabs",
-    "activeTab",
-    "http://localhost/*",
-    "https://localhost/*",
-    "http://*/",
-    "https://*/"
-  ],
   "background": {
     "scripts": ["bundles/background.bundle.js"],
     "persistent": false
   },
+  "permissions": ["activeTab"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

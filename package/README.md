@@ -1,8 +1,8 @@
-<!-- PROJECT LOGO -->
+<!-- BANNER LOGO
 <br />
 <p align="center">
     <a href="https://www.atomictool.dev"><img src="./assets/atomic-banner.png" alt="atomic banner"></a>
-</p>
+</p> -->
 
 <h1>Developer tool for Jotai applications</h1>
 
@@ -11,7 +11,7 @@
 <!-- ABOUT -->
 <h1>About</h1>
 <p>
-Atomic is an open source Google Chrome developer tool designed for  applications built using Jotai as a  state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to visually inspect their application state and a readily to determine development solutions.
+Atomic is an open source Google Chrome developer tool designed for  applications built using Jotai as a  state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to visually inspect their application state and to readily determine development solutions.
 </br>
 
 Key features of Atomic devtool include:
@@ -36,8 +36,6 @@ Getting Started
 
    Developers can fork our repository and load unpacked into their Chrome extensions to implement Atomic Devtools.
 
-   <a href="https://github.com/oslabs-beta/atomic"><strong>Atomic Github</strong></a>
-
 2. #### Install atomic-devtools Module.
 
    ```js
@@ -56,7 +54,7 @@ Getting Started
 
    - _Placement of `AtomicDebugger` component relative to `App` component or `Provider` component is not important, so long as all stateful components are children of `AtomicDebugger`_
 
-   - \*`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument.
+   - _`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument._
 
    ```js
    import AtomicDebugger from 'atomic-devtools';
@@ -114,25 +112,33 @@ Features
 
   Easily compare atom state changes between snapshots in real-time.
 
+    <!-- <img src="assets/stateDiff.gif" alt="stateDiff GIF" width="600px"> -->
+
 - ### Component Graph Visualization
 
   Atomic provides a data visualization of an applications React component tree. Have the ability to see a hierarchical view of all the React components in an application. The component graph provides the locations of each useAtom invocation per components, as well provides real-time data on an atom's value, dependents, and read dependencies for a specific snapshot.
+
+    <!-- <img src="assets/componentGraph.gif" alt="componentGraph GIF" width="600px"> -->
 
 - ### Atom Network Visualization of Dependents and Read Dependencies
 
   Visualize an atom's dependents
   _(displays all atoms affected by an atom)_ and read dependencies _(displays all atoms that affect the inspected atom)_.
 
+    <!-- <img src="assets/atomNetwork.gif" alt="atomNetwork GIF" width="600px"> -->
+
 - ### Component Tree
 
   Displays the applications React component structure with subscribed atom(s) for a given snapshot.
+
+    <!-- <img src="assets/componentTree.gif" alt="componentTree GIF" width="600px"> -->
 
 <h1>
 WIP
 </h1>
 
 - ### Time Travel
-  Currently, the ability to jump between state changes within the devtool is feasible. The snapshot list provides the state throughout the Jotai-built application runtime and each time state changes, a new snapshot is added. ByWe intend to develop functionality that will, pressing the jump button next to each snapshot, revert application state to the desired historical snapshot.
+  Currently, the ability to jump between state changes within the devtool is feasible. The snapshot list provides the state throughout the Jotai-built application runtime and each time state changes, a new snapshot is added. We intend to develop functionality that will, pressing the jump button next to each snapshot, revert application state to the desired historical snapshot.
 
 <!-- CORE TEAM -->
 <h1>
