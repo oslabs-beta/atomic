@@ -34,7 +34,7 @@ Getting Started
 
    **_[Pending Chrome Web Store Approval]_**
 
-   Developers can fork our repository and load unpacked into their Chrome extensions to implement Atomic Devtools.
+   Developers can fork our repository and load the extension/build folder unpacked into their Chrome extensions to implement Atomic Devtools.
 
 2. #### Install atomic-devtools Module.
 
@@ -54,7 +54,7 @@ Getting Started
 
    - _Placement of `AtomicDebugger` component relative to `App` component or `Provider` component is not important, so long as all stateful components are children of `AtomicDebugger`_
 
-   - _`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument._
+   - _`ReactDOM.Render( )` Must receive a document \*\*_'root'_\*\* element from the application as it's argument._
 
    ```js
    import AtomicDebugger from 'atomic-devtools';
