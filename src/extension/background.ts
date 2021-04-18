@@ -93,11 +93,6 @@ chrome.runtime.onConnect.addListener(connected);
 
 // On the background.ts, we need to set up a runtime.onMessage event listener to handle messages from content scripts.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('request -> ', request);
-  console.log('sender -> ', sender);
-
-  //TODO Pull tabID and store data with associated tabID
-
   const tabId = sender?.tab?.id;
 
   const { action, payload } = request;

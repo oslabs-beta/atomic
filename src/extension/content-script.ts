@@ -11,7 +11,11 @@ import { windowActions } from '../types';
 //Content scripts can communicate with their parent extension
 //by exchanging messages and storing values using the storage API.
 
-//Listen for messages from the inspected application
+/****************************************************************
+ *
+ * Communication between inspected application
+ *
+ ****************************************************************/
 window.addEventListener('message', msg => {
   const { action }: { action: windowActions } = msg.data;
 
@@ -28,6 +32,12 @@ window.addEventListener('message', msg => {
     }
   }
 });
+
+/****************************************************************
+ *
+ * Global Hook Installation
+ *
+ ****************************************************************/
 
 /**
  * InjectCode creates a script tag and appended to the document before <head>
