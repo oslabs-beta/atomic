@@ -147,10 +147,10 @@ WIP
 Core Team
 </h1>
 
-- Logan Thies - [@Github](https://github.com/Thiesl137) - [@Linkedin](https://www.linkedin.com/in/loganthies137)
-- Giovanni Lituma - [@Github](https://github.com/giovannixdev) - [@Linkedin](https://www.linkedin.com/in/giovanni-lituma)
-- Stanley Huang - [@Github](https://github.com/stanleyhuang16) - [@Linkedin](https://www.linkedin.com/in/stanleyhuang16)
-- Chandni Patel - [@Github](https://github.com/chandnikat) - [@Linkedin](https://www.linkedin.com/in/chandnip6)
+- Logan Thies - [Github](https://github.com/Thiesl137) | [Linkedin](https://www.linkedin.com/in/loganthies137)
+- Giovanni Lituma - [Github](https://github.com/giovannixdev) | [Linkedin](https://www.linkedin.com/in/giovanni-lituma)
+- Stanley Huang - [Github](https://github.com/stanleyhuang16) | [Linkedin](https://www.linkedin.com/in/stanleyhuang16)
+- Chandni Patel - [Github](https://github.com/chandnikat) | [Linkedin](https://www.linkedin.com/in/chandnip6)
   <!-- LICENSE -->
   <h1>
   License
