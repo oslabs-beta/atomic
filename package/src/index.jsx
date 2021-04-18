@@ -6,11 +6,11 @@ import React, {
   useState,
   useDebugValue,
   useEffect,
+  useRef,
 } from 'react';
 
 import { useAtom } from 'jotai';
 
-const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext(null);
 
 /**
@@ -61,30 +61,24 @@ function AtomicDebugger({ children }) {
 
     //Store Jotai state from provider context.
     const jotaiState = jotaiProviderComponentStoreContext[0];
-    // console.log('jotaiState ---> ', jotaiState);
 
     //Get key Symbols for mutable source.
     const stateSymbolKeys = Object.getOwnPropertySymbols(jotaiState);
-    // console.log('stateSymbolKeys ---> ', stateSymbolKeys);
 
     //Get first symbol for Provider state in mutable source.
     const stateSymbol = stateSymbolKeys[0];
-    // console.log('stateSymbol ---> ', stateSymbol);
 
     //Get state from mutable source.
     const state = jotaiState[stateSymbol];
-    // console.log('state ---> ', state);
 
     //Mutable source has keys 'a', which is atomStateMap and 'm', which is mountedMap.
     //https://github.com/pmndrs/jotai/blob/537d5b15ec3d7c0293db720c4007158fb32dec6f/src/core/vanilla.ts#L52-L58
 
     //Get atomStateMap from Provider state.
     const atomStateMap = state.a;
-    // console.log('atomStateMap ---> ', atomStateMap);
 
     //Get mountedMap from Provider state.
     const mountedMap = state.m;
-    // console.log('mountedMap ---> ', mountedMap);
 
     //Declare a store for mounted states per atom.
     const mountedStates = {};
@@ -100,7 +94,6 @@ function AtomicDebugger({ children }) {
       mountedStates[label] = { ...mountedMap.get(atom) };
     }
 
-    //
     /**
      * Recursively transverse readDependencies per atom atomsToDevtools and find missing atoms (declared outside of React Components).
      * Recursively transverse dependents in mountedStates to find missing atoms (declared outside of React components).
@@ -195,7 +188,6 @@ function AtomicDebugger({ children }) {
     }
   }
 
-  //? will reactDOM.render interfere with this return value? Will it update fiber before returning below? or return from the function.
   return (
     <AtomUpdateContext.Provider value={setUsedAtoms}>
       {children}
@@ -220,8 +212,8 @@ function useAtomicDevtool(atom, label = atom.toString()) {
       return { ...copy };
 
       //?Why doesn't this retain value??
-      //atomState[label] = atom;
-      //return atomState
+      // atomState[label] = atom;
+      // return atomState;
     });
   }
 
