@@ -14,7 +14,7 @@
 <!-- ABOUT -->
 <h1>About</h1>
 
-Atomic is an open source Google Chrome developer tool designed for  applications built using [Jotai](https://github.com/pmndrs/jotai) as a  state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to visually inspect their application state and to readily determine development solutions.
+Atomic is an open source Google Chrome developer tool designed for applications built using [Jotai](https://github.com/pmndrs/jotai) as a state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to visually inspect their application state and to readily determine development solutions.
 </br>
 
 Key features of Atomic devtool include:
@@ -23,9 +23,6 @@ Key features of Atomic devtool include:
 - Display component tree structure
 - Dynamically rendering graphic component visualization with state changes
 - Atom network data visualization for both atom dependents and atom read dependencies
-
-
-
 
 <!-- INSTALLATION -->
 <h1>
@@ -38,7 +35,7 @@ Getting Started
 
    **_[Pending Chrome Web Store Approval]_**
 
-   Developers can fork our repository and load unpacked into their Chrome extensions to implement Atomic Devtools.
+   Developers can fork our repository and load the extension/build folder unpacked into their Chrome extensions to implement Atomic Devtools.
 
 2. #### Install atomic-devtools Module.
 
@@ -152,7 +149,7 @@ WIP
 Contributing
 </h1>
 
-  - Interested in contributing? Atomic is an open-source project and welcomes contributions. Please fork this repo, create a feature branch, and submit a pull request.
+- Interested in contributing? Atomic is an open-source project and welcomes contributions. Please fork this repo, create a feature branch, and submit a pull request.
 
 <!-- CORE TEAM -->
 <h1>
