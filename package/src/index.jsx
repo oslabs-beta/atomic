@@ -6,31 +6,21 @@ import React, {
   useState,
   useDebugValue,
   useEffect,
-  Component,
+  useRef,
 } from 'react';
 
 import { useAtom } from 'jotai';
 
-const AtomStateContext = createContext({});
 const AtomUpdateContext = createContext(null);
 
+/**
+ * AtomicDebugger is a React context provider component which provides a state setter to useAtomicDevtools.
+ * useAtomicDevtools sends atoms to AtomicDebugger component which uses those atoms to retrieve atomState and dependancies from Jotai's Provider State.
+ */
 function AtomicDebugger({ children }) {
-  //collect a store of fiber roots
-  //receive message from CS to TIME-TRAVEL
-  //?on TIME-TRAVEL, grab idex from store of fiber roots
-  //?invoke __ATOMIC_DEVTOOLS_EXTENSION__.onCommitFiberRoot with indexed fiber.
-  //?obj = {index: 0}
-  //?[obj1 = {index: 3}, obj2 = {index: 3}, obj3 = {index: 3}]
-
   useEffect(() => {
     window.addEventListener('message', msg => {
       const { action, payload } = msg.data;
-
-      //?update fiber here with index from JUMP messages and invoke reactDOM.render with new root from js storage here.
-      //? fiberRoot = rootStore[indexFromCS]
-      //? flag for time-travel
-      //? update state sent to devtool with previous state
-      //? conditionally invoke reactDom.render(<AtomUpdateContext.Provider value={setUsedAtoms}>{children}</AtomUpdateContext.Provider>, rootFromRootStore)
 
       if (action === 'TEST_FROM_CS')
         console.log('RECEIVED MESSAGE FROM CONTEST-SCRIPTS ---> ', payload);
@@ -71,30 +61,24 @@ function AtomicDebugger({ children }) {
 
     //Store Jotai state from provider context.
     const jotaiState = jotaiProviderComponentStoreContext[0];
-    // console.log('jotaiState ---> ', jotaiState);
 
     //Get key Symbols for mutable source.
     const stateSymbolKeys = Object.getOwnPropertySymbols(jotaiState);
-    // console.log('stateSymbolKeys ---> ', stateSymbolKeys);
 
     //Get first symbol for Provider state in mutable source.
     const stateSymbol = stateSymbolKeys[0];
-    // console.log('stateSymbol ---> ', stateSymbol);
 
     //Get state from mutable source.
     const state = jotaiState[stateSymbol];
-    // console.log('state ---> ', state);
 
     //Mutable source has keys 'a', which is atomStateMap and 'm', which is mountedMap.
     //https://github.com/pmndrs/jotai/blob/537d5b15ec3d7c0293db720c4007158fb32dec6f/src/core/vanilla.ts#L52-L58
 
     //Get atomStateMap from Provider state.
     const atomStateMap = state.a;
-    // console.log('atomStateMap ---> ', atomStateMap);
 
     //Get mountedMap from Provider state.
     const mountedMap = state.m;
-    // console.log('mountedMap ---> ', mountedMap);
 
     //Declare a store for mounted states per atom.
     const mountedStates = {};
@@ -110,7 +94,6 @@ function AtomicDebugger({ children }) {
       mountedStates[label] = { ...mountedMap.get(atom) };
     }
 
-    //
     /**
      * Recursively transverse readDependencies per atom atomsToDevtools and find missing atoms (declared outside of React Components).
      * Recursively transverse dependents in mountedStates to find missing atoms (declared outside of React components).
@@ -205,7 +188,6 @@ function AtomicDebugger({ children }) {
     }
   }
 
-  //? will reactDOM.render interfere with this return value? Will it update fiber before returning below? or return from the function.
   return (
     <AtomUpdateContext.Provider value={setUsedAtoms}>
       {children}
@@ -213,10 +195,15 @@ function AtomicDebugger({ children }) {
   );
 }
 
-function useAtomicDevtool(atom, label) {
+/**
+ * useAtomicdevtool is a Jotai useAtom wrapper that sends the inspected atom to <AtomicDebugger> component and assigns a label for identification in the Devtool.
+ * @param {anyAtom[]} atom The atom to inspect in Atomic Devtools
+ * @param {string} label Otional: label will default to atom.toString() if no label is passed as an argument.
+ * @returns the invocation of useAtom(atom).
+ */
+function useAtomicDevtool(atom, label = atom.toString()) {
   //Use context provided by AtomicDebugger component to retrieve setAtomState().
   const setUsedAtoms = useContext(AtomUpdateContext);
-  console.log('setUsedAtoms ----> ', setUsedAtoms);
   //Update AtomicDebugger usedAtoms with a shallow copy of the atom used in application component.
   if (setUsedAtoms) {
     setUsedAtoms(atomState => {
@@ -225,8 +212,8 @@ function useAtomicDevtool(atom, label) {
       return { ...copy };
 
       //?Why doesn't this retain value??
-      //atomState[label] = atom;
-      //return atomState
+      // atomState[label] = atom;
+      // return atomState;
     });
   }
 

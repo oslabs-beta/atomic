@@ -57,7 +57,7 @@ function AtomNetwork(): JSX.Element {
         >
           Dependents
           <span className="toolTipTest">
-            Displays all atoms affected by the parent atom
+            Displays all atoms affected by the inspected atom
           </span>
         </h3>
 
@@ -79,7 +79,7 @@ function AtomNetwork(): JSX.Element {
         >
           Read Dependencies
           <span className="toolTipTest">
-            Displays all atoms that affect the parent atom
+            Displays all atoms that affect the inspected atom
           </span>
         </h3>
       </div>

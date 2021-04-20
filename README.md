@@ -14,7 +14,7 @@
 <!-- ABOUT -->
 <h1>About</h1>
 
-Atomic is an open source Google Chrome developer tool designed for  applications built using [Jotai](https://github.com/pmndrs/jotai) as a  state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to visually inspect their application state and to readily determine development solutions.
+Atomic is an open source Google Chrome developer tool designed for applications built using [Jotai](https://github.com/pmndrs/jotai) as a state management library. Atomic developer tool provides real-time snapshots of a Jotai application's atomic state and component structure allowing developers to visually inspect their application state and to readily determine development solutions.
 </br>
 
 Key features of Atomic devtool include:
@@ -23,9 +23,6 @@ Key features of Atomic devtool include:
 - Display component tree structure
 - Dynamically rendering graphic component visualization with state changes
 - Atom network data visualization for both atom dependents and atom read dependencies
-
-
-
 
 <!-- INSTALLATION -->
 <h1>
@@ -38,7 +35,7 @@ Getting Started
 
    **_[Pending Chrome Web Store Approval]_**
 
-   Developers can fork our repository and load unpacked into their Chrome extensions to implement Atomic Devtools.
+   Developers can fork our repository and load the extension/build folder unpacked into their Chrome extensions to implement Atomic Devtools.
 
 2. #### Install atomic-devtools Module.
 
@@ -58,7 +55,9 @@ Getting Started
 
    - _Placement of `AtomicDebugger` component relative to `App` component or `Provider` component is not important, so long as all stateful components are children of `AtomicDebugger`_
 
-   - \*`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument.
+   - _`ReactDOM.Render( )` Must receive a document **_'root'_** element from the application as it's argument._
+
+   - _Currently, only intended to be used with a single `Provider` component._
 
    ```js
    import AtomicDebugger from 'atomic-devtools';
@@ -150,17 +149,17 @@ WIP
 Contributing
 </h1>
 
-  - Interested in contributing? Atomic is an open-source project and welcomes contributions. Please fork this repo, create a feature branch, and submit a pull request.
+- Interested in contributing? Atomic is an open-source project and welcomes contributions. Please fork this repo, create a feature branch, and submit a pull request.
 
 <!-- CORE TEAM -->
 <h1>
 Core Team
 </h1>
 
-- Logan Thies - [@Github](https://github.com/Thiesl137) - [@Linkedin](https://www.linkedin.com/in/loganthies137)
-- Giovanni Lituma - [@Github](https://github.com/giovannixdev) - [@Linkedin](https://www.linkedin.com/in/giovanni-lituma)
-- Stanley Huang - [@Github](https://github.com/stanleyhuang16) - [@Linkedin](https://www.linkedin.com/in/stanleyhuang16)
-- Chandni Patel - [@Github](https://github.com/chandnikat) - [@Linkedin](https://www.linkedin.com/in/chandnip6)
+- Logan Thies - [Github](https://github.com/Thiesl137) | [Linkedin](https://www.linkedin.com/in/loganthies137)
+- Giovanni Lituma - [Github](https://github.com/giovannixdev) | [Linkedin](https://www.linkedin.com/in/giovanni-lituma)
+- Stanley Huang - [Github](https://github.com/stanleyhuang16) | [Linkedin](https://www.linkedin.com/in/stanleyhuang16)
+- Chandni Patel - [Github](https://github.com/chandnikat) | [Linkedin](https://www.linkedin.com/in/chandnip6)
  
  <!-- LICENSE -->
  <h1>
