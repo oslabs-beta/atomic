@@ -6,7 +6,7 @@
 
 <h1>Developer tool for Jotai applications</h1>
 
-[![gitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/oslabs-beta/atomic/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/atomic-devtools)](https://www.npmjs.com/package/atomic-devtools) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat)](https://github.com/oslabs-beta/atomic/issues)
+[![gitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/oslabs-beta/atomic/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/atomic-devtools)](https://www.npmjs.com/package/atomic-devtools) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat)](https://github.com/oslabs-beta/atomic/issues) 
 
 <!-- ABOUT -->
 <h1>About</h1>
@@ -30,11 +30,7 @@ Getting Started
 
 1. #### Install Atomic Chrome extension.
 
-   Add Atomic devtool chrome extension to your chrome browser.
-
-   **_[Pending Chrome Web Store Approval]_**
-
-   Developers can fork our repository and load the extension/build folder unpacked into their Chrome extensions to implement Atomic Devtools.
+   Add Atomic [Chrome extension](https://chrome.google.com/webstore/detail/atomic-dev-tool/nnchkolpjdpkpbolophmdkglenapodbo) to your chrome browser.
 
 2. #### Install atomic-devtools Module.
 
