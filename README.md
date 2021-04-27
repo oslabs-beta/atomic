@@ -156,10 +156,11 @@ Core Team
 - Giovanni Lituma - [Github](https://github.com/giovannixdev) | [Linkedin](https://www.linkedin.com/in/giovanni-lituma)
 - Stanley Huang - [Github](https://github.com/stanleyhuang16) | [Linkedin](https://www.linkedin.com/in/stanleyhuang16)
 - Chandni Patel - [Github](https://github.com/chandnikat) | [Linkedin](https://www.linkedin.com/in/chandnip6)
+  
   <!-- LICENSE -->
-  <h1>
-  License
-  </h1>
+<h1>
+License
+</h1>
 
 - This project is licensed under the MIT License.
 
